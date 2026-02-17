@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --primary: #14b8a6;
+  --primary-foreground: #ffffff;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #0a0f0f;
+  --foreground: #f5f5f5;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(10, 15, 15, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Premium Background Utilities */
+.bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, hsla(174, 84%, 41%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(180, 50%, 50%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(174, 84%, 41%, 0.05) 0px, transparent 50%);
+}
+
+.dark .bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, hsla(174, 84%, 41%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(180, 50%, 50%, 0.07) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(174, 84%, 41%, 0.1) 0px, transparent 50%);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slow-pan {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.05) translate(-1%, -1%);
+  }
+
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slow-pan {
+  animation: slow-pan 20s ease-in-out infinite;
+}
