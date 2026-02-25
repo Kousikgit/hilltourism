@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Sparkles, Mountain, Waves, Leaf, Loader2, ArrowLeft, History, Compass, Laptop } from 'lucide-react';
+import { Sparkles, Mountain, Waves, Leaf, Loader2, ArrowLeft, History, Compass, Laptop, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { homestayService, Location, Property } from '@/lib/services';
 import { Button } from '@/components/ui/Button';
@@ -71,8 +71,33 @@ export default function CategoriesPage() {
                         </p>
                     </div>
 
-                    {/* Category Selector */}
-                    <div className="flex flex-wrap gap-3 mt-12">
+                    {/* Mobile Category Dropdown */}
+                    <div className="md:hidden mt-8 relative group">
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-500">
+                            {(() => {
+                                const activeCat = CATEGORIES.find(c => c.id === activeCategory);
+                                const Icon = activeCat?.icon || Sparkles;
+                                return <Icon className="w-5 h-5" />;
+                            })()}
+                        </div>
+                        <select
+                            value={activeCategory}
+                            onChange={(e) => setActiveCategory(e.target.value)}
+                            className="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-10 text-sm font-bold appearance-none focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all shadow-sm text-neutral-900 dark:text-white"
+                        >
+                            {CATEGORIES.map((cat) => (
+                                <option key={cat.id} value={cat.id} className="text-neutral-900">
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
+                            <ChevronDown className="w-4 h-4" />
+                        </div>
+                    </div>
+
+                    {/* Desktop Category Selector */}
+                    <div className="hidden md:flex flex-wrap gap-3 mt-12">
                         {CATEGORIES.map((cat) => {
                             const Icon = cat.icon;
                             return (

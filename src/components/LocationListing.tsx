@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, MapPin, ChevronDown } from 'lucide-react';
 import { Button } from './ui/Button';
 import { homestayService, Location, Property } from '@/lib/services';
 import { cn } from '@/lib/utils';
@@ -60,8 +60,29 @@ export function LocationListing() {
                     </div>
                 </div>
 
-                {/* Category Buttons */}
-                <div className="flex flex-wrap gap-3 mb-12">
+                {/* Mobile Location Dropdown */}
+                <div className="md:hidden mb-8 relative group">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-500">
+                        <MapPin className="w-5 h-5" />
+                    </div>
+                    <select
+                        value={activeCategory}
+                        onChange={(e) => setActiveCategory(e.target.value)}
+                        className="w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-10 text-sm font-bold appearance-none focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all shadow-sm text-neutral-900 dark:text-white"
+                    >
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id} className="text-neutral-900">
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
+                        <ChevronDown className="w-4 h-4" />
+                    </div>
+                </div>
+
+                {/* Desktop Category Buttons */}
+                <div className="hidden md:flex flex-wrap gap-3 mb-12">
                     {categories.map((cat) => {
                         const Icon = (cat as any).icon;
                         return (
@@ -107,12 +128,9 @@ export function LocationListing() {
                     )}
                 </div>
 
-                <div className="mt-16 text-center px-4">
-                    <Link
-                        href="/properties"
-                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 group bg-primary-600 sm:bg-transparent text-white sm:text-primary-600 dark:text-primary-400 font-bold px-8 py-4 sm:p-0 rounded-2xl sm:rounded-none hover:gap-3 transition-all shadow-lg shadow-primary-600/20 sm:shadow-none"
-                    >
-                        View all properties <ArrowRight className="w-5 h-5" />
+                <div className="mt-8 text-center px-4">
+                    <Link href="/properties" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-sm hover:gap-3 transition-all group border border-primary-600/20 px-6 py-2 rounded-full hover:bg-primary-50 dark:hover:bg-primary-900/10">
+                        View all properties <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </div>
             </div >

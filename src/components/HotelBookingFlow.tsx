@@ -252,7 +252,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
     return (
         <div className="fixed inset-0 bg-neutral-950/40 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-neutral-900 w-full max-w-4xl h-[90vh] rounded-[3rem] shadow-2xl overflow-hidden border border-neutral-100 dark:border-white/5 animate-in fade-in zoom-in duration-300">
+            <div className="bg-white dark:bg-neutral-900 w-full max-w-4xl h-[90vh] rounded-3xl shadow-2xl overflow-hidden border border-neutral-100 dark:border-white/5 animate-in fade-in zoom-in duration-300">
                 {/* Header */}
                 <div className="p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
                     <div className="flex items-center gap-4">
@@ -278,7 +278,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
                                         <Calendar className="w-4 h-4 text-primary-500" /> Selection of Stay
                                     </h3>
-                                    <div className="p-6 bg-neutral-50 dark:bg-white/5 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                                    <div className="p-6 bg-neutral-50 dark:bg-white/5 rounded-3xl border border-neutral-100 dark:border-white/5">
                                         <CalendarPicker
                                             date={formData.checkIn}
                                             onDateSelect={(d) => setFormData(prev => ({ ...prev, checkIn: d }))}
@@ -311,7 +311,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                                 key={room.id}
                                                 onClick={() => setSelectedRoom(room)}
                                                 className={cn(
-                                                    "p-6 rounded-[2rem] border-2 transition-all text-left space-y-3",
+                                                    "p-6 rounded-2xl border-2 transition-all text-left space-y-3",
                                                     selectedRoom?.id === room.id
                                                         ? "bg-primary-50 border-primary-500 ring-4 ring-primary-500/10"
                                                         : "bg-white dark:bg-neutral-800 border-neutral-100 dark:border-white/5 hover:border-primary-500/30"
@@ -331,7 +331,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                                     <div className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-500 uppercase tracking-wider bg-neutral-100 dark:bg-white/5 px-3 py-1 rounded-full">
                                                         <Users className="w-3 h-3" /> Max {room.max_guests} Guests
                                                     </div>
-                                                    <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-3 py-1 rounded-full">
+                                                    <div className="flex items-center gap-1.5 text-[10px] font-bold text-primary-600 uppercase tracking-wider bg-primary-50 px-3 py-1 rounded-full">
                                                         Available Now
                                                     </div>
                                                 </div>
@@ -362,7 +362,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                             { label: 'Children', sub: '5-8 years', key: 'children_5_8', min: 0 },
                                             { label: 'Infants', sub: 'Below 5y', key: 'children_below_5', min: 0 }
                                         ].map((cat) => (
-                                            <div key={cat.key} className="flex justify-between items-center bg-neutral-50 dark:bg-white/5 p-6 rounded-[2rem] border border-neutral-100 dark:border-white/5">
+                                            <div key={cat.key} className="flex justify-between items-center bg-neutral-50 dark:bg-white/5 p-6 rounded-2xl border border-neutral-100 dark:border-white/5">
                                                 <div>
                                                     <div className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-tight">{cat.label}</div>
                                                     <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-0.5">{cat.sub}</div>
@@ -502,7 +502,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                             </div>
                         ) : (
                             <div className="h-full flex flex-col items-center justify-center space-y-6 text-center animate-in zoom-in duration-500">
-                                <div className="w-24 h-24 bg-emerald-500 text-white rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-emerald-500/20">
+                                <div className="w-24 h-24 bg-primary-500 text-white rounded-[2.5rem] flex items-center justify-center shadow-2xl shadow-primary-500/20">
                                     <ShieldCheck className="w-12 h-12" />
                                 </div>
                                 <div className="space-y-2">
@@ -549,8 +549,8 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
                                                 {formData.children_below_5 > 0 && (
                                                     <div className="flex justify-between items-center text-[10px]">
-                                                        <span className="font-bold text-emerald-600">Child {"<"}5y ({formData.children_below_5})</span>
-                                                        <span className="font-black text-emerald-600 uppercase">Free</span>
+                                                        <span className="font-bold text-primary-600">Child {"<"}5y ({formData.children_below_5})</span>
+                                                        <span className="font-black text-primary-600 uppercase">Free</span>
                                                     </div>
                                                 )}
                                             </div>

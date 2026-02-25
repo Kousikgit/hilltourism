@@ -78,7 +78,7 @@ function CalendarPicker({ date, onDateSelect }: CalendarPickerProps) {
                             className={cn(
                                 "h-10 relative flex items-center justify-center text-[11px] font-bold transition-all",
                                 past ? "text-neutral-200 dark:text-neutral-800 cursor-not-allowed" : "hover:scale-110 active:scale-95 text-neutral-700 dark:text-neutral-300",
-                                selected && "bg-emerald-500 text-white rounded-xl z-10 shadow-lg shadow-emerald-500/20"
+                                selected && "bg-primary-500 text-white rounded-xl z-10 shadow-lg shadow-primary-500/20"
                             )}
                         >
                             {d.getDate()}
@@ -196,7 +196,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                 {/* Header */}
                 <div className="p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-emerald-500 rounded-2xl text-white shadow-lg shadow-emerald-500/20">
+                        <div className="p-3 bg-primary-500 rounded-2xl text-white shadow-lg shadow-primary-500/20">
                             <Users className="w-5 h-5" />
                         </div>
                         <div>
@@ -216,7 +216,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                             <div className="space-y-8">
                                 <div className="space-y-6">
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
-                                        <Calendar className="w-4 h-4 text-emerald-500" /> Selective Expedition Start
+                                        <Calendar className="w-4 h-4 text-primary-500" /> Selective Expedition Start
                                     </h3>
                                     <div className="p-6 bg-neutral-50 dark:bg-white/5 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
                                         <CalendarPicker
@@ -224,9 +224,9 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                             onDateSelect={(d) => setFormData(prev => ({ ...prev, checkIn: d }))}
                                         />
                                     </div>
-                                    <div className="p-4 bg-emerald-50 rounded-2xl flex gap-3 items-start border border-emerald-100">
-                                        <Info className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                                        <p className="text-[10px] font-bold text-emerald-800 uppercase leading-relaxed">
+                                    <div className="p-4 bg-primary-50 rounded-2xl flex gap-3 items-start border border-primary-100">
+                                        <Info className="w-4 h-4 text-primary-600 mt-0.5 shrink-0" />
+                                        <p className="text-[10px] font-bold text-primary-800 uppercase leading-relaxed">
                                             Select your tour start date. Payments are split into milestones based on how far in advance you book.
                                         </p>
                                     </div>
@@ -234,7 +234,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                 <Button
                                     onClick={() => setStep('guests')}
                                     disabled={!formData.checkIn}
-                                    className="w-full rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-emerald-500/20"
+                                    className="w-full rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-500/20"
                                 >
                                     Select Guests
                                 </Button>
@@ -243,7 +243,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                             <div className="space-y-8 animate-in slide-in-from-right-4 duration-300">
                                 <div className="space-y-6">
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
-                                        <Users className="w-4 h-4 text-emerald-500" /> Guest Selection
+                                        <Users className="w-4 h-4 text-primary-500" /> Guest Selection
                                     </h3>
 
                                     <div className="space-y-4">
@@ -260,16 +260,16 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                 <div className="flex items-center gap-4">
                                                     <button
                                                         onClick={() => setFormData(prev => ({ ...prev, [cat.key]: Math.max(cat.min, (prev as any)[cat.key] - 1) }))}
-                                                        className="p-2 bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-100 dark:border-white/5 hover:border-emerald-500/30 transition-all active:scale-95"
+                                                        className="p-2 bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-100 dark:border-white/5 hover:border-primary-500/30 transition-all active:scale-95"
                                                     >
                                                         <Minus className="w-4 h-4 text-neutral-400" />
                                                     </button>
                                                     <span className="text-lg font-black text-neutral-900 dark:text-white w-4 text-center">{(formData as any)[cat.key]}</span>
                                                     <button
                                                         onClick={() => setFormData(prev => ({ ...prev, [cat.key]: (prev as any)[cat.key] + 1 }))}
-                                                        className="p-2 bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-100 dark:border-white/5 hover:border-emerald-500/30 transition-all active:scale-95"
+                                                        className="p-2 bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-100 dark:border-white/5 hover:border-primary-500/30 transition-all active:scale-95"
                                                     >
-                                                        <Plus className="w-4 h-4 text-emerald-500" />
+                                                        <Plus className="w-4 h-4 text-primary-500" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -281,7 +281,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                     <Button onClick={() => setStep('dates')} variant="glass" className="flex-1 rounded-2xl py-6 uppercase font-black text-[10px]">Back</Button>
                                     <Button
                                         onClick={() => setStep('payment')}
-                                        className="flex-[2] rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-emerald-500/20"
+                                        className="flex-[2] rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-500/20"
                                     >
                                         Confirm Details
                                     </Button>
@@ -291,11 +291,11 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                             <div className="space-y-8 animate-in slide-in-from-right-4 duration-300">
                                 <div className="space-y-6">
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
-                                        <CreditCard className="w-4 h-4 text-emerald-500" /> Payment & Booker Details
+                                        <CreditCard className="w-4 h-4 text-primary-500" /> Payment & Booker Details
                                     </h3>
 
                                     <div className="space-y-4">
-                                        <div className="p-6 bg-emerald-500/5 rounded-[2rem] border border-emerald-500/10 space-y-4">
+                                        <div className="p-6 bg-primary-500/5 rounded-[2rem] border border-primary-500/10 space-y-4">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest italic flex items-center gap-2">
                                                     Payment Mode Selection
@@ -312,27 +312,27 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                     className={cn(
                                                         "p-4 rounded-2xl border transition-all text-left space-y-1 relative group overflow-hidden",
                                                         tokenTier === 25
-                                                            ? "border-emerald-500 bg-white shadow-lg shadow-emerald-500/10"
+                                                            ? "border-primary-500 bg-white shadow-lg shadow-primary-500/10"
                                                             : "border-neutral-100 dark:border-white/10 bg-neutral-50/50 dark:bg-white/5",
                                                         pricingInfo.isUrgent && "opacity-50 grayscale cursor-not-allowed"
                                                     )}
                                                 >
-                                                    <div className={cn("text-xs font-black uppercase", tokenTier === 25 ? "text-emerald-500" : "text-neutral-400")}>Split Pay</div>
+                                                    <div className={cn("text-xs font-black uppercase", tokenTier === 25 ? "text-primary-500" : "text-neutral-400")}>Split Pay</div>
                                                     <div className="text-[9px] font-bold text-neutral-400 uppercase">25% Token Now</div>
-                                                    {tokenTier === 25 && <div className="absolute top-0 right-0 p-1 bg-emerald-500 text-white rounded-bl-lg"><ShieldCheck className="w-3 h-3" /></div>}
+                                                    {tokenTier === 25 && <div className="absolute top-0 right-0 p-1 bg-primary-500 text-white rounded-bl-lg"><ShieldCheck className="w-3 h-3" /></div>}
                                                 </button>
                                                 <button
                                                     onClick={() => setTokenTier(50)}
                                                     className={cn(
                                                         "p-4 rounded-2xl border transition-all text-left space-y-1 relative group overflow-hidden",
                                                         tokenTier === 50
-                                                            ? "border-emerald-500 bg-white shadow-lg shadow-emerald-500/10"
+                                                            ? "border-primary-500 bg-white shadow-lg shadow-primary-500/10"
                                                             : "border-neutral-100 dark:border-white/10 bg-neutral-50/50 dark:bg-white/5"
                                                     )}
                                                 >
-                                                    <div className={cn("text-xs font-black uppercase", tokenTier === 50 ? "text-emerald-500" : "text-neutral-400")}>{pricingInfo.isUrgent ? 'Fixed Partial' : 'Partial Pay'}</div>
+                                                    <div className={cn("text-xs font-black uppercase", tokenTier === 50 ? "text-primary-500" : "text-neutral-400")}>{pricingInfo.isUrgent ? 'Fixed Partial' : 'Partial Pay'}</div>
                                                     <div className="text-[9px] font-bold text-neutral-400 uppercase">50% Token Now</div>
-                                                    {tokenTier === 50 && <div className="absolute top-0 right-0 p-1 bg-emerald-500 text-white rounded-bl-lg"><ShieldCheck className="w-3 h-3" /></div>}
+                                                    {tokenTier === 50 && <div className="absolute top-0 right-0 p-1 bg-primary-500 text-white rounded-bl-lg"><ShieldCheck className="w-3 h-3" /></div>}
                                                 </button>
                                             </div>
 
@@ -354,7 +354,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                     required
                                                     value={formData.user_name}
                                                     onChange={(e) => setFormData({ ...formData, user_name: e.target.value })}
-                                                    className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-emerald-500 outline-none font-bold"
+                                                    className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
                                                     placeholder="John Doe"
                                                 />
                                             </div>
@@ -366,7 +366,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                         type="email"
                                                         value={formData.user_email}
                                                         onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-emerald-500 outline-none font-bold"
+                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
                                                         placeholder="john@example.com"
                                                     />
                                                 </div>
@@ -376,7 +376,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                         required
                                                         value={formData.user_phone}
                                                         onChange={(e) => setFormData({ ...formData, user_phone: e.target.value })}
-                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-emerald-500 outline-none font-bold"
+                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
                                                         placeholder="+91 00000 00000"
                                                     />
                                                 </div>
@@ -390,7 +390,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                     <Button
                                         onClick={handleBooking}
                                         disabled={loading || !formData.user_name || !formData.user_email}
-                                        className="flex-[2] rounded-2xl py-6 font-black uppercase text-xs shadow-xl shadow-emerald-500/20"
+                                        className="flex-[2] rounded-2xl py-6 font-black uppercase text-xs shadow-xl shadow-primary-500/20"
                                     >
                                         {loading ? <Loader2 className="animate-spin" /> : 'Confirm Reservation'}
                                     </Button>
@@ -440,8 +440,8 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
 
                                                 {formData.children_below_5 > 0 && (
                                                     <div className="flex justify-between items-center text-[10px]">
-                                                        <span className="font-bold text-emerald-600 dark:text-emerald-400">Child {"<"}5y ({formData.children_below_5})</span>
-                                                        <span className="font-black text-emerald-600 dark:text-emerald-400 uppercase">Free</span>
+                                                        <span className="font-bold text-primary-600 dark:text-primary-400">Child {"<"}5y ({formData.children_below_5})</span>
+                                                        <span className="font-black text-primary-600 dark:text-primary-400 uppercase">Free</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -451,8 +451,8 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
 
                                         <div className="space-y-2">
                                             <div className="flex justify-between items-center text-[10px]">
-                                                <span className="font-bold text-emerald-500 uppercase tracking-widest italic">Token to Pay now</span>
-                                                <span className="font-black text-emerald-600">₹{pricingInfo.tokenPayable.toLocaleString()}</span>
+                                                <span className="font-bold text-primary-500 uppercase tracking-widest italic">Token to Pay now</span>
+                                                <span className="font-black text-primary-600">₹{pricingInfo.tokenPayable.toLocaleString()}</span>
                                             </div>
 
                                             {pricingInfo.secondPayable > 0 && (
@@ -479,7 +479,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
 
                                 <div className="space-y-4 pt-4">
                                     <div className="flex justify-between items-end">
-                                        <span className="text-emerald-600 font-black text-lg uppercase tracking-tight italic">Total Cost</span>
+                                        <span className="text-primary-600 font-black text-lg uppercase tracking-tight italic">Total Cost</span>
                                         <div className="flex flex-col items-end">
                                             <span className="text-2xl font-black text-neutral-900 dark:text-white leading-none">₹{pricingInfo.total.toLocaleString()}</span>
                                             <span className="text-[8px] font-bold text-neutral-400 uppercase tracking-widest mt-1">Ready to book</span>
@@ -489,12 +489,12 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                             </div>
                         </div>
 
-                        <div className="p-6 bg-emerald-500/10 rounded-3xl border border-emerald-500/20 space-y-4">
+                        <div className="p-6 bg-primary-500/10 rounded-3xl border border-primary-500/20 space-y-4">
                             <div className="flex items-center gap-3">
-                                <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Secure Reservation</span>
+                                <ShieldCheck className="w-5 h-5 text-primary-500" />
+                                <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">Secure Reservation</span>
                             </div>
-                            <p className="text-[9px] font-bold text-emerald-600/70 uppercase leading-relaxed">
+                            <p className="text-[9px] font-bold text-primary-600/70 uppercase leading-relaxed">
                                 Your booking will be processed immediately. You'll receive a confirmation call shortly.
                             </p>
                         </div>

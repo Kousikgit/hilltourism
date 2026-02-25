@@ -447,8 +447,8 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                     className={cn(
                                         "px-3 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all text-center border",
                                         formData.package_includes.includes(item)
-                                            ? "bg-emerald-500 text-white border-emerald-500 shadow-lg shadow-emerald-500/20"
-                                            : "bg-white dark:bg-neutral-900 text-neutral-400 border-neutral-100 dark:border-white/10 hover:border-emerald-500/30"
+                                            ? "bg-primary-500 text-white border-primary-500 shadow-lg shadow-primary-500/20"
+                                            : "bg-white dark:bg-neutral-900 text-neutral-400 border-neutral-100 dark:border-white/10 hover:border-primary-500/30"
                                     )}
                                 >
                                     {item}

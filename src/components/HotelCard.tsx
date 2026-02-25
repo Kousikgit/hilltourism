@@ -17,11 +17,11 @@ export function HotelCard({ hotel, locationName, className }: HotelCardProps) {
         <Link
             href={`/hotels/${hotel.id}`}
             className={cn(
-                "group block bg-white dark:bg-neutral-800 rounded-[2.5rem] border border-neutral-100 dark:border-white/5 overflow-hidden hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500",
+                "group block bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-100 dark:border-white/5 overflow-hidden hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500",
                 className
             )}
         >
-            <div className="relative h-72 overflow-hidden">
+            <div className="relative h-52 overflow-hidden">
                 <Image
                     src={hotel.images?.[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800'}
                     alt={hotel.name}
@@ -32,8 +32,13 @@ export function HotelCard({ hotel, locationName, className }: HotelCardProps) {
 
                 {/* Top Left: Badge */}
                 <div className="absolute top-6 left-6">
-                    <div className="px-3 py-1.5 rounded-xl bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md text-neutral-900 dark:text-white text-[10px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2">
-                        <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                    <div className={cn(
+                        "px-3 py-1.5 rounded-xl backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2",
+                        hotel.category === 'Luxury' ? 'bg-purple-600' :
+                            hotel.category === 'Premium' ? 'bg-amber-500' :
+                                'bg-blue-600'
+                    )}>
+                        <Star className="w-3.5 h-3.5 fill-white" />
                         {hotel.category} Collection
                     </div>
                 </div>
@@ -41,26 +46,26 @@ export function HotelCard({ hotel, locationName, className }: HotelCardProps) {
                 <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
                     <div className="space-y-1">
                         <div className="flex items-center gap-1.5 text-white/90 text-[10px] font-bold uppercase tracking-[0.2em]">
-                            <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                            <MapPin className="w-3.5 h-3.5 text-primary-400" />
                             {locationName || 'Siliguri'}
                         </div>
-                        <h3 className="text-2xl font-bold text-white tracking-tight leading-none shadow-sm">
+                        <h3 className="text-xl font-bold text-white tracking-tight leading-none shadow-sm">
                             {hotel.name}
                         </h3>
                     </div>
                 </div>
             </div>
 
-            <div className="p-8 pb-10 flex items-center justify-between">
+            <div className="p-5 flex items-center justify-between">
                 <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest block leading-none">Starting Price</span>
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block leading-none">Starting Price</span>
                     <div className="flex items-baseline gap-1.5">
-                        <span className="text-3xl font-bold text-neutral-900 dark:text-white italic-none">₹{hotel.price.toLocaleString()}</span>
-                        <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wide">/Room</span>
+                        <span className="text-2xl font-bold text-neutral-900 dark:text-white italic-none">₹{hotel.price.toLocaleString()}</span>
+                        <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-wide">/Room</span>
                     </div>
                 </div>
 
-                <div className="px-6 py-3 rounded-2xl bg-blue-50 dark:bg-blue-900/10 text-blue-600 text-xs font-bold uppercase tracking-widest group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-lg shadow-blue-600/10">
+                <div className="px-5 py-2.5 rounded-2xl bg-primary-600 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-primary-500 transition-all duration-500 shadow-lg shadow-primary-600/20">
                     Book Now
                 </div>
             </div>

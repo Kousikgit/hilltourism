@@ -15,6 +15,8 @@ import { Tour, homestayService } from '@/lib/services';
 import { Navbar } from '@/components/Navbar';
 import { cn } from '@/lib/utils';
 import { TourBookingFlow } from '@/components/TourBookingFlow';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 export default function TourDetailsPage() {
     const { id } = useParams();
@@ -25,6 +27,84 @@ export default function TourDetailsPage() {
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+    const generatePDF = () => {
+        if (!tour) return;
+
+        const doc = new jsPDF();
+        const pageWidth = doc.internal.pageSize.getWidth();
+
+        // Add Logo/Header
+        doc.setFontSize(22);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(16, 185, 129); // Emerald-500
+        doc.text('HILL TOURISM', 14, 22);
+
+        // Tour Name
+        doc.setFontSize(18);
+        doc.setTextColor(33, 33, 33);
+        doc.text(tour.name.toUpperCase(), 14, 35);
+
+        // Simple Info Row
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(100, 100, 100);
+        doc.text(`Duration: ${tour.duration}`, 14, 45);
+        doc.text(`Difficulty: ${tour.difficulty}`, 60, 45);
+        doc.text(`Category: ${tour.category}`, 110, 45);
+
+        // Locations
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(33, 33, 33);
+        doc.text('Key Locations & Stops', 14, 55);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        const locationsText = tour.locations.join(' -> ');
+        const splitLocations = doc.splitTextToSize(locationsText, pageWidth - 28);
+        doc.text(splitLocations, 14, 62);
+
+        let currentY = 62 + (splitLocations.length * 5) + 10;
+
+        // Amenities
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Tour Amenities', 14, currentY);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        currentY += 7;
+        const amenitiesText = tour.amenities?.join(', ') || 'Not specified';
+        const splitAmenities = doc.splitTextToSize(amenitiesText, pageWidth - 28);
+        doc.text(splitAmenities, 14, currentY);
+        currentY += (splitAmenities.length * 5) + 10;
+
+        // Itinerary Table
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Expedition Roadmap', 14, currentY);
+        currentY += 5;
+
+        const tableData = tour.itinerary.map(day => [
+            `Day 0${day.day}`,
+            day.title,
+            day.activities.join('\n')
+        ]);
+
+        autoTable(doc, {
+            startY: currentY,
+            head: [['Day', 'Title', 'Activities']],
+            body: tableData,
+            headStyles: { fillColor: [16, 185, 129] },
+            styles: { fontSize: 9, cellPadding: 5 },
+            columnStyles: {
+                0: { cellWidth: 20 },
+                1: { cellWidth: 40 },
+                2: { cellWidth: 'auto' }
+            }
+        });
+
+        doc.save(`${tour.name.replace(/\s+/g, '_')}_Roadmap.pdf`);
+    };
 
     const openLightbox = (index: number) => {
         setLightboxIndex(index);
@@ -80,12 +160,12 @@ export default function TourDetailsPage() {
         <div className="min-h-screen bg-stone-50 dark:bg-neutral-950 pb-24">
 
             {/* Immersive Gallery Section - Full Width at Top */}
-            <div className="relative pt-20">
+            <div className="relative pt-16">
                 <div className="max-w-[1600px] mx-auto px-4 lg:px-12">
-                    <div className="flex flex-col lg:flex-row gap-8 h-auto lg:h-[550px]">
+                    <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[500px]">
                         {/* Main Image Container - Left Side */}
                         <div
-                            className="relative lg:w-2/3 h-[350px] md:h-[500px] lg:h-full rounded-[3rem] overflow-hidden shadow-2xl shadow-emerald-900/10 group cursor-zoom-in"
+                            className="relative lg:w-2/3 h-[300px] md:h-[450px] lg:h-full rounded-[2.5rem] overflow-hidden shadow-2xl shadow-emerald-900/10 group cursor-zoom-in"
                             onClick={() => openLightbox(activeImage)}
                         >
                             {tour.images.length > 0 ? (
@@ -168,86 +248,54 @@ export default function TourDetailsPage() {
             </div>
 
             {/* Main Content Sections - Positioned Below Gallery */}
-            <div className="max-w-7xl mx-auto px-4 mt-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="max-w-7xl mx-auto px-4 mt-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Details Column */}
                     <div className="lg:col-span-8 space-y-16">
                         {/* Quick Info Bar */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="flex items-center gap-3 bg-white dark:bg-neutral-900 p-6 rounded-[2rem] border border-neutral-100 dark:border-white/5">
-                                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl text-emerald-500">
-                                    <Clock className="w-5 h-5" />
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
+                                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-500">
+                                    <Clock className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Duration</div>
-                                    <div className="text-sm font-black text-neutral-900 dark:text-white uppercase">{tour.duration}</div>
+                                    <div className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Duration</div>
+                                    <div className="text-xs font-black text-neutral-900 dark:text-white uppercase">{tour.duration}</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 bg-white dark:bg-neutral-900 p-6 rounded-[2rem] border border-neutral-100 dark:border-white/5">
-                                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl text-emerald-500">
-                                    <TrendingUp className="w-5 h-5" />
+                            <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
+                                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-500">
+                                    <TrendingUp className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Difficulty</div>
-                                    <div className="text-sm font-black text-neutral-900 dark:text-white uppercase">{tour.difficulty}</div>
+                                    <div className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Difficulty</div>
+                                    <div className="text-xs font-black text-neutral-900 dark:text-white uppercase">{tour.difficulty}</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 bg-white dark:bg-neutral-900 p-6 rounded-[2rem] border border-neutral-100 dark:border-white/5">
-                                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl text-emerald-500">
-                                    <MapPin className="w-5 h-5" />
+                            <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
+                                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-500">
+                                    <MapPin className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Starts At</div>
-                                    <div className="text-sm font-black text-neutral-900 dark:text-white uppercase truncate">{tour.locations[0] || 'Multiple'}</div>
+                                    <div className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Starts At</div>
+                                    <div className="text-xs font-black text-neutral-900 dark:text-white uppercase truncate">{tour.locations[0] || 'Multiple'}</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 bg-white dark:bg-neutral-900 p-6 rounded-[2rem] border border-neutral-100 dark:border-white/5">
-                                <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl text-emerald-500">
-                                    <Users className="w-5 h-5" />
+                            <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
+                                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-500">
+                                    <Users className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Capacity</div>
-                                    <div className="text-sm font-black text-neutral-900 dark:text-white uppercase">12 Pax</div>
+                                    <div className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Capacity</div>
+                                    <div className="text-xs font-black text-neutral-900 dark:text-white uppercase">12 Pax</div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Overview */}
-                        <div className="space-y-6">
-                            <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-emerald-500">Overview</span></h2>
-                            {(() => {
-                                let sections = [];
-                                try {
-                                    sections = tour.description ? JSON.parse(tour.description) : [];
-                                    if (!Array.isArray(sections)) throw new Error('Not an array');
-                                } catch (e) {
-                                    sections = tour.description ? [{ title: '', content: tour.description }] : [];
-                                }
-
-                                if (sections.length === 0) return (
-                                    <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium">
-                                        No description available.
-                                    </p>
-                                );
-
-                                return (
-                                    <div className="space-y-6">
-                                        {sections.map((section: any, idx: number) => (
-                                            <div key={idx} className="space-y-2">
-                                                {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
-                                                <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium whitespace-pre-wrap">
-                                                    {section.content}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                );
-                            })()}
-                        </div>
 
                         {/* Tour Amenities */}
-                        {tour.amenities && tour.amenities.length > 0 && (
-                            <div className="space-y-8 p-10 bg-white dark:bg-neutral-900 rounded-[3rem] border border-neutral-100 dark:border-white/5">
+                        {(tour.amenities?.length ?? 0) > 0 && (
+                            <div className="space-y-6 p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
                                 <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
                                     <Sparkles className="w-4 h-4 text-emerald-500" /> Tour Amenities
                                 </h3>
@@ -269,7 +317,7 @@ export default function TourDetailsPage() {
                         )}
 
                         {/* Key Locations */}
-                        <div className="space-y-8 p-10 bg-white dark:bg-neutral-900 rounded-[3rem] border border-neutral-100 dark:border-white/5">
+                        <div className="space-y-6 p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
                             <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
                                 <MapPin className="w-4 h-4 text-emerald-500" /> Key Locations & Stops
                             </h3>
@@ -317,30 +365,63 @@ export default function TourDetailsPage() {
                                 ))}
                             </div>
                         </div>
+
+                        {/* Overview */}
+                        <div className="space-y-6">
+                            <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-emerald-500">Overview</span></h2>
+                            {(() => {
+                                let sections = [];
+                                try {
+                                    sections = tour.description ? JSON.parse(tour.description) : [];
+                                    if (!Array.isArray(sections)) throw new Error('Not an array');
+                                } catch (e) {
+                                    sections = tour.description ? [{ title: '', content: tour.description }] : [];
+                                }
+
+                                if (sections.length === 0) return (
+                                    <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium">
+                                        No description available.
+                                    </p>
+                                );
+
+                                return (
+                                    <div className="space-y-6">
+                                        {sections.map((section: any, idx: number) => (
+                                            <div key={idx} className="space-y-2">
+                                                {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
+                                                <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium whitespace-pre-wrap">
+                                                    {section.content}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })()}
+                        </div>
                     </div>
 
                     {/* Booking Sidebar Column */}
                     <div className="lg:col-span-4 space-y-8">
                         <div className="sticky top-32 space-y-8">
                             {/* Primary Action Card */}
-                            <div className="bg-white dark:bg-neutral-900 rounded-[3rem] p-10 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-emerald-900/10 space-y-8">
+                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-emerald-900/10 space-y-6">
                                 {showPrice && (
-                                    <div className="space-y-2">
+                                    <div className="space-y-1">
                                         <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Investment starts from</div>
                                         <div className="flex items-baseline gap-2">
                                             {tour.discount_percent && tour.discount_percent > 0 ? (
                                                 <>
-                                                    <span className="text-5xl font-black text-neutral-900 dark:text-white tracking-tighter">
+                                                    <span className="text-3xl lg:text-4xl font-black text-neutral-900 dark:text-white tracking-tighter">
                                                         ₹{Math.round(tour.price * (1 - tour.discount_percent / 100)).toLocaleString()}
                                                     </span>
-                                                    <span className="text-xl font-bold text-neutral-400 line-through decoration-rose-500/50">₹{tour.price.toLocaleString()}</span>
+                                                    <span className="text-lg font-bold text-neutral-400 line-through decoration-rose-500/50">₹{tour.price.toLocaleString()}</span>
                                                 </>
                                             ) : (
-                                                <span className="text-5xl font-black text-neutral-900 dark:text-white tracking-tighter">₹{tour.price.toLocaleString()}</span>
+                                                <span className="text-3xl lg:text-4xl font-black text-neutral-900 dark:text-white tracking-tighter">₹{tour.price.toLocaleString()}</span>
                                             )}
-                                            <span className="text-neutral-500 text-sm font-bold uppercase tracking-widest">/ Guest</span>
+                                            <span className="text-neutral-500 text-xs font-bold uppercase tracking-widest">/ Guest</span>
                                         </div>
-                                        {tour.discount_percent && tour.discount_percent > 0 && (
+                                        {(tour.discount_percent ?? 0) > 0 && (
                                             <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-rose-500 text-white text-[8px] font-black uppercase tracking-widest rounded-md mt-1 italic">
                                                 Special {tour.discount_percent}% Off
                                             </div>
@@ -371,11 +452,15 @@ export default function TourDetailsPage() {
                                             </Button>
                                         </a>
                                     )}
-                                    <Button variant="glass" className="w-full rounded-2xl py-6 h-auto font-black uppercase text-sm tracking-widest text-emerald-600">
+                                    <Button
+                                        onClick={generatePDF}
+                                        variant="glass"
+                                        className="w-full rounded-2xl py-5 h-auto font-black uppercase text-[10px] tracking-widest text-emerald-600"
+                                    >
                                         Download PDF Roadmap
                                     </Button>
                                 </div>
-                                <div className="space-y-4 pt-8 border-t border-neutral-100 dark:border-white/5">
+                                <div className="space-y-3 pt-6 border-t border-neutral-100 dark:border-white/5">
                                     <div className="flex items-center gap-3">
                                         <ShieldCheck className="w-5 h-5 text-emerald-500" />
                                         <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest">Guaranteed Best Experience</span>
@@ -388,7 +473,7 @@ export default function TourDetailsPage() {
                             </div>
 
                             {/* Inclusions */}
-                            <div className="bg-white dark:bg-neutral-900 rounded-[3rem] p-10 border border-neutral-100 dark:border-white/5 space-y-8">
+                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 space-y-6">
                                 <h3 className="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Package <span className="text-emerald-500">Inclusions</span></h3>
                                 <div className="grid grid-cols-1 gap-4">
                                     {tour.package_includes.map((item, idx) => (

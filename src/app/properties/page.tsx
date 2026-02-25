@@ -12,6 +12,9 @@ import { cn } from '@/lib/utils';
 function PropertiesContent() {
     const searchParams = useSearchParams();
     const locationFilter = searchParams.get('location');
+    const checkIn = searchParams.get('checkin');
+    const checkOut = searchParams.get('checkout');
+    const guests = searchParams.get('guests');
 
     const [properties, setProperties] = useState<Property[]>([]);
     const [locations, setLocations] = useState<Location[]>([]);
@@ -26,12 +29,38 @@ function PropertiesContent() {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const [props, locs] = await Promise.all([
                     homestayService.getProperties(),
                     homestayService.getLocations()
                 ]);
-                setProperties(props || []);
+
+                let availableProps = props || [];
+
+                // Filter by Guests
+                if (guests) {
+                    const guestCount = parseInt(guests);
+                    availableProps = availableProps.filter(p => p.max_guests >= guestCount);
+                }
+
+                // Filter by Date Availability
+                if (checkIn && checkOut) {
+                    const availablePropsPromises = availableProps.map(async (p) => {
+                        try {
+                            const isAvailable = await homestayService.checkAvailability(p.id, checkIn, checkOut);
+                            return isAvailable ? p : null;
+                        } catch (err) {
+                            console.error(`Error checking availability for ${p.name}:`, err);
+                            return null;
+                        }
+                    });
+
+                    const results = await Promise.all(availablePropsPromises);
+                    availableProps = results.filter(p => p !== null) as Property[];
+                }
+
+                setProperties(availableProps);
                 setLocations(locs || []);
             } catch (error) {
                 console.error('Error fetching properties:', error);
@@ -40,18 +69,22 @@ function PropertiesContent() {
             }
         };
         fetchData();
-    }, []);
+    }, [checkIn, checkOut, guests]);
 
     const filteredProperties = properties.filter(prop => {
         if (selectedLocation && prop.location_id !== selectedLocation) return false;
         return true;
     });
 
+    const isFilteredByDate = !!(checkIn && checkOut);
+
     if (loading) {
         return (
             <div className="pt-40 pb-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
                 <Loader2 className="w-10 h-10 text-primary-500 animate-spin mb-4" />
-                <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs">Loading Stays...</p>
+                <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs">
+                    {isFilteredByDate ? 'Checking Availability...' : 'Loading Stays...'}
+                </p>
             </div>
         );
     }
@@ -61,7 +94,12 @@ function PropertiesContent() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12">
                 <div>
                     <h1 className="text-4xl font-bold text-neutral-900 mb-2 tracking-tight">Available Stays</h1>
-                    <p className="text-neutral-600">Discover handpicked homestays for your next adventure.</p>
+                    <p className="text-neutral-600">
+                        {isFilteredByDate
+                            ? `Showing available stays for ${guests || 1} guest(s) from ${new Date(checkIn!).toLocaleDateString()} to ${new Date(checkOut!).toLocaleDateString()}`
+                            : "Discover handpicked homestays for your next adventure."
+                        }
+                    </p>
                 </div>
 
                 <div className="flex flex-wrap gap-4 w-full md:w-auto">
@@ -94,13 +132,21 @@ function PropertiesContent() {
                         <Building2 className="w-8 h-8 text-neutral-400" />
                     </div>
                     <h3 className="text-xl font-bold text-neutral-900 mb-2">No properties found</h3>
-                    <p className="text-neutral-500">Try selecting a different location.</p>
+                    <p className="text-neutral-500">
+                        {isFilteredByDate
+                            ? "No stays available for your selected dates and filters."
+                            : "Try selecting a different location."}
+                    </p>
                     <Button
                         variant="outline"
                         className="mt-6 rounded-full"
-                        onClick={() => { setSelectedLocation(''); }}
+                        onClick={() => {
+                            setSelectedLocation('');
+                            // Optional: Clear date params via router.push if we want to reset everything
+                            // router.push('/properties'); 
+                        }}
                     >
-                        Clear Filter
+                        Clear Location Filter
                     </Button>
                 </div>
             ) : (
@@ -110,7 +156,7 @@ function PropertiesContent() {
                         return (
                             <Link
                                 key={prop.id}
-                                href={`/properties/${prop.id}`}
+                                href={`/properties/${prop.id}${isFilteredByDate ? `?checkin=${checkIn}&checkout=${checkOut}&guests=${guests}` : ''}`}
                                 className="group block bg-white rounded-[2.5rem] border border-neutral-100 overflow-hidden hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500"
                             >
                                 <div className="relative h-64 overflow-hidden bg-neutral-100">
@@ -146,9 +192,6 @@ function PropertiesContent() {
                                             <MapPin className="w-4 h-4 text-primary-500" />
                                             {locationName}
                                         </div>
-                                        <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest pl-6">
-                                            Up to {prop.max_guests} Guests
-                                        </div>
                                     </div>
                                     <h3 className="text-2xl font-bold text-neutral-900 mb-4 group-hover:text-primary-600 transition-colors truncate">
                                         {prop.name}
@@ -170,7 +213,7 @@ function PropertiesContent() {
                                             )}
                                             <span className="text-neutral-500 text-xs font-medium">/night/person</span>
                                         </div>
-                                        <Button size="sm" className="rounded-full shadow-lg shadow-primary-600/10">View Details</Button>
+                                        <Button size="sm" className="rounded-full shadow-lg shadow-primary-600/10">Book Now</Button>
                                     </div>
                                 </div>
                             </Link>

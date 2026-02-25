@@ -61,7 +61,7 @@ export function ReviewsSection() {
     }, []);
 
     return (
-        <section className="relative py-16 px-4 bg-neutral-900 overflow-hidden">
+        <section className="relative py-16 px-4 bg-neutral-50/50 dark:bg-neutral-900/50 overflow-hidden">
             {/* Soft decorative glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/10 blur-[120px] rounded-full opacity-50" />
 
@@ -108,9 +108,9 @@ export function ReviewsSection() {
                         {reviews.slice(0, 3).map((review, idx) => (
                             <div
                                 key={review.id || idx}
-                                className="group relative bg-white dark:bg-neutral-800/40 p-8 rounded-[2.5rem] border border-neutral-100 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+                                className="group relative bg-white dark:bg-neutral-800/40 p-6 md:p-8 rounded-[2.5rem] border border-neutral-100 dark:border-white/5 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
                             >
-                                <Quote className="absolute -top-4 -right-4 w-24 h-24 text-primary-500/5 rotate-12 transition-transform group-hover:rotate-0" />
+                                <Quote className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-16 h-16 md:w-24 md:h-24 text-primary-500/5 rotate-12 transition-transform group-hover:rotate-0" />
 
                                 <div className="flex items-center gap-4 mb-8">
                                     {review.profile_photo_url ? (

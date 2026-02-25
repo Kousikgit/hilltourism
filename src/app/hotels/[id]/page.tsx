@@ -14,6 +14,7 @@ import { homestayService, Hotel, Location, HotelRoom } from '@/lib/services';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { HotelBookingFlow } from '@/components/HotelBookingFlow';
+import { RoomCarousel } from '@/components/RoomCarousel';
 
 const AMENITY_ICONS: Record<string, any> = {
     'High-Speed Wi-Fi': Wifi,
@@ -86,22 +87,22 @@ export default function HotelDetails() {
     );
 
     return (
-        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-32">
-            <div className="pt-28 max-w-7xl mx-auto px-6 lg:px-8">
+        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-16">
+            <div className="pt-20 max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-8"
+                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-6"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-[10px] uppercase tracking-widest">Back</span>
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                     {/* Left Column: Visuals */}
-                    <div className="lg:col-span-7 space-y-8">
+                    <div className="lg:col-span-7 space-y-6">
                         {/* Hero Gallery */}
-                        <div className="relative h-[40vh] lg:h-[55vh] rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
+                        <div className="relative h-[40vh] lg:h-[50vh] rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
                             <div className="overflow-hidden h-full" ref={emblaRef}>
                                 <div className="flex h-full">
                                     {(hotel.images?.length ? hotel.images : [null]).map((img, idx) => (
@@ -152,33 +153,7 @@ export default function HotelDetails() {
                         {/* Room Types Display */}
                         <div className="space-y-6">
                             <div className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] pl-1">Experience Our Hospitality</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {rooms.map(room => (
-                                    <div key={room.id} className="p-6 bg-white dark:bg-neutral-900 rounded-[2rem] border border-neutral-100 dark:border-white/5 shadow-sm space-y-4 group hover:border-primary-500/40 transition-all">
-                                        <div className="flex items-center gap-3 text-primary-500">
-                                            <BedDouble className="w-6 h-6" />
-                                            <h4 className="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">{room.type}</h4>
-                                        </div>
-                                        <p className="text-sm text-neutral-500 font-medium leading-relaxed">Spacious room design featuring premium linens and hill-view balconies.</p>
-                                        <div className="flex items-center gap-6 pt-2">
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">1 Guest</span>
-                                                <span className="text-lg font-black text-neutral-900 dark:text-white">₹{room.price_one_guest.toLocaleString()}</span>
-                                            </div>
-                                            <div className="w-px h-8 bg-neutral-100 dark:bg-white/5" />
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">2 Guests</span>
-                                                <span className="text-lg font-black text-neutral-900 dark:text-white">₹{room.price_two_guests.toLocaleString()}</span>
-                                            </div>
-                                            <div className="w-px h-8 bg-neutral-100 dark:bg-white/5" />
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">3+ Guests</span>
-                                                <span className="text-lg font-black text-neutral-900 dark:text-white">₹{room.price_three_plus_guests.toLocaleString()}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                            <RoomCarousel rooms={rooms} />
                         </div>
 
                         {/* Description */}
@@ -214,7 +189,7 @@ export default function HotelDetails() {
                     </div>
 
                     {/* Right Column: Reservation Sidebar */}
-                    <div className="lg:col-span-5 space-y-8">
+                    <div className="lg:col-span-5 space-y-6">
                         <div className="space-y-4 lg:pl-4">
                             <div className="flex items-center gap-2 text-neutral-400 font-black text-[11px] uppercase tracking-[0.25em] bg-white dark:bg-neutral-900 w-fit px-4 py-2 rounded-2xl border border-neutral-100 dark:border-white/5 shadow-sm">
                                 <MapPin className="w-4 h-4 text-emerald-500" />
@@ -226,18 +201,18 @@ export default function HotelDetails() {
                         </div>
 
                         <div className="sticky top-28 lg:pl-4">
-                            <div className="relative p-8 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-white/5 rounded-[2.5rem] shadow-2xl shadow-neutral-900/5 space-y-8 overflow-hidden">
-                                <div className="absolute top-0 right-0 p-8">
-                                    <div className="p-3 bg-primary-500/10 text-primary-600 rounded-2xl ring-1 ring-primary-500/20">
-                                        <Building2 className="w-6 h-6" />
+                            <div className="relative p-6 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-white/5 rounded-[2.5rem] shadow-2xl shadow-neutral-900/5 space-y-5 overflow-hidden">
+                                <div className="absolute top-0 right-0 p-6">
+                                    <div className="p-2.5 bg-primary-500/10 text-primary-600 rounded-2xl ring-1 ring-primary-500/20">
+                                        <Building2 className="w-5 h-5" />
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
+                                <div className="space-y-1">
                                     <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Starting from</span>
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-4xl lg:text-5xl font-black text-neutral-900 dark:text-white tracking-tighter">₹{hotel.price.toLocaleString()}</span>
-                                        <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest">/night</span>
+                                        <span className="text-3xl lg:text-4xl font-black text-neutral-900 dark:text-white tracking-tighter italic-none">₹{hotel.price.toLocaleString()}</span>
+                                        <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">/night</span>
                                     </div>
                                 </div>
 
@@ -254,11 +229,11 @@ export default function HotelDetails() {
 
                                 <div className="h-px bg-neutral-50 dark:bg-white/5" />
 
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     <Button
                                         size="lg"
                                         onClick={() => setIsBookingOpen(true)}
-                                        className="w-full rounded-[2rem] py-8 shadow-2xl shadow-primary-500/20 font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-[1.02] active:scale-95"
+                                        className="w-full rounded-[2rem] py-6 shadow-2xl shadow-primary-500/20 font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-[1.02] active:scale-95"
                                     >
                                         Initiate Booking
                                     </Button>

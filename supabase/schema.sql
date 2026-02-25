@@ -46,6 +46,15 @@ CREATE TABLE IF NOT EXISTS hotels (
 );
 
 -- 3. Room Types / Categories
+CREATE TABLE IF NOT EXISTS rooms (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  property_id UUID REFERENCES properties(id) ON DELETE CASCADE,
+  type TEXT NOT NULL,
+  max_guests INTEGER NOT NULL DEFAULT 2,
+  price_one_guest DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  price_two_plus_guests DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  amenities TEXT[] DEFAULT '{}',
+  images TEXT[] DEFAULT '{}',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

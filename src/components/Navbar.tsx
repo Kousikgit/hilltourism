@@ -47,7 +47,7 @@ export function Navbar() {
                     <Button variant="ghost" size="sm" className="hidden sm:flex rounded-full">
                         <Search className="w-5 h-5" />
                     </Button>
-                    <Button variant="primary" size="sm" className="hidden sm:flex font-semibold">
+                    <Button className="hidden sm:flex font-semibold bg-primary-600 hover:bg-primary-500 text-white shadow-md shadow-primary-600/20" size="sm">
                         Book Now
                     </Button>
                     <Button
@@ -81,7 +81,7 @@ export function Navbar() {
                                 <Search className="w-5 h-5" />
                                 Search
                             </Button>
-                            <Button variant="primary" className="w-full">
+                            <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white shadow-md shadow-primary-600/20">
                                 Book Now
                             </Button>
                         </div>

@@ -353,7 +353,7 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
     };
 
     return (
-        <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5 shadow-2xl relative max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-100 dark:border-white/5 shadow-2xl relative max-h-[90vh] overflow-hidden flex flex-col">
             {onClose && (
                 <button
                     onClick={onClose}
@@ -525,7 +525,7 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                                 className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
                                             >+</button>
                                         </div>
-                                        <p className="text-[7px] font-black text-emerald-500 uppercase tracking-widest text-center">NO COST</p>
+                                        <p className="text-[7px] font-black text-primary-500 uppercase tracking-widest text-center">NO COST</p>
                                     </div>
                                 </div>
                             </div>
@@ -597,8 +597,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                         className="w-full p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 outline-none focus:bg-white focus:ring-2 focus:ring-primary-500 font-bold dark:text-white"
                                     />
                                     {formData.phone && (
-                                        <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-tight ml-1 flex items-center gap-3 bg-emerald-50 dark:bg-emerald-500/10 p-4 rounded-2xl border border-emerald-200 dark:border-emerald-500/30 shadow-sm shadow-emerald-500/5 animate-in slide-in-from-top-2 fade-in duration-300">
-                                            <MessageSquare className="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-500 animate-pulse" />
+                                        <p className="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-tight ml-1 flex items-center gap-3 bg-primary-50 dark:bg-primary-500/10 p-4 rounded-2xl border border-primary-200 dark:border-primary-500/30 shadow-sm shadow-primary-500/5 animate-in slide-in-from-top-2 fade-in duration-300">
+                                            <MessageSquare className="w-5 h-5 shrink-0 text-primary-600 dark:text-primary-500 animate-pulse" />
                                             <span>Confirming: You will receive booking updates on this WhatsApp.</span>
                                         </p>
                                     )}
@@ -663,8 +663,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
 
                                         {formData.children_below_5 > 0 && (
                                             <div className="flex justify-between items-center text-[10px]">
-                                                <span className="font-bold text-emerald-600 dark:text-emerald-400">Child {"<"}5y ({formData.children_below_5})</span>
-                                                <span className="font-black text-emerald-600 dark:text-emerald-400">FREE</span>
+                                                <span className="font-bold text-primary-600 dark:text-primary-400">Child {"<"}5y ({formData.children_below_5})</span>
+                                                <span className="font-black text-primary-600 dark:text-primary-400">FREE</span>
                                             </div>
                                         )}
 
@@ -750,10 +750,10 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
 
                                         <div className="flex justify-between items-center pt-1">
                                             <div className="flex flex-col">
-                                                <span className="text-emerald-600 dark:text-emerald-400 font-black text-[10px] uppercase tracking-widest leading-none">Balance on Arrival</span>
+                                                <span className="text-primary-600 dark:text-primary-400 font-black text-[10px] uppercase tracking-widest leading-none">Balance on Arrival</span>
                                                 <span className="text-[8px] text-neutral-400 font-bold uppercase mt-1">Pay at homestay check-in</span>
                                             </div>
-                                            <span className="text-base font-black text-emerald-600 dark:text-emerald-400 tracking-tight">₹{(pricingInfo.arrivalPayable || 0).toLocaleString()}</span>
+                                            <span className="text-base font-black text-primary-600 dark:text-primary-400 tracking-tight">₹{(pricingInfo.arrivalPayable || 0).toLocaleString()}</span>
                                         </div>
 
                                         {pricingInfo.isUrgent && (
@@ -773,8 +773,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
 
                     {step === 'success' && (
                         <div className="flex flex-col items-center justify-center py-12 space-y-6 animate-in zoom-in-95 fade-in duration-500 text-center">
-                            <div className="w-24 h-24 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-emerald-500/20">
-                                <svg className="w-12 h-12 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-24 h-24 bg-primary-100 dark:bg-primary-500/20 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-primary-500/20">
+                                <svg className="w-12 h-12 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
@@ -782,7 +782,7 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                             <p className="text-neutral-500 dark:text-neutral-400 font-bold max-w-[300px] text-sm leading-relaxed">
                                 Pack your bags! Your stay at <span className="text-neutral-900 dark:text-white">{property.name}</span> is successfully reserved.
                             </p>
-                            <div className="p-4 bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl border border-emerald-100 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+                            <div className="p-4 bg-primary-50 dark:bg-primary-500/10 rounded-2xl border border-primary-100 dark:border-primary-500/20 text-primary-700 dark:text-primary-400 text-[10px] font-black uppercase tracking-widest">
                                 Official details sent to your WhatsApp
                             </div>
                             <Button

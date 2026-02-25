@@ -166,7 +166,7 @@ export function HotelRoomForm({ onClose, onSave, initialData }: HotelRoomFormPro
                                     onClick={() => setFormData({ ...formData, is_ac: !formData.is_ac })}
                                     className={cn(
                                         "w-12 h-6 rounded-full transition-colors relative",
-                                        formData.is_ac ? "bg-emerald-500" : "bg-neutral-300 dark:bg-neutral-700"
+                                        formData.is_ac ? "bg-primary-500" : "bg-neutral-300 dark:bg-neutral-700"
                                     )}
                                 >
                                     <div className={cn(
