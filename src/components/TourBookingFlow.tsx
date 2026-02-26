@@ -191,34 +191,34 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
     };
 
     return (
-        <div className="fixed inset-0 bg-neutral-950/40 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden border border-neutral-100 dark:border-white/5 animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 bg-neutral-950/40 backdrop-blur-md z-[100] flex items-center justify-center p-0 sm:p-4">
+            <div className="bg-white dark:bg-neutral-900 w-full max-w-xl h-full sm:h-auto sm:rounded-[3rem] shadow-2xl overflow-hidden border border-neutral-100 dark:border-white/5 animate-in fade-in zoom-in duration-300">
                 {/* Header */}
-                <div className="p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
+                <div className="p-4 sm:p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-primary-500 rounded-2xl text-white shadow-lg shadow-primary-500/20">
+                        <div className="p-2 sm:p-3 bg-primary-500 rounded-2xl text-white shadow-lg shadow-primary-500/20">
                             <Users className="w-5 h-5" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-black text-neutral-900 dark:text-white tracking-tight uppercase leading-none">Tour Booking</h2>
-                            <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1.5">{tour.name}</p>
+                            <h2 className="text-lg sm:text-xl font-black text-neutral-900 dark:text-white tracking-tight uppercase leading-none">Tour Booking</h2>
+                            <p className="text-[9px] sm:text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1 sm:mt-1.5">{tour.name}</p>
                         </div>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-neutral-100 dark:hover:bg-white/10 rounded-full transition-all">
-                        <X className="w-6 h-6 text-neutral-400" />
+                        <X className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-400" />
                     </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-5 h-full max-h-[85vh]">
                     {/* Left: Content */}
-                    <div className="md:col-span-3 p-8 pb-32 space-y-8 overflow-y-auto custom-scrollbar">
+                    <div className="md:col-span-3 p-4 sm:p-6 pb-24 sm:pb-32 space-y-6 sm:space-y-8 overflow-y-auto custom-scrollbar">
                         {step === 'dates' ? (
                             <div className="space-y-8">
                                 <div className="space-y-6">
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
                                         <Calendar className="w-4 h-4 text-primary-500" /> Selective Expedition Start
                                     </h3>
-                                    <div className="p-6 bg-neutral-50 dark:bg-white/5 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                                    <div className="p-4 sm:p-6 bg-neutral-50 dark:bg-white/5 rounded-[2rem] sm:rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
                                         <CalendarPicker
                                             date={formData.checkIn}
                                             onDateSelect={(d) => setFormData(prev => ({ ...prev, checkIn: d }))}
@@ -234,7 +234,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                 <Button
                                     onClick={() => setStep('guests')}
                                     disabled={!formData.checkIn}
-                                    className="w-full rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-500/20"
+                                    className="w-full rounded-2xl py-4 sm:py-6 font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-xl shadow-primary-500/20"
                                 >
                                     Select Guests
                                 </Button>
@@ -277,11 +277,11 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <Button onClick={() => setStep('dates')} variant="glass" className="flex-1 rounded-2xl py-6 uppercase font-black text-[10px]">Back</Button>
+                                <div className="flex gap-3 sm:gap-4">
+                                    <Button onClick={() => setStep('dates')} variant="glass" className="flex-1 rounded-2xl py-4 sm:py-6 uppercase font-black text-[10px]">Back</Button>
                                     <Button
                                         onClick={() => setStep('payment')}
-                                        className="flex-[2] rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-500/20"
+                                        className="flex-[2] rounded-2xl py-4 sm:py-6 font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-xl shadow-primary-500/20"
                                     >
                                         Confirm Details
                                     </Button>
@@ -295,7 +295,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                     </h3>
 
                                     <div className="space-y-4">
-                                        <div className="p-6 bg-primary-500/5 rounded-[2rem] border border-primary-500/10 space-y-4">
+                                        <div className="p-4 sm:p-6 bg-primary-500/5 rounded-[2rem] border border-primary-500/10 space-y-4">
                                             <div className="flex items-center justify-between">
                                                 <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest italic flex items-center gap-2">
                                                     Payment Mode Selection
@@ -358,7 +358,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                     placeholder="John Doe"
                                                 />
                                             </div>
-                                            <div className="grid grid-cols-2 gap-4">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div>
                                                     <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-4 mb-2 block">Email Address</label>
                                                     <input
@@ -366,7 +366,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                         type="email"
                                                         value={formData.user_email}
                                                         onChange={(e) => setFormData({ ...formData, user_email: e.target.value })}
-                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
+                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold text-sm sm:text-base"
                                                         placeholder="john@example.com"
                                                     />
                                                 </div>
@@ -376,7 +376,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                                         required
                                                         value={formData.user_phone}
                                                         onChange={(e) => setFormData({ ...formData, user_phone: e.target.value })}
-                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
+                                                        className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold text-sm sm:text-base"
                                                         placeholder="+91 00000 00000"
                                                     />
                                                 </div>
@@ -385,12 +385,12 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4">
-                                    <Button onClick={() => setStep('guests')} variant="glass" className="flex-1 rounded-2xl py-6 uppercase font-black text-[10px]">Back</Button>
+                                <div className="flex gap-3 sm:gap-4">
+                                    <Button onClick={() => setStep('guests')} variant="glass" className="flex-1 rounded-2xl py-4 sm:py-6 uppercase font-black text-[10px]">Back</Button>
                                     <Button
                                         onClick={handleBooking}
                                         disabled={loading || !formData.user_name || !formData.user_email}
-                                        className="flex-[2] rounded-2xl py-6 font-black uppercase text-xs shadow-xl shadow-primary-500/20"
+                                        className="flex-[2] rounded-2xl py-4 sm:py-6 font-black uppercase text-[10px] sm:text-xs shadow-xl shadow-primary-500/20"
                                     >
                                         {loading ? <Loader2 className="animate-spin" /> : 'Confirm Reservation'}
                                     </Button>
@@ -400,7 +400,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                     </div>
 
                     {/* Right: Summary */}
-                    <div className="md:col-span-2 bg-neutral-50 dark:bg-white/[0.02] p-8 pb-32 border-l border-neutral-100 dark:border-white/5 space-y-8 overflow-y-auto custom-scrollbar">
+                    <div className="md:col-span-2 bg-neutral-50 dark:bg-white/[0.02] p-4 sm:p-8 pb-32 border-l border-neutral-100 dark:border-white/5 space-y-6 sm:space-y-8 overflow-y-auto custom-scrollbar">
                         <div className="space-y-6">
                             <h3 className="text-xs font-black text-neutral-900 dark:text-white uppercase tracking-widest">Order Summary</h3>
 
@@ -489,7 +489,7 @@ export function TourBookingFlow({ tour, onClose }: TourBookingFlowProps) {
                             </div>
                         </div>
 
-                        <div className="p-6 bg-primary-500/10 rounded-3xl border border-primary-500/20 space-y-4">
+                        <div className="p-4 sm:p-6 bg-primary-500/10 rounded-3xl border border-primary-500/20 space-y-4">
                             <div className="flex items-center gap-3">
                                 <ShieldCheck className="w-5 h-5 text-primary-500" />
                                 <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">Secure Reservation</span>

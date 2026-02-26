@@ -53,12 +53,12 @@ export function TourCarousel({ tours }: TourCarouselProps) {
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-4 lg:-ml-8">
                     {tours.map((tour) => (
-                        <div key={tour.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
+                        <div key={tour.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 sm:py-4">
                             <Link
                                 href={`/tours/${tour.id}`}
-                                className="group relative bg-neutral-50 dark:bg-neutral-800 rounded-3xl overflow-hidden border border-neutral-100 dark:border-white/5 hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500 cursor-pointer block h-full"
+                                className="group relative bg-neutral-50 dark:bg-neutral-800 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-100 dark:border-white/5 hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500 cursor-pointer block h-full"
                             >
-                                <div className="relative h-80 overflow-hidden">
+                                <div className="relative h-64 sm:h-80 overflow-hidden">
                                     {tour.images[0] ? (
                                         <Image
                                             src={tour.images[0]}

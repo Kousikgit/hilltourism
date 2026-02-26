@@ -130,25 +130,25 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
     };
 
     return (
-        <div className="fixed inset-0 bg-neutral-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-neutral-900 w-full max-w-4xl rounded-[3rem] shadow-2xl border border-neutral-100 dark:border-white/5 overflow-hidden animate-in fade-in zoom-in duration-300">
-                <div className="p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
+        <div className="fixed inset-0 bg-neutral-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-0 sm:p-4">
+            <div className="bg-white dark:bg-neutral-900 w-full max-w-4xl h-full sm:h-auto sm:rounded-[3rem] shadow-2xl border border-neutral-100 dark:border-white/5 overflow-hidden animate-in fade-in zoom-in duration-300">
+                <div className="p-4 sm:p-8 border-b border-neutral-100 dark:border-white/5 flex justify-between items-center bg-neutral-50/50 dark:bg-white/5">
                     <div className="flex items-center gap-3">
-                        <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600">
+                        <div className="p-2 sm:p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-xl sm:rounded-2xl text-primary-600">
                             <Sparkles className="w-5 h-5" />
                         </div>
-                        <h2 className="text-xl font-black text-neutral-900 dark:text-white tracking-tight uppercase">
+                        <h2 className="text-lg sm:text-xl font-black text-neutral-900 dark:text-white tracking-tight uppercase">
                             {initialData ? 'Edit Tour' : 'New Tour Expedition'}
                         </h2>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-neutral-100 dark:hover:bg-white/10 rounded-full transition-colors">
-                        <X className="w-6 h-6 text-neutral-400" />
+                        <X className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-400" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-8 space-y-10 overflow-y-auto max-h-[80vh]">
+                <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-6 sm:space-y-10 overflow-y-auto max-h-[85vh] sm:max-h-[80vh]">
                     {/* Basic Info */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                 <AlignLeft className="w-3 h-3" /> Tour Name
@@ -157,7 +157,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                 required
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold"
+                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold text-sm sm:text-base"
                                 placeholder="Everest Base Camp Trek"
                             />
                         </div>
@@ -177,7 +177,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                         price: (newCategory === "Domestic Tour" || newCategory === "Religious Tour") ? prev.price : 0
                                     }));
                                 }}
-                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold appearance-none"
+                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold text-sm sm:text-base appearance-none"
                             >
                                 <option value="Domestic Tour">Domestic Tour</option>
                                 <option value="International Tour">International Tour</option>
@@ -208,7 +208,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                             value={formData.price}
                                             onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
                                             className={cn(
-                                                "w-full px-6 py-4 rounded-2xl border-none ring-1 transition-all outline-none font-bold",
+                                                "w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 transition-all outline-none font-bold text-sm sm:text-base",
                                                 (formData.category === "Domestic Tour" || formData.category === "Religious Tour")
                                                     ? "bg-neutral-50 dark:bg-neutral-800 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500"
                                                     : "bg-neutral-100 dark:bg-neutral-900 ring-neutral-100 dark:ring-white/5 text-neutral-400 cursor-not-allowed"
@@ -225,7 +225,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                         max="100"
                                         value={formData.discount_percent}
                                         onChange={(e) => setFormData({ ...formData, discount_percent: parseInt(e.target.value) || 0 })}
-                                        className="w-full bg-rose-50/30 dark:bg-rose-900/10 px-6 py-4 rounded-2xl border-none ring-1 ring-rose-200 dark:ring-rose-900/20 focus:ring-2 focus:ring-rose-500 transition-all outline-none font-bold text-rose-600 dark:text-rose-400"
+                                        className="w-full bg-rose-50/30 dark:bg-rose-900/10 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-rose-200 dark:ring-rose-900/20 focus:ring-2 focus:ring-rose-500 transition-all outline-none font-bold text-rose-600 dark:text-rose-400 text-sm sm:text-base"
                                         placeholder="0"
                                     />
                                 </div>
@@ -282,7 +282,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                 required
                                 value={formData.difficulty}
                                 onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
-                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold"
+                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold text-sm sm:text-base"
                                 placeholder="Moderate - Hard"
                             />
                         </div>
@@ -294,7 +294,7 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                                 required
                                 value={formData.duration}
                                 onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold"
+                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-none ring-1 ring-neutral-200 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 transition-all outline-none font-bold text-sm sm:text-base"
                                 placeholder="5 Days"
                             />
                         </div>
@@ -560,10 +560,10 @@ export function TourForm({ onClose, onSave, initialData }: TourFormProps) {
                     )}
 
                     <div className="flex gap-4 pt-4 border-t border-neutral-100 dark:border-white/5">
-                        <Button type="button" variant="glass" onClick={onClose} className="flex-1 rounded-2xl py-6 h-auto font-black uppercase text-xs">
+                        <Button type="button" variant="glass" onClick={onClose} className="flex-1 rounded-2xl py-4 sm:py-6 h-auto font-black uppercase text-[10px] sm:text-xs">
                             Cancel
                         </Button>
-                        <Button type="submit" disabled={loading} className="flex-1 rounded-2xl py-6 h-auto font-black uppercase text-xs shadow-xl shadow-primary-600/20">
+                        <Button type="submit" disabled={loading} className="flex-1 rounded-2xl py-4 sm:py-6 h-auto font-black uppercase text-[10px] sm:text-xs shadow-xl shadow-primary-600/20">
                             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                             {initialData ? 'Update Expedition' : 'Publish Tour'}
                         </Button>

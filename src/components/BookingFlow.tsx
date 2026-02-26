@@ -192,6 +192,7 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
     });
 
     const [activeField, setActiveField] = useState<'checkIn' | 'checkOut'>('checkIn');
+    const [showCalendar, setShowCalendar] = useState(false);
     const [tokenTier, setTokenTier] = useState<25 | 50>(25);
 
     const [bookedDates, setBookedDates] = useState<string[]>([]);
@@ -353,34 +354,34 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
     };
 
     return (
-        <div className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-100 dark:border-white/5 shadow-2xl relative max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-100 dark:border-white/5 shadow-2xl relative max-h-[90vh] overflow-hidden flex flex-col w-full max-w-2xl mx-auto">
             {onClose && (
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 p-2.5 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md rounded-full border border-neutral-100 dark:border-white/10 shadow-sm hover:bg-neutral-100 dark:hover:bg-white/10 transition-all z-50 group"
+                    className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md rounded-full border border-neutral-100 dark:border-white/10 shadow-sm hover:bg-neutral-100 dark:hover:bg-white/10 transition-all z-50 group"
                 >
-                    <X className="w-5 h-5 text-neutral-500 group-hover:text-primary-600 dark:text-neutral-400 transition-colors" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-500 group-hover:text-primary-600 dark:text-neutral-400 transition-colors" />
                 </button>
             )}
 
-            <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar scroll-smooth">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 custom-scrollbar scroll-smooth">
 
                 {/* Progress Bar */}
-                <div className="flex justify-between mb-8 relative">
+                <div className="flex justify-between mb-4 sm:mb-8 relative">
                     <div className="absolute top-1/2 left-0 w-full h-0.5 bg-neutral-100 dark:bg-white/5 -translate-y-1/2 -z-10" />
                     {[
                         { id: 'dates', icon: CalendarIcon, label: 'Dates' },
                         { id: 'details', icon: User, label: 'Details' },
                         { id: 'payment', icon: CreditCard, label: 'Payment' },
                     ].map((s) => (
-                        <div key={s.id} className="flex flex-col items-center gap-2 bg-white dark:bg-neutral-900 px-4">
+                        <div key={s.id} className="flex flex-col items-center gap-1 sm:gap-2 bg-white dark:bg-neutral-900 px-2 sm:px-4">
                             <div className={cn(
-                                "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
+                                "w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300",
                                 step === s.id ? "bg-primary-600 text-white scale-110 shadow-lg" : "bg-neutral-100 dark:bg-white/5 text-neutral-400"
                             )}>
-                                <s.icon className="w-5 h-5" />
+                                <s.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                             </div>
-                            <span className={cn("text-xs font-bold uppercase tracking-wider", step === s.id ? "text-primary-600" : "text-neutral-400")}>
+                            <span className={cn("text-[8px] sm:text-xs font-bold uppercase tracking-wider", step === s.id ? "text-primary-600" : "text-neutral-400")}>
                                 {s.label}
                             </span>
                         </div>
@@ -389,49 +390,81 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
 
                 <div className="min-h-[300px]">
                     {step === 'dates' && (
-                        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                            <h3 className="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Select Dates & Guests</h3>
-                            <div className="p-6 bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl border border-neutral-100 dark:border-white/5">
-                                <CalendarPicker
-                                    checkIn={formData.checkIn}
-                                    checkOut={formData.checkOut}
-                                    bookedDates={bookedDates}
-                                    onDateSelect={(checkIn, checkOut) => {
-                                        setFormData({ ...formData, checkIn, checkOut });
-                                        setError(null);
-                                    }}
-                                    activeField={activeField}
-                                    setActiveField={setActiveField}
-                                />
-                            </div>
+                        <div className="space-y-4 sm:space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                            <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Select Dates & Guests</h3>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            {showCalendar && (
+                                <div className="fixed inset-0 z-[110] flex items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+                                    <div className="bg-white dark:bg-neutral-900 w-full max-w-md rounded-none sm:rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative animate-in zoom-in-95 duration-300">
+                                        <button
+                                            onClick={() => setShowCalendar(false)}
+                                            className="absolute top-4 right-4 p-2 bg-neutral-100 dark:bg-white/5 rounded-full hover:bg-primary-50 transition-colors"
+                                        >
+                                            <X className="w-4 h-4 text-neutral-500" />
+                                        </button>
+                                        <div className="mb-4">
+                                            <h4 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest">Select {activeField === 'checkIn' ? 'Check-in' : 'Check-out'} Date</h4>
+                                            <p className="text-[10px] text-neutral-400 font-bold uppercase mt-1">Available dates marked on calendar</p>
+                                        </div>
+                                        <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl p-4 border border-neutral-100 dark:border-white/5">
+                                            <CalendarPicker
+                                                checkIn={formData.checkIn}
+                                                checkOut={formData.checkOut}
+                                                bookedDates={bookedDates}
+                                                onDateSelect={(checkIn, checkOut) => {
+                                                    setFormData({ ...formData, checkIn, checkOut });
+                                                    setError(null);
+                                                    if (checkIn && checkOut) {
+                                                        setTimeout(() => setShowCalendar(false), 300);
+                                                    }
+                                                }}
+                                                activeField={activeField}
+                                                setActiveField={setActiveField}
+                                            />
+                                        </div>
+                                        <Button
+                                            onClick={() => setShowCalendar(false)}
+                                            className="w-full mt-6 rounded-2xl py-4 font-black uppercase text-xs"
+                                        >
+                                            Confirm Dates
+                                        </Button>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="grid grid-cols-2 gap-3 sm:gap-4">
                                 <button
-                                    onClick={() => setActiveField('checkIn')}
+                                    onClick={() => {
+                                        setActiveField('checkIn');
+                                        setShowCalendar(true);
+                                    }}
                                     className="space-y-1 text-left group"
                                 >
                                     <label className={cn(
-                                        "text-[9px] font-black uppercase tracking-widest ml-1 transition-colors",
-                                        activeField === 'checkIn' ? "text-primary-600" : "text-neutral-400 group-hover:text-neutral-600"
+                                        "text-[8px] sm:text-[9px] font-black uppercase tracking-widest ml-1 transition-colors",
+                                        activeField === 'checkIn' && showCalendar ? "text-primary-600" : "text-neutral-400 group-hover:text-neutral-600"
                                     )}>Check-in Date</label>
                                     <div className={cn(
-                                        "p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border transition-all font-bold dark:text-white min-h-[56px] flex items-center",
-                                        activeField === 'checkIn' ? "border-primary-500 ring-2 ring-primary-500/20 bg-white dark:bg-neutral-700" : "border-neutral-100 dark:border-white/5"
+                                        "p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-neutral-50 dark:bg-neutral-800 border transition-all font-bold dark:text-white min-h-[48px] sm:min-h-[56px] flex items-center text-xs sm:text-sm",
+                                        activeField === 'checkIn' && showCalendar ? "border-primary-500 ring-2 ring-primary-500/20 bg-white dark:bg-neutral-700" : "border-neutral-100 dark:border-white/5"
                                     )}>
                                         {formData.checkIn ? formatDisplayDate(formData.checkIn) : 'Select Date'}
                                     </div>
                                 </button>
                                 <button
-                                    onClick={() => setActiveField('checkOut')}
+                                    onClick={() => {
+                                        setActiveField('checkOut');
+                                        setShowCalendar(true);
+                                    }}
                                     className="space-y-1 text-left group"
                                 >
                                     <label className={cn(
-                                        "text-[9px] font-black uppercase tracking-widest ml-1 transition-colors",
-                                        activeField === 'checkOut' ? "text-primary-600" : "text-neutral-400 group-hover:text-neutral-600"
+                                        "text-[8px] sm:text-[9px] font-black uppercase tracking-widest ml-1 transition-colors",
+                                        activeField === 'checkOut' && showCalendar ? "text-primary-600" : "text-neutral-400 group-hover:text-neutral-600"
                                     )}>Check-out Date</label>
                                     <div className={cn(
-                                        "p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border transition-all font-bold dark:text-white min-h-[56px] flex items-center",
-                                        activeField === 'checkOut' ? "border-primary-500 ring-2 ring-primary-500/20 bg-white dark:bg-neutral-700" : "border-neutral-100 dark:border-white/5"
+                                        "p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-neutral-50 dark:bg-neutral-800 border transition-all font-bold dark:text-white min-h-[48px] sm:min-h-[56px] flex items-center text-xs sm:text-sm",
+                                        activeField === 'checkOut' && showCalendar ? "border-primary-500 ring-2 ring-primary-500/20 bg-white dark:bg-neutral-700" : "border-neutral-100 dark:border-white/5"
                                     )}>
                                         {formData.checkOut ? formatDisplayDate(formData.checkOut) : 'Select Date'}
                                     </div>
@@ -474,55 +507,55 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                 </div>
                             )}
 
-                            <div className="space-y-4">
+                            <div className="space-y-3 sm:space-y-4">
                                 <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Guest Breakdown</label>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                                     {/* Adults */}
-                                    <div className="space-y-2">
+                                    <div className="space-y-1 sm:space-y-2">
                                         <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest ml-1">Adults (12+)</span>
-                                        <div className="flex items-center gap-3 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-2xl border border-neutral-100 dark:border-white/5">
+                                        <div className="flex items-center gap-2 sm:gap-3 bg-neutral-50 dark:bg-neutral-800 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-neutral-100 dark:border-white/5">
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, adults: Math.max(1, prev.adults - 1) }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >-</button>
-                                            <span className="flex-1 text-center font-black dark:text-white">{formData.adults}</span>
+                                            <span className="flex-1 text-center font-black dark:text-white text-sm sm:text-base">{formData.adults}</span>
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, adults: prev.adults + 1 }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >+</button>
                                         </div>
                                     </div>
 
                                     {/* Kids 5-8 */}
-                                    <div className="space-y-2">
+                                    <div className="space-y-1 sm:space-y-2">
                                         <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest ml-1">Child (5-8y)</span>
-                                        <div className="flex items-center gap-3 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-2xl border border-neutral-100 dark:border-white/5">
+                                        <div className="flex items-center gap-2 sm:gap-3 bg-neutral-50 dark:bg-neutral-800 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-neutral-100 dark:border-white/5">
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, children_5_8: Math.max(0, prev.children_5_8 - 1) }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >-</button>
-                                            <span className="flex-1 text-center font-black dark:text-white">{formData.children_5_8}</span>
+                                            <span className="flex-1 text-center font-black dark:text-white text-sm sm:text-base">{formData.children_5_8}</span>
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, children_5_8: prev.children_5_8 + 1 }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >+</button>
                                         </div>
                                         <p className="text-[7px] font-black text-primary-500 uppercase tracking-widest text-center">50% OF COST</p>
                                     </div>
 
                                     {/* Kids <5 */}
-                                    <div className="space-y-2">
+                                    <div className="space-y-1 sm:space-y-2">
                                         <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest ml-1">Child ({"<"}5y)</span>
-                                        <div className="flex items-center gap-3 bg-neutral-50 dark:bg-neutral-800 p-3 rounded-2xl border border-neutral-100 dark:border-white/5">
+                                        <div className="flex items-center gap-2 sm:gap-3 bg-neutral-50 dark:bg-neutral-800 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-neutral-100 dark:border-white/5">
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, children_below_5: Math.max(0, prev.children_below_5 - 1) }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >-</button>
-                                            <span className="flex-1 text-center font-black dark:text-white">{formData.children_below_5}</span>
+                                            <span className="flex-1 text-center font-black dark:text-white text-sm sm:text-base">{formData.children_below_5}</span>
                                             <button
                                                 onClick={() => setFormData(prev => ({ ...prev, children_below_5: prev.children_below_5 + 1 }))}
-                                                className="w-8 h-8 rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors"
+                                                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-white dark:bg-neutral-700 flex items-center justify-center font-bold hover:bg-primary-50 transition-colors shadow-sm"
                                             >+</button>
                                         </div>
                                         <p className="text-[7px] font-black text-primary-500 uppercase tracking-widest text-center">NO COST</p>
