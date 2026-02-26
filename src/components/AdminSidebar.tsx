@@ -23,6 +23,7 @@ const MENU_ITEMS = [
 
 
     { name: 'Tours', href: '/admin/tours', icon: Sparkles },
+    { name: 'Messages', href: '/admin/messages', icon: Mail },
     { name: 'Bookings', href: '/admin/bookings', icon: Users },
 ];
 

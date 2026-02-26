@@ -87,8 +87,8 @@ export default function HotelDetails() {
     );
 
     return (
-        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-16">
-            <div className="pt-20 max-w-7xl mx-auto px-6 lg:px-8">
+        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-12">
+            <div className="pt-16 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -98,11 +98,11 @@ export default function HotelDetails() {
                     <span className="text-[10px] uppercase tracking-widest">Back</span>
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
                     {/* Left Column: Visuals */}
                     <div className="lg:col-span-7 space-y-6">
                         {/* Hero Gallery */}
-                        <div className="relative h-[40vh] lg:h-[50vh] rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
+                        <div className="relative h-[35vh] lg:h-[50vh] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
                             <div className="overflow-hidden h-full" ref={emblaRef}>
                                 <div className="flex h-full">
                                     {(hotel.images?.length ? hotel.images : [null]).map((img, idx) => (
@@ -151,68 +151,38 @@ export default function HotelDetails() {
                         </div>
 
                         {/* Room Types Display */}
-                        <div className="space-y-6">
-                            <div className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] pl-1">Experience Our Hospitality</div>
+                        <div className="space-y-4">
+                            <div className="text-[9px] font-black text-neutral-400 uppercase tracking-[0.3em] pl-1">Experience Our Hospitality</div>
                             <RoomCarousel rooms={rooms} />
                         </div>
 
-                        {/* Description */}
-                        <div className="space-y-6 bg-white dark:bg-neutral-900 p-8 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
-                            <div className="flex items-center gap-3 text-primary-600 dark:text-primary-400 font-black text-sm uppercase tracking-widest">
-                                <Info className="w-5 h-5" /> Detailed Overview
-                            </div>
-                            {(() => {
-                                let sections = [];
-                                try {
-                                    sections = hotel.description ? JSON.parse(hotel.description) : [];
-                                    if (!Array.isArray(sections)) throw new Error('Not an array');
-                                } catch (e) {
-                                    sections = hotel.description ? [{ title: '', content: hotel.description }] : [];
-                                }
-
-                                if (sections.length === 0) return null;
-
-                                return (
-                                    <div className="space-y-6">
-                                        {sections.map((section: any, idx: number) => (
-                                            <div key={idx} className="space-y-2">
-                                                {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
-                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed whitespace-pre-wrap">
-                                                    {section.content}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                );
-                            })()}
-                        </div>
                     </div>
 
                     {/* Right Column: Reservation Sidebar */}
-                    <div className="lg:col-span-5 space-y-6">
-                        <div className="space-y-4 lg:pl-4">
+                    <div className="lg:col-span-5 space-y-4 lg:space-y-6">
+                        <div className="space-y-3 lg:space-y-4 lg:pl-4">
                             <div className="flex items-center gap-2 text-neutral-400 font-black text-[11px] uppercase tracking-[0.25em] bg-white dark:bg-neutral-900 w-fit px-4 py-2 rounded-2xl border border-neutral-100 dark:border-white/5 shadow-sm">
                                 <MapPin className="w-4 h-4 text-emerald-500" />
                                 {location?.name}, {location?.state}
                             </div>
-                            <h1 className="text-3xl lg:text-5xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase leading-none italic-none">
+                            <h1 className="text-2xl lg:text-5xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase leading-none italic-none">
                                 {hotel.name}
                             </h1>
                         </div>
 
                         <div className="sticky top-28 lg:pl-4">
-                            <div className="relative p-6 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-white/5 rounded-[2.5rem] shadow-2xl shadow-neutral-900/5 space-y-5 overflow-hidden">
+                            <div className="relative p-5 lg:p-6 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-white/5 rounded-[2rem] lg:rounded-[2.5rem] shadow-2xl shadow-neutral-900/5 space-y-4 lg:space-y-5 overflow-hidden">
                                 <div className="absolute top-0 right-0 p-6">
                                     <div className="p-2.5 bg-primary-500/10 text-primary-600 rounded-2xl ring-1 ring-primary-500/20">
                                         <Building2 className="w-5 h-5" />
                                     </div>
                                 </div>
 
-                                <div className="space-y-1">
-                                    <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Starting from</span>
+                                <div className="space-y-0.5 lg:space-y-1">
+                                    <span className="text-[9px] lg:text-[10px] font-black text-neutral-400 uppercase tracking-widest">Starting from</span>
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-3xl lg:text-4xl font-black text-neutral-900 dark:text-white tracking-tighter italic-none">₹{hotel.price.toLocaleString()}</span>
-                                        <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">/night</span>
+                                        <span className="text-2xl lg:text-4xl font-black text-neutral-900 dark:text-white tracking-tighter italic-none">₹{hotel.price.toLocaleString()}</span>
+                                        <span className="text-[9px] lg:text-[10px] font-bold text-neutral-400 uppercase tracking-widest">/night</span>
                                     </div>
                                 </div>
 
@@ -244,6 +214,37 @@ export default function HotelDetails() {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Description - Moved to the end of the content column */}
+                <div className="mt-12 space-y-6 bg-white dark:bg-neutral-900 p-6 lg:p-8 rounded-[2rem] lg:rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                    <div className="flex items-center gap-3 text-primary-600 dark:text-primary-400 font-black text-sm uppercase tracking-widest">
+                        <Info className="w-5 h-5" /> Detailed Overview
+                    </div>
+                    {(() => {
+                        let sections = [];
+                        try {
+                            sections = hotel.description ? JSON.parse(hotel.description) : [];
+                            if (!Array.isArray(sections)) throw new Error('Not an array');
+                        } catch (e) {
+                            sections = hotel.description ? [{ title: '', content: hotel.description }] : [];
+                        }
+
+                        if (sections.length === 0) return null;
+
+                        return (
+                            <div className="space-y-6">
+                                {sections.map((section: any, idx: number) => (
+                                    <div key={idx} className="space-y-2">
+                                        {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
+                                        <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed whitespace-pre-wrap">
+                                            {section.content}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
 

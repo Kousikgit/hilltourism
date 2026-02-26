@@ -26,11 +26,14 @@ const getDateString = (date: Date) => {
 };
 
 interface CalendarPickerProps {
-    date: string;
-    onDateSelect: (date: string) => void;
+    checkIn: string;
+    checkOut: string;
+    onDateSelect: (checkIn: string, checkOut: string) => void;
+    activeField: 'checkIn' | 'checkOut';
+    setActiveField: (field: 'checkIn' | 'checkOut') => void;
 }
 
-function CalendarPicker({ date, onDateSelect }: CalendarPickerProps) {
+function CalendarPicker({ checkIn, checkOut, onDateSelect, activeField, setActiveField }: CalendarPickerProps) {
     const [viewDate, setViewDate] = useState(new Date());
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -44,7 +47,33 @@ function CalendarPicker({ date, onDateSelect }: CalendarPickerProps) {
     for (let i = 0; i < startDay; i++) days.push(null);
     for (let i = 1; i <= daysInMonth; i++) days.push(new Date(viewDate.getFullYear(), viewDate.getMonth(), i));
 
-    const isSelected = (d: Date) => getDateString(d) === date;
+    const isSelected = (date: Date) => {
+        const dStr = getDateString(date);
+        return dStr === checkIn || dStr === checkOut;
+    };
+
+    const isInRange = (date: Date) => {
+        if (!checkIn || !checkOut) return false;
+        const dStr = getDateString(date);
+        return dStr > checkIn && dStr < checkOut;
+    };
+
+    const handleDateClick = (date: Date) => {
+        const dStr = getDateString(date);
+        if (date < today) return;
+
+        if (activeField === 'checkIn') {
+            onDateSelect(dStr, '');
+            setActiveField('checkOut');
+        } else {
+            if (dStr <= checkIn) {
+                onDateSelect(dStr, '');
+                setActiveField('checkOut');
+            } else {
+                onDateSelect(checkIn, dStr);
+            }
+        }
+    };
 
     return (
         <div className="space-y-4">
@@ -69,23 +98,42 @@ function CalendarPicker({ date, onDateSelect }: CalendarPickerProps) {
                 {days.map((d, idx) => {
                     if (!d) return <div key={`empty-${idx}`} />;
                     const selected = isSelected(d);
+                    const inRange = isInRange(d);
                     const past = d < today;
+                    const dStr = getDateString(d);
+                    const isCheckIn = dStr === checkIn;
+                    const isCheckOut = dStr === checkOut;
+
                     return (
                         <button
                             key={idx}
                             disabled={past}
                             type="button"
-                            onClick={() => onDateSelect(getDateString(d))}
+                            onClick={() => handleDateClick(d)}
                             className={cn(
                                 "h-10 relative flex items-center justify-center text-[11px] font-bold transition-all",
-                                past ? "text-neutral-200 dark:text-neutral-800 cursor-not-allowed" : "hover:scale-110 active:scale-95 text-neutral-700 dark:text-neutral-300",
-                                selected && "bg-primary-500 text-white rounded-xl z-10 shadow-lg shadow-primary-500/20"
+                                past ? "text-neutral-200 dark:text-neutral-800 cursor-not-allowed" : "hover:scale-110 active:scale-95",
+                                selected ? "bg-primary-500 text-white rounded-xl z-10 shadow-lg shadow-primary-500/20" :
+                                    inRange ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400" :
+                                        "text-neutral-700 dark:text-neutral-300",
+                                isCheckIn && checkOut && "rounded-r-none rounded-l-xl",
+                                isCheckOut && "rounded-l-none rounded-r-xl"
                             )}
                         >
                             {d.getDate()}
                         </button>
                     );
                 })}
+            </div>
+            <div className="flex items-center justify-center gap-6 pt-2 border-t border-neutral-100 dark:border-white/5 mt-4">
+                <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary-600" />
+                    <span className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Selected</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary-200" />
+                    <span className="text-[9px] font-black text-neutral-400 uppercase tracking-widest">In Range</span>
+                </div>
             </div>
         </div>
     );
@@ -105,6 +153,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
     const [formData, setFormData] = useState({
         checkIn: '',
+        checkOut: '',
         nights: 1,
         adults: 1,
         children_5_8: 0,
@@ -114,6 +163,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
         user_phone: ''
     });
 
+    const [activeField, setActiveField] = useState<'checkIn' | 'checkOut'>('checkIn');
     const [tokenTier, setTokenTier] = useState<25 | 50>(25);
 
     useEffect(() => {
@@ -129,28 +179,20 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
     }, [hotel.id]);
 
     useEffect(() => {
-        if (selectedRoom && formData.checkIn && hotel.id) {
+        if (selectedRoom && formData.checkIn && formData.checkOut && hotel.id) {
             // Debounce the check to prevent rapid requests and potential Supabase lock errors
             const timer = setTimeout(() => {
                 const checkAvailability = async () => {
-                    // Calculate checkout date (checkIn + nights)
-                    const startDate = new Date(formData.checkIn);
-                    const endDate = new Date(startDate);
-                    endDate.setDate(startDate.getDate() + formData.nights);
-                    const checkOutStr = endDate.toISOString().split('T')[0];
-
                     try {
                         const isAvailable = await homestayService.checkAvailability(
                             hotel.id,
                             formData.checkIn,
-                            checkOutStr,
+                            formData.checkOut,
                             true, // isHotel
                             selectedRoom.id // Pass roomTypeId for specific inventory check
                         );
 
                         if (!isAvailable) {
-                            // Handle "Sold Out" state - currently just console log or could reset selection
-                            // ideally we'd show a UI warning or disable the "Confirm" button
                             console.log('Room type sold out for these dates');
                         }
                     } catch (e) {
@@ -164,23 +206,21 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
             return () => clearTimeout(timer);
         }
-    }, [selectedRoom, formData.checkIn, formData.nights, hotel.id]);
+    }, [selectedRoom, formData.checkIn, formData.checkOut, hotel.id]);
 
     const pricingInfo = useMemo(() => {
-        if (!selectedRoom) return { total: 0, tokenPayable: 0, secondPayable: 0, arrivalPayable: 0, isUrgent: false, primaryRate: 0, nightlyTotal: 0 };
+        if (!selectedRoom || !formData.checkIn || !formData.checkOut) return { total: 0, nights: 0, tokenPayable: 0, secondPayable: 0, arrivalPayable: 0, isUrgent: false, primaryRate: 0, nightlyTotal: 0 };
+
+        const start = new Date(formData.checkIn);
+        const end = new Date(formData.checkOut);
+        const nights = Math.max(1, Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        const startDate = formData.checkIn ? new Date(formData.checkIn) : null;
-        const leadTimeDays = startDate ? Math.ceil((startDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : 0;
+        const leadTimeDays = Math.ceil((start.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
         const isUrgent = leadTimeDays <= 15;
 
-        // Hotel Guest pricing logic (Tiered):
-        // 1 Guest -> price_one_guest
-        // 2 Guests -> price_two_guests
-        // 3+ Guests -> price_three_plus_guests
-
-        const totalGuests = formData.adults + formData.children_5_8 + formData.children_below_5;
+        const totalGuests = formData.adults + formData.children_5_8;
         let primaryRate = 0;
 
         if (totalGuests === 1) {
@@ -191,16 +231,8 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
             primaryRate = selectedRoom.price_three_plus_guests;
         }
 
-        // Calculation:
-        // We use the primaryRate as a "Total Nightly Rate" based on the guest count tier.
-        // The previous logic used a per-person multiplier. Now the rate IS the total for that count.
-        // Exception: Check if kids are handled differently.
-        // Prompt says: "Pricing is determined by... Guest Count (1, 2, or 3+)".
-        // This implies the DB price IS the final price for that occupancy level.
-        // So we do NOT multiply by guest count again.
-
-        const nightlyTotal = primaryRate; // Flat rate based on tier
-        const total = nightlyTotal * formData.nights;
+        const nightlyTotal = primaryRate;
+        const total = nightlyTotal * nights;
 
         const effectiveTier = isUrgent ? 50 : tokenTier;
         const tokenPayable = Math.round(total * (effectiveTier / 100));
@@ -209,9 +241,9 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
         return {
             total,
+            nights,
             nightlyTotal,
             primaryRate,
-            multiplier: 1, // Deprecated concept in this flat-tier model
             tokenPayable,
             secondPayable,
             arrivalPayable,
@@ -231,7 +263,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                 user_email: formData.user_email,
                 user_phone: formData.user_phone,
                 check_in: formData.checkIn,
-                check_out: formData.checkIn, // Should calculate checkout based on nights
+                check_out: formData.checkOut,
                 total_price: pricingInfo.total,
                 token_amount: pricingInfo.tokenPayable,
                 guests: formData.adults + formData.children_5_8,
@@ -273,27 +305,58 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                     {/* Left: Content */}
                     <div className="md:col-span-3 p-8 pb-32 space-y-8 overflow-y-auto custom-scrollbar">
                         {step === 'dates' ? (
-                            <div className="space-y-8">
+                            <div className="space-y-8 animate-in slide-in-from-right-4 duration-300">
                                 <div className="space-y-6">
                                     <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
                                         <Calendar className="w-4 h-4 text-primary-500" /> Selection of Stay
                                     </h3>
                                     <div className="p-6 bg-neutral-50 dark:bg-white/5 rounded-3xl border border-neutral-100 dark:border-white/5">
                                         <CalendarPicker
-                                            date={formData.checkIn}
-                                            onDateSelect={(d) => setFormData(prev => ({ ...prev, checkIn: d }))}
+                                            checkIn={formData.checkIn}
+                                            checkOut={formData.checkOut}
+                                            onDateSelect={(inDate, outDate) => {
+                                                setFormData(prev => ({ ...prev, checkIn: inDate, checkOut: outDate }));
+                                            }}
+                                            activeField={activeField}
+                                            setActiveField={setActiveField}
                                         />
                                     </div>
-                                    <div className="p-4 bg-primary-50 rounded-2xl flex gap-3 items-start border border-primary-100">
-                                        <Info className="w-4 h-4 text-primary-600 mt-0.5 shrink-0" />
-                                        <p className="text-[10px] font-bold text-primary-800 uppercase leading-relaxed">
-                                            Choose your check-in date. Our tiered payment model depends on advance booking lead time.
-                                        </p>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <button
+                                            onClick={() => setActiveField('checkIn')}
+                                            className={cn(
+                                                "p-4 rounded-2xl border text-left transition-all",
+                                                activeField === 'checkIn' ? "bg-primary-50 border-primary-500 ring-4 ring-primary-500/10" : "bg-white dark:bg-neutral-800 border-neutral-100 dark:border-white/5"
+                                            )}
+                                        >
+                                            <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest block mb-1">Check-In</span>
+                                            <span className="font-bold text-sm text-neutral-900 dark:text-white">{formData.checkIn ? formatDisplayDate(formData.checkIn) : 'Select Date'}</span>
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveField('checkOut')}
+                                            className={cn(
+                                                "p-4 rounded-2xl border text-left transition-all",
+                                                activeField === 'checkOut' ? "bg-primary-50 border-primary-500 ring-4 ring-primary-500/10" : "bg-white dark:bg-neutral-800 border-neutral-100 dark:border-white/5"
+                                            )}
+                                        >
+                                            <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest block mb-1">Check-Out</span>
+                                            <span className="font-bold text-sm text-neutral-900 dark:text-white">{formData.checkOut ? formatDisplayDate(formData.checkOut) : 'Select Date'}</span>
+                                        </button>
                                     </div>
+
+                                    {pricingInfo.nights > 0 && (
+                                        <div className="p-4 bg-primary-50 rounded-2xl flex gap-3 items-center border border-primary-100 italic">
+                                            <Info className="w-4 h-4 text-primary-600 mt-0.5 shrink-0" />
+                                            <p className="text-[10px] font-bold text-primary-800 uppercase leading-relaxed">
+                                                Duration of Stay: <span className="font-black">{pricingInfo.nights} {pricingInfo.nights === 1 ? 'Night' : 'Nights'}</span>
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                                 <Button
                                     onClick={() => setStep('rooms')}
-                                    disabled={!formData.checkIn}
+                                    disabled={!formData.checkIn || !formData.checkOut}
                                     className="w-full rounded-2xl py-6 font-black uppercase tracking-widest text-xs shadow-xl shadow-primary-500/20"
                                 >
                                     Choose Room Type
@@ -526,8 +589,14 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                     <div className="space-y-4">
                                         <div className="space-y-2">
                                             <div className="flex justify-between items-center text-[10px] uppercase tracking-tight">
-                                                <span className="font-bold text-neutral-400">Check-In</span>
-                                                <span className="font-black text-neutral-900 dark:text-white">{formData.checkIn ? formatDisplayDate(formData.checkIn) : 'Not Selected'}</span>
+                                                <span className="font-bold text-neutral-400">Stay Period</span>
+                                                <span className="font-black text-neutral-900 dark:text-white text-right">
+                                                    {formData.checkIn ? formatDisplayDate(formData.checkIn) : '--'} — {formData.checkOut ? formatDisplayDate(formData.checkOut) : '--'}
+                                                </span>
+                                            </div>
+                                            <div className="flex justify-between items-center text-[10px] uppercase tracking-tight">
+                                                <span className="font-bold text-neutral-400">Duration</span>
+                                                <span className="font-black text-neutral-900 dark:text-white">{pricingInfo.nights} {pricingInfo.nights === 1 ? 'Night' : 'Nights'}</span>
                                             </div>
                                             <div className="flex justify-between items-center text-[10px] uppercase tracking-tight">
                                                 <span className="font-bold text-neutral-400">Room</span>
@@ -536,23 +605,13 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
                                             <div className="space-y-1.5 pt-2 border-t border-neutral-50 dark:border-white/5 mt-2">
                                                 <div className="flex justify-between items-center text-[10px]">
-                                                    <span className="font-bold text-neutral-600 dark:text-neutral-300">Adults ({formData.adults})</span>
-                                                    <span className="font-black text-neutral-900 dark:text-white">₹{pricingInfo.primaryRate?.toLocaleString()} <span className="text-[8px] text-neutral-400 font-bold">× {formData.adults}</span></span>
+                                                    <span className="font-bold text-neutral-600 dark:text-neutral-300">Base Rate ({formData.adults + formData.children_5_8 + formData.children_below_5} Guests)</span>
+                                                    <span className="font-black text-neutral-900 dark:text-white">₹{pricingInfo.primaryRate?.toLocaleString()} / night</span>
                                                 </div>
-
-                                                {formData.children_5_8 > 0 && (
-                                                    <div className="flex justify-between items-center text-[10px]">
-                                                        <span className="font-bold text-neutral-600 dark:text-neutral-300">Child 5-8y ({formData.children_5_8})</span>
-                                                        <span className="font-black text-neutral-900 dark:text-white">₹{(pricingInfo.primaryRate * 0.5).toLocaleString()} <span className="text-[8px] text-neutral-400 font-bold">× {formData.children_5_8}</span></span>
-                                                    </div>
-                                                )}
-
-                                                {formData.children_below_5 > 0 && (
-                                                    <div className="flex justify-between items-center text-[10px]">
-                                                        <span className="font-bold text-primary-600">Child {"<"}5y ({formData.children_below_5})</span>
-                                                        <span className="font-black text-primary-600 uppercase">Free</span>
-                                                    </div>
-                                                )}
+                                                <div className="flex justify-between items-center text-[10px]">
+                                                    <span className="font-bold text-neutral-600 dark:text-neutral-300">Stay Duration</span>
+                                                    <span className="font-black text-neutral-900 dark:text-white">× {pricingInfo.nights} Night(s)</span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -566,13 +625,13 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
 
                                             {pricingInfo.secondPayable > 0 && (
                                                 <div className="flex justify-between items-center text-[10px]">
-                                                    <span className="font-bold text-neutral-400 uppercase tracking-widest italic">Before Arrival</span>
+                                                    <span className="font-bold text-neutral-400 uppercase tracking-widest italic">Second Milestone</span>
                                                     <span className="font-black text-neutral-500">₹{pricingInfo.secondPayable.toLocaleString()}</span>
                                                 </div>
                                             )}
 
                                             <div className="flex justify-between items-center text-[10px]">
-                                                <span className="font-bold text-neutral-400 uppercase tracking-widest italic">On Arrival</span>
+                                                <span className="font-bold text-neutral-400 uppercase tracking-widest italic">Balance on Arrival</span>
                                                 <span className="font-black text-neutral-500">₹{pricingInfo.arrivalPayable.toLocaleString()}</span>
                                             </div>
                                         </div>

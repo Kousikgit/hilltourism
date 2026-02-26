@@ -9,7 +9,11 @@ import { homestayService, Tour } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { TourCarousel } from "./TourCarousel";
 
-export function PopularTours() {
+interface PopularToursProps {
+    hideHeader?: boolean;
+}
+
+export function PopularTours({ hideHeader = false }: PopularToursProps) {
     const [tours, setTours] = useState<Tour[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -47,22 +51,24 @@ export function PopularTours() {
     if (!tours.length) return null;
 
     return (
-        <section id="popular-tours" className="relative py-16 px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden">
-            <div className="max-w-7xl mx-auto space-y-16 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end gap-6">
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-widest w-fit">
-                            <Mountain className="w-3 h-3" />
-                            Curated Expeditions
+        <section id="popular-tours" className={cn("relative px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden", hideHeader ? "py-8" : "py-16")}>
+            <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+                {!hideHeader && (
+                    <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-widest w-fit">
+                                <Mountain className="w-3 h-3" />
+                                Curated Expeditions
+                            </div>
+                            <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight leading-tight">
+                                Popular <span className="text-primary-600 dark:text-primary-500">Tours</span>
+                            </h2>
+                            <p className="text-neutral-500 max-w-xl text-lg">
+                                From local trails to global wonders, discover your next big adventure with our expert-led tours.
+                            </p>
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight leading-tight">
-                            Popular <span className="text-primary-600 dark:text-primary-500">Tours</span>
-                        </h2>
-                        <p className="text-neutral-500 max-w-xl text-lg">
-                            From local trails to global wonders, discover your next big adventure with our expert-led tours.
-                        </p>
                     </div>
-                </div>
+                )}
 
                 {categories.map((cat) => {
                     const catTours = tours.filter(t => t.category === cat.title);

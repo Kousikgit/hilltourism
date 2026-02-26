@@ -34,7 +34,7 @@ export function Footer() {
                     <h4 className="text-white font-bold mb-6">Quick Links</h4>
                     <ul className="space-y-4">
                         <li><Link href="/properties" className="text-base font-medium hover:text-primary-500 transition-colors">Find a Stay</Link></li>
-                        <li><Link href="/locations" className="text-base font-medium hover:text-primary-500 transition-colors">Destinations</Link></li>
+                        <li><Link href="/tours" className="text-base font-medium hover:text-primary-500 transition-colors">Tours</Link></li>
                         <li><Link href="/about" className="text-base font-medium hover:text-primary-500 transition-colors">Our Story</Link></li>
                         <li><Link href="/contact" className="text-base font-medium hover:text-primary-500 transition-colors">Contact Us</Link></li>
                     </ul>

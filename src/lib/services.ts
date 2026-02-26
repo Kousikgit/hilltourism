@@ -98,6 +98,14 @@ export type Tour = {
     created_at?: string;
 };
 
+export type Contact = {
+    id: string;
+    full_name: string;
+    phone_number: string;
+    message: string;
+    created_at: string;
+};
+
 export const homestayService = {
     // --- Locations ---
     async getLocations() {
@@ -510,5 +518,34 @@ export const homestayService = {
         } catch (error) {
             console.error('Error in deletePropertyImage:', error);
         }
+    }
+};
+
+export const contactService = {
+    async getContacts() {
+        const { data, error } = await supabase
+            .from('contacts')
+            .select('*')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        return data as Contact[];
+    },
+
+    async createContact(contact: Omit<Contact, 'id' | 'created_at'>) {
+        const { data, error } = await supabase
+            .from('contacts')
+            .insert([contact])
+            .select()
+            .single();
+        if (error) throw error;
+        return data as Contact;
+    },
+
+    async deleteContact(id: string) {
+        const { error } = await supabase
+            .from('contacts')
+            .delete()
+            .eq('id', id);
+        if (error) throw error;
     }
 };
