@@ -11,7 +11,8 @@ import {
     Users,
     LogOut,
     ChevronLeft,
-    Sparkles
+    Sparkles,
+    Mail
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
