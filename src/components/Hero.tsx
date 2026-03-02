@@ -12,8 +12,8 @@ const HERO_SLIDES = [
     {
         image: "/images/sikkim-6547048.jpg",
         title: "Escape to Nature's Embrace",
-        subtitle: "Experience luxury homestays in the heart of the mountains.",
-        location: "Manali, Himachal Pradesh",
+        subtitle: "Experience Homestays in the heart of the mountains.",
+        location: "Sikkim, SK",
     },
     {
         image: "https://images.unsplash.com/photo-1587061949733-7623942dc5c5?auto=format&fit=crop&q=80&w=2000",
@@ -72,6 +72,8 @@ export function Hero() {
                                 className="object-cover animate-slow-pan"
                                 priority
                             />
+                            {/* Dark Gradient Overlay for Text Readability */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/30 to-neutral-900/80" />
 
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pt-20 pb-48 md:pt-0 md:pb-32">
                                 <div className="animate-fade-in space-y-2 max-w-5xl">

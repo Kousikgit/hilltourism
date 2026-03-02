@@ -8,7 +8,8 @@ export function Footer() {
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div className="space-y-6">
                     <Link href="/" className="flex items-center gap-2 group text-white">
-                        <Image src="/images/logo.png" alt="Hill Tourism Logo" width={140} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
+                        <Image src="/images/logo.png" alt="Hill Tourism Logo" width={140} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105 brightness-0 invert" />
+                        <span className="font-bold text-xl tracking-tight">Hill Tourism</span>
                     </Link>
                     <p className="text-neutral-500 leading-relaxed">
                         Elegance in every stay. Experience premium homestays curated for your comfort and peace of mind across India's most scenic locations.
