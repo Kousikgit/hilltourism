@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { X, Users, CreditCard, ShieldCheck, Sparkles, Loader2, Minus, Plus, Calendar as CalendarIcon, Info, ChevronLeft, ChevronRight, User, AlertOctagon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Tour, homestayService } from '@/lib/services';
