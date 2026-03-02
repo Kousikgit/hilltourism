@@ -23,7 +23,8 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none">
             <div className="max-w-7xl mx-auto flex items-center justify-between glass px-6 py-3 rounded-full pointer-events-auto shadow-lg border-white/20">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <Image src="/images/logo.png" alt="Hill Tourism Logo" width={140} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" priority />
+                    <Image src="/images/logo.png" alt="Hill Tourism Logo" width={200} height={60} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" priority />
+                    <span className="font-bold text-xl text-neutral-800 tracking-tight hidden sm:block">Hill Tourism</span>
                 </Link>
 
                 {/* Desktop Navigation */}
