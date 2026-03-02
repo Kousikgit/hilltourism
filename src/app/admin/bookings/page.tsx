@@ -43,7 +43,7 @@ export default function AdminBookings() {
 
     const getStatusStyles = (status: string) => {
         switch (status) {
-            case 'confirmed': return 'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400';
+            case 'confirmed': return 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400';
             case 'pending': return 'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400';
             case 'cancelled': return 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400';
             default: return 'bg-neutral-50 text-neutral-600';
@@ -169,7 +169,7 @@ export default function AdminBookings() {
                                                             size="sm"
                                                             disabled={updatingId === booking.id}
                                                             onClick={() => handleUpdateStatus(booking.id, 'confirmed')}
-                                                            className="bg-green-600 hover:bg-green-700 text-white rounded-xl px-4 py-2 h-auto text-[10px] uppercase font-black tracking-widest flex items-center gap-1.5 shadow-lg shadow-green-900/10 transition-all active:scale-95"
+                                                            className="bg-orange-600 hover:bg-orange-700 text-white rounded-xl px-4 py-2 h-auto text-[10px] uppercase font-black tracking-widest flex items-center gap-1.5 shadow-lg shadow-orange-900/10 transition-all active:scale-95"
                                                         >
                                                             {updatingId === booking.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
                                                             Confirm

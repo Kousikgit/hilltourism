@@ -14,13 +14,13 @@ const config: Config = {
             },
             colors: {
                 primary: {
-                    50: "#f0f9f9",
-                    100: "#d9f0f1",
-                    200: "#b7e2e4",
-                    500: "#14b8a6",
-                    600: "#0d9488",
-                    800: "#115e59",
-                    900: "#134e4a",
+                    50: "#fff7ed",
+                    100: "#ffedd5",
+                    200: "#fed7aa",
+                    500: "#f97316",
+                    600: "#ea580c",
+                    800: "#9a3412",
+                    900: "#7c2d12",
                     foreground: "#ffffff",
                 },
                 accent: {

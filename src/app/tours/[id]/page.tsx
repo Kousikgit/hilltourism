@@ -15,8 +15,6 @@ import { Tour, homestayService } from '@/lib/services';
 import { Navbar } from '@/components/Navbar';
 import { cn } from '@/lib/utils';
 import { TourBookingFlow } from '@/components/TourBookingFlow';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 
 export default function TourDetailsPage() {
     const { id } = useParams();
@@ -28,8 +26,15 @@ export default function TourDetailsPage() {
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
 
-    const generatePDF = () => {
+    const generatePDF = async () => {
         if (!tour) return;
+
+        // Dynamically import jspdf and jspdf-autotable
+        const [{ default: jsPDF }] = await Promise.all([
+            import('jspdf'),
+            import('jspdf-autotable')
+        ]);
+        const { default: autoTable } = await import('jspdf-autotable');
 
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();

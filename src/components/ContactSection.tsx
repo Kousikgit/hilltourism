@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, QrCode, Loader2, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from './ui/Button';
 import { contactService } from '@/lib/services';
 import { cn } from '@/lib/utils';
@@ -73,7 +74,7 @@ export function ContactSection() {
                     {/* QR Code Section */}
                     <div className="p-6 bg-neutral-900 dark:bg-white/5 rounded-[2.5rem] flex items-center gap-6 border border-white/10">
                         <div className="w-20 h-20 bg-white p-2 rounded-2xl shrink-0 flex items-center justify-center relative group">
-                            <QrCode className="w-full h-full text-neutral-900" />
+                            <Image src="/images/qrcode.png" alt="WhatsApp Support QR Code" width={80} height={80} className="w-full h-full object-contain rounded-xl" />
                             <div className="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                         </div>
                         <div className="space-y-1">

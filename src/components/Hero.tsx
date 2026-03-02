@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const HERO_SLIDES = [
     {
-        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=2000",
+        image: "/images/sikkim-6547048.jpg",
         title: "Escape to Nature's Embrace",
         subtitle: "Experience luxury homestays in the heart of the mountains.",
         location: "Manali, Himachal Pradesh",
@@ -69,11 +69,9 @@ export function Hero() {
                                 src={slide.image}
                                 alt={slide.title}
                                 fill
-                                className="object-cover opacity-60 animate-slow-pan"
+                                className="object-cover animate-slow-pan"
                                 priority
                             />
-                            {/* Improved overlay for better text contrast and depth */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
 
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pt-20 pb-48 md:pt-0 md:pb-32">
                                 <div className="animate-fade-in space-y-2 max-w-5xl">

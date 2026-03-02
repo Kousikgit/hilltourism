@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Home, Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import Image from 'next/image';
 
 export function Footer() {
     return (
@@ -7,12 +8,7 @@ export function Footer() {
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div className="space-y-6">
                     <Link href="/" className="flex items-center gap-2 group text-white">
-                        <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg">
-                            <Home className="text-white w-5 h-5" />
-                        </div>
-                        <span className="text-xl font-bold tracking-tight">
-                            Hill<span className="text-primary-500">Tourism</span>
-                        </span>
+                        <Image src="/images/logo.png" alt="Hill Tourism Logo" width={140} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" />
                     </Link>
                     <p className="text-neutral-500 leading-relaxed">
                         Elegance in every stay. Experience premium homestays curated for your comfort and peace of mind across India's most scenic locations.

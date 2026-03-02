@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, User, Menu, Home, X } from 'lucide-react';
+import { Search, User, Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from './ui/Button';
 
 export function Navbar() {
@@ -22,12 +23,7 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none">
             <div className="max-w-7xl mx-auto flex items-center justify-between glass px-6 py-3 rounded-full pointer-events-auto shadow-lg border-white/20">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg">
-                        <Home className="text-white w-6 h-6" />
-                    </div>
-                    <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                        Hill<span className="text-primary-600">Tourism</span>
-                    </span>
+                    <Image src="/images/logo.png" alt="Hill Tourism Logo" width={140} height={40} className="h-10 w-auto object-contain transition-transform group-hover:scale-105" priority />
                 </Link>
 
                 {/* Desktop Navigation */}

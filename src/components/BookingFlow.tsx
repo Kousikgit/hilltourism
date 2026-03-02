@@ -272,6 +272,12 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
         };
     }, [formData.checkIn, formData.checkOut, formData.adults, formData.children_5_8, formData.children_below_5, property, tokenTier]);
 
+    useEffect(() => {
+        if (pricingInfo.isUrgent) {
+            setTokenTier(50);
+        }
+    }, [pricingInfo.isUrgent]);
+
     const calculateTotal = pricingInfo.total;
 
     const nextStep = async () => {
@@ -732,18 +738,32 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                     </div>
 
                                     {/* Payment Tier Selection */}
-                                    {!pricingInfo.isUrgent && (
+                                    <div className="space-y-3">
+                                        {pricingInfo.isUrgent && (
+                                            <div className="p-4 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-2xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+                                                <AlertOctagon className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                                                <div className="space-y-1">
+                                                    <p className="text-[10px] font-black text-amber-800 dark:text-amber-400 uppercase tracking-widest">Urgent Booking Policy</p>
+                                                    <p className="text-[9px] font-bold text-amber-700/80 dark:text-amber-400/80 uppercase leading-relaxed">
+                                                        Your check-in is within 15 days. A mandatory 50% token payment is required to secure this last-minute reservation.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        )}
+
                                         <div className="grid grid-cols-2 gap-3 pb-2">
                                             {[25, 50].map((tier) => (
                                                 <button
                                                     key={tier}
                                                     type="button"
+                                                    disabled={pricingInfo.isUrgent && tier === 25}
                                                     onClick={() => setTokenTier(tier as any)}
                                                     className={cn(
                                                         "p-3 rounded-2xl border transition-all text-center group relative overflow-hidden",
                                                         tokenTier === tier
                                                             ? "bg-primary-600 border-primary-600 text-white shadow-lg shadow-primary-600/20"
-                                                            : "bg-white dark:bg-neutral-800 border-neutral-100 dark:border-white/5 text-neutral-400 hover:border-primary-500/30"
+                                                            : "bg-white dark:bg-neutral-800 border-neutral-100 dark:border-white/5 text-neutral-400 hover:border-primary-500/30",
+                                                        pricingInfo.isUrgent && tier === 25 && "opacity-40 grayscale cursor-not-allowed"
                                                     )}
                                                 >
                                                     <div className="text-[9px] font-black uppercase tracking-widest mb-1">Token {tier}%</div>
@@ -756,7 +776,7 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                                 </button>
                                             ))}
                                         </div>
-                                    )}
+                                    </div>
 
                                     {/* Detailed Payment Schedule */}
                                     <div className="p-5 bg-white/50 dark:bg-black/20 rounded-[2rem] border border-primary-200/20 dark:border-white/5 space-y-4 shadow-inner">
