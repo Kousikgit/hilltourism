@@ -21,7 +21,7 @@ export function HotelCard({ hotel, locationName, className }: HotelCardProps) {
                 className
             )}
         >
-            <div className="relative h-52 overflow-hidden">
+            <div className="relative h-64 overflow-hidden">
                 <Image
                     src={hotel.images?.[0] || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800'}
                     alt={hotel.name}

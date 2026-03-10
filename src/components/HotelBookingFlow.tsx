@@ -160,7 +160,9 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
         children_below_5: 0,
         user_name: '',
         user_email: '',
-        user_phone: ''
+        user_phone: '',
+        document_type: 'Aadhar Card',
+        document_id: ''
     });
 
     const [activeField, setActiveField] = useState<'checkIn' | 'checkOut'>('checkIn');
@@ -294,6 +296,8 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                 adults: formData.adults,
                 children_5_8: formData.children_5_8,
                 children_below_5: formData.children_below_5,
+                document_type: formData.document_type,
+                document_id: formData.document_id,
                 status: 'pending'
             };
 
@@ -721,6 +725,33 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                         className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
                                         placeholder="WhatsApp Number"
                                     />
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Document Type</label>
+                                            <select
+                                                required
+                                                value={formData.document_type}
+                                                onChange={(e) => setFormData({ ...formData, document_type: e.target.value })}
+                                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold dark:text-white appearance-none"
+                                            >
+                                                <option>Aadhar Card</option>
+                                                <option>Passport</option>
+                                                <option>Driving Licence</option>
+                                                <option>Voter ID Card</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Document ID Number</label>
+                                            <input
+                                                required
+                                                value={formData.document_id}
+                                                onChange={(e) => setFormData({ ...formData, document_id: e.target.value })}
+                                                className="w-full bg-neutral-50 dark:bg-neutral-800 px-6 py-4 rounded-2xl border-none ring-1 ring-neutral-100 dark:ring-white/10 focus:ring-2 focus:ring-primary-500 outline-none font-bold"
+                                                placeholder="Enter ID Number"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ) : (
@@ -770,7 +801,7 @@ export function HotelBookingFlow({ hotel, onClose }: HotelBookingFlowProps) {
                                     } else if (step === 'guests') {
                                         setStep('details');
                                     } else if (step === 'details') {
-                                        if (!formData.user_name || !formData.user_email || !formData.user_phone) return;
+                                        if (!formData.user_name || !formData.user_email || !formData.user_phone || !formData.document_id) return;
                                         handleBooking();
                                     }
                                 }}

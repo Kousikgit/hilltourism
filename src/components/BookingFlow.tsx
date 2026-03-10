@@ -188,6 +188,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
         name: '',
         email: '',
         phone: '',
+        document_type: 'Aadhar Card',
+        document_id: '',
         room_id: rooms[0]?.id || '',
     });
 
@@ -317,8 +319,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
             setStep('details');
         }
         else if (step === 'details') {
-            if (!formData.name || !formData.email || !formData.phone) {
-                setError('Please fill in all details');
+            if (!formData.name || !formData.email || !formData.phone || !formData.document_id) {
+                setError('Please fill in all details including document ID');
                 return;
             }
             setStep('payment');
@@ -342,6 +344,8 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                     adults: formData.adults,
                     children_5_8: formData.children_5_8,
                     children_below_5: formData.children_below_5,
+                    document_type: formData.document_type,
+                    document_id: formData.document_id,
                     status: 'confirmed'
                 });
                 setStep('success');
@@ -641,6 +645,38 @@ export function BookingFlow({ property, rooms = [], onClose }: BookingFlowProps)
                                             <span>Confirming: You will receive booking updates on this WhatsApp.</span>
                                         </p>
                                     )}
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Document Type</label>
+                                        <select
+                                            value={formData.document_type}
+                                            onChange={e => {
+                                                setFormData({ ...formData, document_type: e.target.value });
+                                                setError(null);
+                                            }}
+                                            className="w-full p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 outline-none focus:bg-white focus:ring-2 focus:ring-primary-500 font-bold dark:text-white appearance-none"
+                                        >
+                                            <option>Aadhar Card</option>
+                                            <option>Passport</option>
+                                            <option>Driving Licence</option>
+                                            <option>Voter ID Card</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest ml-1">Document ID Number</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter ID Number"
+                                            value={formData.document_id}
+                                            onChange={e => {
+                                                setFormData({ ...formData, document_id: e.target.value });
+                                                setError(null);
+                                            }}
+                                            className="w-full p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 outline-none focus:bg-white focus:ring-2 focus:ring-primary-500 font-bold dark:text-white"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

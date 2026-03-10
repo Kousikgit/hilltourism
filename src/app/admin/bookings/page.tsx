@@ -270,6 +270,13 @@ export default function AdminBookings() {
                                             <p className="text-sm font-black text-neutral-900 dark:text-white uppercase">{selectedBooking.user_phone || 'Not Provided'}</p>
                                         </div>
                                     </div>
+                                    <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-white/5 border border-neutral-100 dark:border-white/5 space-y-1">
+                                        <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest">Identification</span>
+                                        <div className="flex flex-col">
+                                            <p className="text-sm font-black text-neutral-900 dark:text-white uppercase">{selectedBooking.document_type || 'N/A'}</p>
+                                            <p className="text-[10px] font-bold text-neutral-500 font-mono">{selectedBooking.document_id || 'ID not provided'}</p>
+                                        </div>
+                                    </div>
                                     <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-white/5 border border-neutral-100 dark:border-white/5 space-y-2">
                                         <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest">Guest Breakdown</span>
                                         <div className="space-y-1">
