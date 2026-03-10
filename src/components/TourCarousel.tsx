@@ -58,7 +58,7 @@ export function TourCarousel({ tours }: TourCarouselProps) {
                                 href={`/tours/${tour.id}`}
                                 className="group relative bg-neutral-50 dark:bg-neutral-800 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-100 dark:border-white/5 hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500 cursor-pointer block h-full"
                             >
-                                <div className="relative h-96 sm:h-[500px] overflow-hidden">
+                                <div className="relative h-80 sm:h-[450px] overflow-hidden">
                                     {tour.images[0] ? (
                                         <Image
                                             src={tour.images[0]}
