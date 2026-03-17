@@ -126,17 +126,7 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
 
                 {/* Render the Active Carousel */}
                 <div className="space-y-6 pt-2 md:pt-6">
-                    {activeCategory !== 'all' && filteredTours.length > 0 && (
-                        <div className="flex items-center gap-6 mb-8">
-                            <h3 className="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter shrink-0 italic-none">
-                                {activeCatData.title}
-                            </h3>
-                            <div className="h-px bg-neutral-200 dark:bg-white/10 w-full" />
-                            <div className="shrink-0 px-4 py-1.5 rounded-full bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-white/5 text-[10px] font-black text-neutral-400 uppercase tracking-widest">
-                                {activeCatData.badge}
-                            </div>
-                        </div>
-                    )}
+
 
                     {filteredTours.length > 0 ? (
                         <TourCarousel key={activeCategory} tours={filteredTours} />

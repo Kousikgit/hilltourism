@@ -92,7 +92,7 @@ export function Hero() {
                                     </p>
 
                                     {/* Redesigned Buttons - Contact Us Green */}
-                                    <div className="pt-6 flex flex-row justify-center gap-3 md:gap-4 items-center w-full max-w-[320px] mx-auto sm:max-w-none sm:px-0">
+                                    <div className="pt-6 flex flex-row justify-center gap-3 md:gap-4 items-center w-full max-w-[320px] mx-auto sm:max-w-none sm:px-0 pb-12 sm:pb-0">
                                         <Button
                                             size="md"
                                             className="flex-1 sm:flex-none sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest bg-white text-neutral-900 hover:bg-neutral-100 hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/5 border-0"
@@ -115,33 +115,33 @@ export function Hero() {
 
             {/* Search Bar - Positioned at bottom overlapping content */}
             <div className="absolute bottom-0 left-0 right-0 z-20 px-4 pb-6 md:pb-12 flex justify-center">
-                <div className="bg-neutral-900/60 backdrop-blur-2xl border border-white/10 p-1.5 md:p-2 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-4xl w-full">
-                    <div className="flex flex-col md:flex-row items-center gap-1.5 md:gap-2">
+                <div className="bg-neutral-900/60 backdrop-blur-2xl border border-white/10 p-1.5 md:p-2 rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-4xl w-full">
+                    <div className="flex flex-col md:flex-row items-center gap-1.5 md:gap-2 w-full">
                         {/* Dates Row on Mobile */}
                         <div className="flex flex-row items-center gap-1.5 md:gap-2 w-full md:flex-1">
                             {/* Check In */}
-                            <div className="flex-1 relative group">
-                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors">
+                            <div className="flex-1 w-1/2 sm:w-auto relative group">
+                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors pointer-events-none">
                                     <Calendar className="w-3 h-3 md:w-4 md:h-4" />
                                 </div>
-                                <div className="absolute left-8 md:left-10 top-1.5 md:top-2 text-[8px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest">Check In</div>
+                                <div className="absolute left-8 md:left-10 top-1.5 md:top-2 text-[8px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest pointer-events-none">Check In</div>
                                 <input
                                     type="date"
-                                    className="w-full bg-black/20 text-white pl-8 md:pl-10 pr-2 md:pr-4 pt-5 pb-1 md:pt-6 md:pb-2 rounded-2xl md:rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 text-xs md:text-base [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full bg-black/20 text-white pl-8 md:pl-10 pr-2 md:pr-4 pt-5 pb-1 md:pt-6 md:pb-2 rounded-xl md:rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 text-xs md:text-base [&::-webkit-calendar-picker-indicator]:invert"
                                     value={checkIn}
                                     onChange={(e) => setCheckIn(e.target.value)}
                                 />
                             </div>
 
                             {/* Check Out */}
-                            <div className="flex-1 relative group">
-                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors">
+                            <div className="flex-1 w-1/2 sm:w-auto relative group">
+                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors pointer-events-none">
                                     <Calendar className="w-3 h-3 md:w-4 md:h-4" />
                                 </div>
-                                <div className="absolute left-8 md:left-10 top-1.5 md:top-2 text-[8px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest">Check Out</div>
+                                <div className="absolute left-8 md:left-10 top-1.5 md:top-2 text-[8px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest pointer-events-none">Check Out</div>
                                 <input
                                     type="date"
-                                    className="w-full bg-black/20 text-white pl-8 md:pl-10 pr-2 md:pr-4 pt-5 pb-1 md:pt-6 md:pb-2 rounded-2xl md:rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 text-xs md:text-base [&::-webkit-calendar-picker-indicator]:invert"
+                                    className="w-full bg-black/20 text-white pl-8 md:pl-10 pr-2 md:pr-4 pt-5 pb-1 md:pt-6 md:pb-2 rounded-xl md:rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 text-xs md:text-base [&::-webkit-calendar-picker-indicator]:invert"
                                     value={checkOut}
                                     onChange={(e) => setCheckOut(e.target.value)}
                                 />
@@ -149,13 +149,13 @@ export function Hero() {
                         </div>
 
                         {/* Place/Location */}
-                        <div className="flex-1 w-full relative group">
-                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors">
-                                {isLoadingLocations ? <Loader2 className="w-4 h-4 animate-spin" /> : <MapPin className="w-4 h-4" />}
+                        <div className="w-full md:flex-1 relative group">
+                            <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-white/60 group-focus-within:text-primary-400 transition-colors pointer-events-none">
+                                {isLoadingLocations ? <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin" /> : <MapPin className="w-3 h-3 md:w-4 md:h-4" />}
                             </div>
-                            <div className="absolute left-10 top-1.5 md:top-2 text-[9px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest">Place</div>
+                            <div className="absolute left-8 md:left-10 top-1.5 md:top-2 text-[8px] md:text-[10px] font-bold text-white/60 uppercase tracking-widest pointer-events-none">Place</div>
                             <select
-                                className="w-full bg-black/20 text-white pl-10 pr-10 pt-5 pb-1 md:pt-6 md:pb-2 rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 appearance-none cursor-pointer"
+                                className="w-full bg-black/20 text-white pl-8 md:pl-10 pr-8 md:pr-10 pt-5 pb-1 md:pt-6 md:pb-2 rounded-xl md:rounded-3xl border-transparent focus:bg-black/40 focus:ring-0 transition-all outline-none font-medium h-12 md:h-16 text-xs md:text-base appearance-none cursor-pointer"
                                 value={locationId}
                                 onChange={(e) => setLocationId(e.target.value)}
                                 disabled={isLoadingLocations}
@@ -165,15 +165,15 @@ export function Hero() {
                                     <option key={loc.id} value={loc.id} className="text-black">{loc.name}</option>
                                 ))}
                             </select>
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40">
-                                <ChevronRight className="w-3 h-3 rotate-90" />
+                            <div className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40">
+                                <ChevronRight className="w-3 h-3 md:w-4 md:h-4 rotate-90" />
                             </div>
                         </div>
 
                         {/* Search Button */}
                         <Button
                             onClick={handleSearch}
-                            className="w-full md:w-auto h-10 md:h-12 px-6 rounded-xl md:rounded-2xl bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-600/20 font-bold uppercase tracking-widest flex items-center justify-center gap-2 text-xs"
+                            className="w-full md:w-auto h-12 px-6 rounded-xl md:rounded-2xl bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-600/20 font-bold uppercase tracking-widest flex items-center justify-center gap-2 text-xs"
                         >
                             <Search className="w-4 h-4" />
                             <span className="md:hidden">Search</span>
