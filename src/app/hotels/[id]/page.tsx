@@ -295,7 +295,7 @@ export default function HotelDetails() {
             )}
             {/* Sticky Mobile Navbar */}
             <div className="fixed bottom-6 inset-x-6 z-[60] lg:hidden">
-                <div className="bg-neutral-900/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 flex items-center justify-between shadow-2xl shadow-black/50">
+                <div className="bg-neutral-900/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-5 flex items-center justify-between gap-4 shadow-2xl shadow-black/50">
                     <div className="space-y-0.5">
                         <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
                             Starts from

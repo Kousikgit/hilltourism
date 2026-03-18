@@ -363,12 +363,12 @@ export default function PropertyDetails() {
                             viewAllLabel="Infinite Himalayan discoveries await"
                         />
                     </div>
-                </div>
+                )}
             </div>
 
             {/* Sticky Mobile Navbar - Re-optimized */}
             <div className="fixed bottom-6 inset-x-6 z-[60] lg:hidden">
-                <div className="bg-neutral-900/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 flex items-center justify-between shadow-3xl">
+                <div className="bg-neutral-900/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 flex items-center justify-between gap-4 shadow-3xl">
                     <div className="space-y-0.5">
                         <div className="text-[11px] font-bold text-primary-500 uppercase tracking-widest">Starts from</div>
                         <div className="flex items-baseline gap-2">
@@ -395,7 +395,7 @@ export default function PropertyDetails() {
                     </div>
                 )
             }
-        </main >
+        </main>
     );
 }
 
