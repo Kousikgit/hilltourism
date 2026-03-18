@@ -44,21 +44,23 @@ export default function HotelsPage() {
     }
 
     return (
-        <main className="min-h-screen bg-stone-50 dark:bg-neutral-950 pt-28 pb-20">
+        <main className="min-h-screen bg-stone-50 dark:bg-neutral-950 pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-10">
                 {/* Header Section */}
-                <div className="flex flex-col items-center text-center space-y-4 max-w-3xl mx-auto">
-                    <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 shadow-xl shadow-primary-500/10">
-                        <Building2 className="w-8 h-8" />
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                        <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 shadow-xl shadow-primary-500/10 w-fit">
+                            <Building2 className="w-8 h-8" />
+                        </div>
+                        <div className="space-y-3">
+                            <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight uppercase leading-none">
+                                Premium <span className="text-primary-600">Hotels</span>
+                            </h1>
+                        </div>
                     </div>
-                    <div className="space-y-3">
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
-                            Premium <span className="text-primary-600">Hotels</span>
-                        </h1>
-                        <p className="text-neutral-500 dark:text-neutral-400 text-base md:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
-                            Curated comfort and luxury hospitality in the heart of the Himalayas. Discover your perfect urban escape.
-                        </p>
-                    </div>
+                    <p className="text-neutral-500 dark:text-neutral-400 text-sm md:text-base font-medium leading-relaxed max-w-xl md:text-right">
+                        Curated comfort and luxury hospitality in the heart of the Himalayas. Discover your perfect urban escape.
+                    </p>
                 </div>
 
                 {/* Filter Section - Hidden as requested */}

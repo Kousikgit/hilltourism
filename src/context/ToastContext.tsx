@@ -63,7 +63,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                         key={toast.id}
                         className={cn(
                             "pointer-events-auto flex items-start gap-3 p-4 rounded-2xl shadow-xl border backdrop-blur-md animate-in slide-in-from-right-full fade-in duration-300",
-                            toast.type === "success" && "bg-emerald-50/90 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200",
+                            toast.type === "success" && "bg-primary-50/90 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800 text-primary-800 dark:text-primary-200",
                             toast.type === "error" && "bg-red-50/90 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200",
                             toast.type === "warning" && "bg-amber-50/90 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200",
                             toast.type === "info" && "bg-blue-50/90 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200"

@@ -96,7 +96,7 @@ export default function AdminDashboard() {
     };
 
     const statItems = [
-        { name: 'Total Revenue', value: `₹${stats.revenue.toLocaleString()}`, icon: IndianRupee, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+        { name: 'Total Revenue', value: `₹${stats.revenue.toLocaleString()}`, icon: IndianRupee, color: 'text-primary-600', bg: 'bg-primary-50' },
         { name: 'Active Bookings', value: stats.bookings.toString(), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
         { name: 'Properties', value: stats.properties.toString(), icon: Building2, color: 'text-primary-600', bg: 'bg-primary-50' },
     ];
@@ -216,7 +216,7 @@ export default function AdminDashboard() {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <span className={`block text-[10px] font-black uppercase tracking-widest mb-1 ${booking.status === 'confirmed' ? 'text-emerald-500' :
+                                        <span className={`block text-[10px] font-black uppercase tracking-widest mb-1 ${booking.status === 'confirmed' ? 'text-primary-500' :
                                             booking.status === 'cancelled' ? 'text-red-500' : 'text-amber-500'
                                             }`}>
                                             {booking.status}

@@ -335,7 +335,7 @@ export default function AdminHotels() {
                                                     <div className="flex flex-wrap gap-2">
                                                         <span className={cn(
                                                             "px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5",
-                                                            room.inventory_count < 3 ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-600"
+                                                            room.inventory_count < 3 ? "bg-red-100 text-red-600" : "bg-primary-100 text-primary-600"
                                                         )}>
                                                             <Archive className="w-3 h-3" /> {room.inventory_count} Units Left
                                                         </span>

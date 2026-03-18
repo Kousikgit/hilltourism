@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Building2 } from "lucide-react";
+import Link from "next/link";
 import { Hotel, Location } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { HotelCard } from "./HotelCard";
@@ -10,9 +11,11 @@ import { HotelCard } from "./HotelCard";
 interface HotelCarouselProps {
     hotels: Hotel[];
     locations: Location[];
+    viewAllLink?: string;
+    viewAllLabel?: string;
 }
 
-export function HotelCarousel({ hotels, locations }: HotelCarouselProps) {
+export function HotelCarousel({ hotels, locations, viewAllLink, viewAllLabel }: HotelCarouselProps) {
     const [emblaRef, emblaApi] = useEmblaCarousel({
         align: "start",
         containScroll: "trimSnaps",
@@ -61,6 +64,34 @@ export function HotelCarousel({ hotels, locations }: HotelCarouselProps) {
                             />
                         </div>
                     ))}
+
+                    {/* "View All" Card */}
+                    {viewAllLink && (
+                        <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
+                            <Link
+                                href={viewAllLink}
+                                className="group relative bg-gradient-to-br from-primary-600 to-orange-500 rounded-3xl overflow-hidden shadow-xl shadow-primary-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full text-white"
+                            >
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
+                                <div className="relative h-[450px] flex flex-col items-center justify-center p-8 text-center space-y-6">
+                                    <div className="p-6 bg-white/20 backdrop-blur-xl rounded-full ring-4 ring-white/10 group-hover:scale-110 transition-transform duration-500">
+                                        <Building2 className="w-12 h-12 text-white" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-3xl font-black uppercase tracking-tighter leading-none italic-none">
+                                            Explore <br /> All <span className="text-white/80">Hotels</span>
+                                        </h3>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+                                            {viewAllLabel || 'Luxury in every corner'}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2 px-6 py-3 bg-white text-primary-600 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+                                        Check Availability <ChevronRight className="w-4 h-4" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
 

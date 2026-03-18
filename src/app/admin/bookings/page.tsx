@@ -266,7 +266,7 @@ export default function AdminBookings() {
                                     <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-white/5 border border-neutral-100 dark:border-white/5 space-y-1">
                                         <span className="text-[8px] font-black text-neutral-400 uppercase tracking-widest">WhatsApp / Phone</span>
                                         <div className="flex items-center gap-2">
-                                            <MessageSquare className="w-3 h-3 text-emerald-500" />
+                                            <MessageSquare className="w-3 h-3 text-primary-500" />
                                             <p className="text-sm font-black text-neutral-900 dark:text-white uppercase">{selectedBooking.user_phone || 'Not Provided'}</p>
                                         </div>
                                     </div>
@@ -401,7 +401,7 @@ export default function AdminBookings() {
                                                     </div>
                                                     <div className="flex justify-between items-center">
                                                         <div className="flex flex-col">
-                                                            <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest">Balance on Arrival</span>
+                                                            <span className="text-[9px] font-black text-primary-600 uppercase tracking-widest">Balance on Arrival</span>
                                                             <span className="text-[8px] text-neutral-400 font-bold uppercase">Pay at Check-in</span>
                                                         </div>
                                                         <span className="text-sm font-black text-neutral-900 dark:text-white">₹{final.toLocaleString()}</span>
@@ -413,7 +413,7 @@ export default function AdminBookings() {
                                             return (
                                                 <div className="flex justify-between items-center">
                                                     <div className="flex flex-col">
-                                                        <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest">Balance on Arrival</span>
+                                                        <span className="text-[9px] font-black text-primary-600 uppercase tracking-widest">Balance on Arrival</span>
                                                         <span className="text-[8px] text-neutral-400 font-bold uppercase">Pay at Check-in</span>
                                                     </div>
                                                     <span className="text-sm font-black text-neutral-900 dark:text-white">₹{final.toLocaleString()}</span>

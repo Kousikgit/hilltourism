@@ -91,16 +91,24 @@ function PropertiesContent() {
 
     return (
         <div className="pt-32 pb-24 px-4 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12">
-                <div>
-                    <h1 className="text-4xl font-bold text-neutral-900 mb-2 tracking-tight">Available Stays</h1>
-                    <p className="text-neutral-600">
-                        {isFilteredByDate
-                            ? `Showing available stays for ${guests || 1} guest(s) from ${new Date(checkIn!).toLocaleDateString()} to ${new Date(checkOut!).toLocaleDateString()}`
-                            : "Discover handpicked homestays for your next adventure."
-                        }
-                    </p>
+            <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
+                <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                    <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-500 w-fit">
+                        <Building2 className="w-8 h-8 md:w-10 md:h-10" />
+                    </div>
+                    <div className="space-y-3">
+                        <h1 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter italic-none leading-none">
+                            Available <span className="text-primary-500">Stays</span>
+                        </h1>
+                    </div>
                 </div>
+                <p className="text-neutral-500 dark:text-neutral-400 max-w-xl text-sm md:text-base font-medium text-center md:text-right">
+                    {isFilteredByDate
+                        ? `Showing available stays for ${guests || 1} guest(s) from ${new Date(checkIn!).toLocaleDateString()} to ${new Date(checkOut!).toLocaleDateString()}`
+                        : "Discover handpicked homestays for your next adventure."
+                    }
+                </p>
+            </div>
 
                 <div className="flex flex-wrap gap-4 w-full md:w-auto">
                     <div className="relative flex-1 md:w-64">
@@ -181,7 +189,7 @@ function PropertiesContent() {
                                     )}>
                                         {prop.category}
                                     </div>
-                                    <div className="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
+                                    <div className="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-primary-500/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
                                         3 Meal Included
                                     </div>
                                 </div>
@@ -205,7 +213,7 @@ function PropertiesContent() {
                                                 </div>
                                             ) : prop.guest_prices?.one ? (
                                                 <div className="flex flex-col">
-                                                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Starts from</span>
+                                                    <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">Starts from</span>
                                                     <span className="text-xl font-bold text-neutral-900">₹{prop.guest_prices.one}</span>
                                                 </div>
                                             ) : (

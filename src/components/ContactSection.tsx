@@ -134,7 +134,7 @@ export function ContactSection() {
                                     className={cn(
                                         "w-full py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-lg transition-all duration-300",
                                         status === 'success'
-                                            ? "bg-emerald-600 hover:bg-emerald-600 text-white shadow-emerald-600/20"
+                                            ? "bg-primary-600 hover:bg-primary-600 text-white shadow-primary-600/20"
                                             : "bg-primary-600 hover:bg-primary-500 text-white shadow-primary-600/20 hover:scale-[1.01]"
                                     )}
                                 >

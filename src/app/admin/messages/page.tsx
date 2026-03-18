@@ -167,7 +167,7 @@ export default function AdminMessagesPage() {
                                             rel="noopener noreferrer"
                                             className="flex-1 lg:flex-none"
                                         >
-                                            <Button className="w-full lg:w-auto rounded-xl px-8 text-[10px] font-black uppercase tracking-widest h-10 bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20">
+                                            <Button className="w-full lg:w-auto rounded-xl px-8 text-[10px] font-black uppercase tracking-widest h-10 bg-primary-600 hover:bg-primary-500 text-white shadow-primary-600/20">
                                                 <MessageSquare className="w-3.5 h-3.5 mr-2" /> Reply via WhatsApp
                                             </Button>
                                         </a>

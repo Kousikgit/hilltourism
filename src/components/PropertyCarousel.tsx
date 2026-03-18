@@ -1,20 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, MapPin, Compass } from "lucide-react";
-import { Tour } from "@/lib/services";
+import { ChevronLeft, ChevronRight, Building2, ArrowRight } from "lucide-react";
+import { Property, Location } from "@/lib/services";
 import { cn } from "@/lib/utils";
+import { PropertyCard } from "./PropertyCard";
 
-interface TourCarouselProps {
-    tours: Tour[];
+interface PropertyCarouselProps {
+    properties: Property[];
+    locations: Location[];
     viewAllLink?: string;
     viewAllLabel?: string;
 }
 
-export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselProps) {
+export function PropertyCarousel({ properties, locations, viewAllLink, viewAllLabel }: PropertyCarouselProps) {
     const [emblaRef, emblaApi] = useEmblaCarousel({
         align: "start",
         containScroll: "trimSnaps",
@@ -54,86 +55,38 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
             {/* Carousel Viewport */}
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-4 lg:-ml-8">
-                    {tours.map((tour) => (
-                        <div key={tour.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 sm:py-4">
-                            <Link
-                                href={`/tours/${tour.id}`}
-                                className="group relative bg-neutral-50 dark:bg-neutral-800 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-100 dark:border-white/5 hover:shadow-2xl hover:shadow-primary-900/10 transition-all duration-500 cursor-pointer block h-full"
-                            >
-                                <div className="relative h-80 sm:h-[450px] overflow-hidden">
-                                    {tour.images[0] ? (
-                                        <Image
-                                            src={tour.images[0]}
-                                            alt={tour.name}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                            unoptimized
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
-                                            <Compass className="w-12 h-12 text-neutral-300 dark:text-neutral-700" />
-                                        </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/90 via-transparent to-transparent opacity-80" />
-
-                                    <div className={cn(
-                                        "absolute top-4 right-4 px-3 py-1 backdrop-blur-md border rounded-full text-[10px] font-black uppercase tracking-widest transition-all",
-                                        "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/40 scale-110"
-                                    )}>
-                                        {tour.duration}
-                                    </div>
-
-                                    <div className="absolute bottom-0 inset-x-0 p-5">
-                                        <div className="flex items-center gap-2 text-white/80 text-[10px] font-bold uppercase tracking-widest mb-1.5">
-                                            <MapPin className="w-3 h-3 text-primary-500" />
-                                            {tour.locations[0] || 'Multiple Locations'}
-                                        </div>
-                                        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-primary-400 transition-colors truncate uppercase leading-tight tracking-tighter">
-                                            {tour.name}
-                                        </h3>
-                                        <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-medium text-white/60 uppercase tracking-widest font-black">
-                                                    {tour.difficulty}
-                                                </span>
-                                                {(tour.category === "Domestic Tour" || tour.category === "Religious Tour") && (
-                                                    <span className="text-base font-black text-white tracking-tighter mt-0.5">
-                                                        ₹{tour.price}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="px-3 py-1.5 rounded-xl bg-primary-600 text-white text-[9px] font-bold uppercase tracking-widest hover:bg-primary-500 transition-all shadow-lg shadow-primary-600/20">
-                                                Book Now
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
+                    {properties.map((property) => (
+                        <div key={property.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
+                            <PropertyCard
+                                property={property}
+                                locationName={locations.find(l => l.id === property.location_id)?.name}
+                                className="h-full"
+                            />
                         </div>
                     ))}
 
                     {/* "View All" Card */}
                     {viewAllLink && (
-                        <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 sm:py-4">
+                        <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
                             <Link
                                 href={viewAllLink}
-                                className="group relative bg-gradient-to-br from-primary-600 to-orange-500 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-primary-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full text-white"
+                                className="group relative bg-gradient-to-br from-primary-600 to-orange-500 rounded-3xl overflow-hidden shadow-xl shadow-primary-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full text-white"
                             >
                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
-                                <div className="relative h-80 sm:h-[450px] flex flex-col items-center justify-center p-8 text-center space-y-6">
+                                <div className="relative h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center space-y-6">
                                     <div className="p-6 bg-white/20 backdrop-blur-xl rounded-full ring-4 ring-white/10 group-hover:scale-110 transition-transform duration-500">
-                                        <Compass className="w-12 h-12 text-white" />
+                                        <Building2 className="w-12 h-12 text-white" />
                                     </div>
                                     <div className="space-y-2">
                                         <h3 className="text-3xl font-black uppercase tracking-tighter leading-none italic-none">
-                                            Explore <br /> All <span className="text-white/80">Tours</span>
+                                            Explore <br /> All <span className="text-white/80">Stays</span>
                                         </h3>
                                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-                                            {viewAllLabel || 'Infinite Discoveries await'}
+                                            {viewAllLabel || 'AUTHENTIC HIMALAYAN HOMESTAYS'}
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-2 px-6 py-3 bg-white text-primary-600 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl">
-                                        View Full Catalog <ChevronRight className="w-4 h-4" />
+                                        View All Properties <ArrowRight className="w-4 h-4" />
                                     </div>
                                 </div>
                             </Link>
@@ -143,9 +96,9 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
             </div>
 
             {/* Navigation & Controls Section */}
-            {tours.length > 4 && (
+            {(properties.length > 4 || (properties.length > 3 && viewAllLink)) && (
                 <div className="flex flex-col items-center gap-4 mt-8">
-                    {/* Navigation Buttons - Hidden on mobile, flex on desktop */}
+                    {/* Navigation Buttons */}
                     <div className="hidden md:flex items-center gap-3">
                         <button
                             onClick={scrollPrev}
@@ -173,7 +126,7 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
                         </button>
                     </div>
 
-                    {/* Pagination Dots (Radio Style) */}
+                    {/* Pagination Dots */}
                     <div className="flex justify-center flex-wrap gap-2.5">
                         {scrollSnaps.map((_, index) => (
                             <button

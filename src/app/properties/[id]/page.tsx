@@ -15,6 +15,7 @@ import { homestayService, Property, Location } from '@/lib/services';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { BookingFlow } from '@/components/BookingFlow';
+import { PropertyCarousel } from '@/components/PropertyCarousel';
 
 const AMENITY_ICONS: Record<string, any> = {
     'High-Speed Wi-Fi': Wifi,
@@ -35,6 +36,8 @@ export default function PropertyDetails() {
     const [rooms, setRooms] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
+    const [relatedProperties, setRelatedProperties] = useState<Property[]>([]);
+    const [allLocations, setAllLocations] = useState<Location[]>([]);
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -67,6 +70,14 @@ export default function PropertyDetails() {
                 const loc = locs.find(l => l.id === found.location_id);
                 setLocation(loc || null);
                 setRooms(roomData || []);
+
+                // Fetch related properties
+                const allProps = await homestayService.getProperties();
+                setAllLocations(locs);
+                const filtered = allProps
+                    .filter(p => p.id !== id)
+                    .slice(0, 8);
+                setRelatedProperties(filtered);
             }
         } catch (error) {
             console.error('Error loading property:', error);
@@ -150,7 +161,7 @@ export default function PropertyDetails() {
                             </div>
 
                             <div className="absolute top-6 right-6 z-10 flex flex-col items-end gap-3">
-                                <div className="px-4 py-1.5 rounded-full bg-emerald-500/90 backdrop-blur-md text-white text-xs font-black uppercase tracking-widest shadow-xl">
+                                <div className="px-4 py-1.5 rounded-full bg-primary-500/90 backdrop-blur-md text-white text-xs font-black uppercase tracking-widest shadow-xl">
                                     3 Meal Included
                                 </div>
 
@@ -302,7 +313,7 @@ export default function PropertyDetails() {
                                             )}
                                         </div>
                                     </div>
-                                    <div className="p-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 rounded-xl ring-1 ring-emerald-500/20">
+                                    <div className="p-2.5 bg-primary-500/10 text-primary-600 dark:text-primary-500 rounded-xl ring-1 ring-primary-500/20">
                                         <ShieldCheck className="w-5 h-5" />
                                     </div>
                                 </div>
@@ -326,6 +337,31 @@ export default function PropertyDetails() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Related Properties Section */}
+                {relatedProperties.length > 0 && (
+                    <div className="mt-24 border-t border-neutral-100 dark:border-white/5 pt-24 space-y-12">
+                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
+                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-500 w-fit">
+                                    <Sparkles className="w-8 h-8" />
+                                </div>
+                                <div className="space-y-3">
+                                    <h2 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
+                                        Related <span className="text-primary-500">Stays</span>
+                                    </h2>
+                                    <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">DISCOVER MORE AUTHENTIC HIMALAYAN HOMESTAYS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <PropertyCarousel 
+                            properties={relatedProperties} 
+                            locations={allLocations} 
+                            viewAllLink="/properties" 
+                            viewAllLabel="Infinite Himalayan discoveries await"
+                        />
                     </div>
                 </div>
             </div>

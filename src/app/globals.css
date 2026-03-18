@@ -48,16 +48,16 @@ h6 {
 /* Premium Background Utilities */
 .bg-mesh {
   background-image:
-    radial-gradient(at 0% 0%, hsla(174, 84%, 41%, 0.05) 0px, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(180, 50%, 50%, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(174, 84%, 41%, 0.05) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(33, 100%, 50%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(38, 100%, 50%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(33, 100%, 50%, 0.05) 0px, transparent 50%);
 }
 
 .dark .bg-mesh {
   background-image:
-    radial-gradient(at 0% 0%, hsla(174, 84%, 41%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(180, 50%, 50%, 0.07) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(174, 84%, 41%, 0.1) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(33, 100%, 50%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(38, 100%, 50%, 0.07) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(33, 100%, 50%, 0.1) 0px, transparent 50%);
 }
 
 .bg-dot-pattern {

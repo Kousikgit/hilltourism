@@ -58,7 +58,7 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
     if (!tours.length) return null;
 
     return (
-        <section id="popular-tours" className={cn("relative px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden", hideHeader ? "py-8" : "py-16")}>
+        <section id="popular-tours" className={cn("relative px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden", hideHeader ? "pt-2 pb-8" : "py-16")}>
             <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-4 md:mb-8">
                     {!hideHeader && (

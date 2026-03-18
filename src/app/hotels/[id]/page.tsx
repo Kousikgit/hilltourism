@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import { HotelBookingFlow } from '@/components/HotelBookingFlow';
 import { RoomCarousel } from '@/components/RoomCarousel';
+import { HotelCarousel } from '@/components/HotelCarousel';
 
 const AMENITY_ICONS: Record<string, any> = {
     'High-Speed Wi-Fi': Wifi,
@@ -35,6 +36,8 @@ export default function HotelDetails() {
     const [rooms, setRooms] = useState<HotelRoom[]>([]);
     const [loading, setLoading] = useState(true);
     const [isBookingOpen, setIsBookingOpen] = useState(false);
+    const [relatedHotels, setRelatedHotels] = useState<Hotel[]>([]);
+    const [allLocations, setAllLocations] = useState<Location[]>([]);
 
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -62,6 +65,17 @@ export default function HotelDetails() {
                 setLocation(hotelData.locations);
                 const roomData = await homestayService.getRoomsByHotel(hotelData.id);
                 setRooms(roomData || []);
+
+                // Fetch related hotels
+                const [hotels, locs] = await Promise.all([
+                    homestayService.getHotels(),
+                    homestayService.getLocations()
+                ]);
+                setAllLocations(locs);
+                const filtered = hotels
+                    .filter(h => h.id !== id)
+                    .slice(0, 8);
+                setRelatedHotels(filtered);
             }
         } catch (error) {
             console.error('Error loading hotel:', error);
@@ -162,7 +176,7 @@ export default function HotelDetails() {
                     <div className="lg:col-span-5 space-y-4 lg:space-y-6">
                         <div className="space-y-3 lg:space-y-4 lg:pl-4">
                             <div className="flex items-center gap-2 text-neutral-400 font-black text-[11px] uppercase tracking-[0.25em] bg-white dark:bg-neutral-900 w-fit px-4 py-2 rounded-2xl border border-neutral-100 dark:border-white/5 shadow-sm">
-                                <MapPin className="w-4 h-4 text-emerald-500" />
+                                <MapPin className="w-4 h-4 text-primary-500" />
                                 {location?.name}, {location?.state}
                             </div>
                             <h1 className="text-2xl lg:text-5xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase leading-none italic-none">
@@ -190,7 +204,7 @@ export default function HotelDetails() {
                                     <div className="flex flex-wrap gap-2 pt-2">
                                         {hotel.amenities?.slice(0, 4).map(amenity => (
                                             <div key={amenity} className="flex items-center gap-2 px-3 py-1.5 bg-neutral-50 dark:bg-neutral-800 rounded-full border border-neutral-100 dark:border-white/5">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                                <div className="w-1.5 h-1.5 rounded-full bg-primary-500" />
                                                 <span className="text-[9px] font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-widest">{amenity}</span>
                                             </div>
                                         ))}
@@ -246,6 +260,31 @@ export default function HotelDetails() {
                         );
                     })()}
                 </div>
+
+                {/* Related Hotels Section */}
+                {relatedHotels.length > 0 && (
+                    <div className="mt-24 border-t border-neutral-100 dark:border-white/5 pt-24 space-y-12">
+                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
+                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+                                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 shadow-xl shadow-primary-500/10 w-fit">
+                                    <Sparkles className="w-8 h-8" />
+                                </div>
+                                <div className="space-y-3">
+                                    <h2 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white tracking-tight uppercase leading-none italic-none">
+                                        Similar <span className="text-primary-600">Retreats</span>
+                                    </h2>
+                                    <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">HOSPITALITY REIMAGINED IN THE HIMALAYAS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <HotelCarousel
+                            hotels={relatedHotels}
+                            locations={allLocations}
+                            viewAllLink="/hotels"
+                            viewAllLabel="Experience more premium hospitality"
+                        />
+                    </div>
+                )}
             </div>
 
             {isBookingOpen && (

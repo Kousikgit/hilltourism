@@ -8,8 +8,8 @@ export default function NotFound() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-stone-50 dark:bg-neutral-950 p-6 text-center">
             <div className="relative mb-8">
-                <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full" />
-                <Compass className="w-32 h-32 text-emerald-500 relative z-10 animate-pulse" />
+                <div className="absolute inset-0 bg-primary-500/20 blur-[100px] rounded-full" />
+                <Compass className="w-32 h-32 text-primary-500 relative z-10 animate-pulse" />
             </div>
 
             <h1 className="text-8xl font-black text-neutral-900 dark:text-white tracking-tighter mb-4">404</h1>
@@ -22,7 +22,7 @@ export default function NotFound() {
             <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                     variant="primary"
-                    className="rounded-full px-10 py-6 h-auto font-black uppercase tracking-widest flex items-center gap-3 shadow-xl shadow-emerald-600/20"
+                    className="rounded-full px-10 py-6 h-auto font-black uppercase tracking-widest flex items-center gap-3 shadow-xl shadow-primary-600/20"
                     onClick={() => window.location.href = '/'}
                 >
                     <Home className="w-5 h-5" />
