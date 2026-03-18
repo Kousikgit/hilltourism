@@ -110,27 +110,28 @@ function PropertiesContent() {
                 </p>
             </div>
 
-                <div className="flex flex-wrap gap-4 w-full md:w-auto">
-                    <div className="relative flex-1 md:w-64">
-                        <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
-                        <select
-                            value={selectedLocation}
-                            onChange={(e) => setSelectedLocation(e.target.value)}
-                            className="w-full pl-12 pr-10 py-3 rounded-2xl bg-neutral-100 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 font-medium"
-                        >
-                            <option value="">All Locations</option>
-                            {locations.map((loc) => (
-                                <option key={loc.id} value={loc.id}>
-                                    {loc.name}
-                                </option>
-                            ))}
-                        </select>
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+            <div className="flex flex-wrap gap-4 w-full md:w-auto mb-8">
+                <div className="relative flex-1 md:w-64">
+                    <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
+                    <select
+                        value={selectedLocation}
+                        onChange={(e) => setSelectedLocation(e.target.value)}
+                        className="w-full pl-12 pr-10 py-3 rounded-2xl bg-neutral-100 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 font-medium"
+                    >
+                        <option value="">All Locations</option>
+                        {locations.map((loc) => (
+                            <option key={loc.id} value={loc.id}>
+                                {loc.name}
+                            </option>
+                        ))}
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
                     </div>
                 </div>
+            </div>
 
             {filteredProperties.length === 0 ? (
                 <div className="text-center py-20 bg-neutral-50 rounded-[2.5rem] border border-neutral-100">
@@ -148,8 +149,6 @@ function PropertiesContent() {
                         className="mt-6 rounded-full"
                         onClick={() => {
                             setSelectedLocation('');
-                            // Optional: Clear date params via router.push if we want to reset everything
-                            // router.push('/properties'); 
                         }}
                     >
                         Clear Location Filter
