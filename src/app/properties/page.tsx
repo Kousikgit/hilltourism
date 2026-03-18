@@ -129,10 +129,8 @@ function PropertiesContent() {
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
-                        </div>
                     </div>
                 </div>
-            </div>
 
             {filteredProperties.length === 0 ? (
                 <div className="text-center py-20 bg-neutral-50 rounded-[2.5rem] border border-neutral-100">
