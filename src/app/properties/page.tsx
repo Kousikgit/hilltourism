@@ -108,12 +108,12 @@ function PropertiesContent() {
             </div>
 
             <div className="flex justify-end mb-8">
-                <div className="relative w-full md:w-40">
+                <div className="relative w-full md:w-60">
                     <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
                     <select
                         value={selectedLocation}
                         onChange={(e) => setSelectedLocation(e.target.value)}
-                        className="w-full pl-10 pr-10 py-3 rounded-2xl bg-neutral-100 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 text-[11px] font-black uppercase tracking-widest"
+                        className="w-full pl-10 pr-10 py-3 rounded-2xl bg-white border border-[#FFA500] focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 text-[11px] font-black uppercase tracking-widest"
                     >
                         <option value="">All Locations</option>
                         {locations.map((loc) => (
