@@ -106,7 +106,7 @@ export default function PropertyDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-32">
-            <div className="pt-16 lg:pt-32 max-w-7xl mx-auto px-4">
+            <div className="pt-16 lg:pt-20 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -318,7 +318,7 @@ export default function PropertyDetails() {
                                         <div className="flex items-baseline gap-2.5">
                                             {property.discount_percent !== undefined && property.discount_percent > 0 ? (
                                                 <>
-                                                    <span className="text-5xl font-black text-neutral-900 dark:text-white tracking-tighter leading-none">₹{Math.round(property.price * (1 - property.discount_percent / 100))}</span>
+                                                    <span className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter leading-none">₹{Math.round(property.price * (1 - property.discount_percent / 100))}</span>
                                                     <div className="flex flex-col">
                                                         <span className="text-sm text-neutral-400 line-through decoration-red-500/40">₹{property.price}</span>
                                                         <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">/night/person</span>
@@ -326,7 +326,7 @@ export default function PropertyDetails() {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span className="text-5xl font-black text-neutral-900 dark:text-white tracking-tighter leading-none">₹{property.price}</span>
+                                                    <span className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter leading-none">₹{property.price}</span>
                                                     <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest self-end pb-1.5">/night/person</span>
                                                 </>
                                             )}
