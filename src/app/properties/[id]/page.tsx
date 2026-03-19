@@ -106,19 +106,19 @@ export default function PropertyDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-32">
-            <div className="pt-32 max-w-7xl mx-auto px-4">
+            <div className="pt-16 lg:pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-8"
+                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-2 lg:mb-8"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-[10px] uppercase tracking-widest">Back</span>
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12">
                     {/* Left Column: Visuals */}
-                    <div className="lg:col-span-7 space-y-8">
+                    <div className="lg:col-span-7 space-y-4 lg:space-y-8">
                         {/* Compact Gallery/Carousel */}
                         <div className="relative h-[45vh] lg:h-[60vh] rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
                             <div className="overflow-hidden h-full" ref={emblaRef}>
@@ -212,8 +212,8 @@ export default function PropertyDetails() {
                             </div>
                         )}
 
-                        {/* Amenities: Refined Chip Style */}
-                        <div className="space-y-4">
+                        {/* Amenities: Refined Chip Style - Hidden on Mobile */}
+                        <div className="hidden lg:block space-y-3 lg:space-y-4">
                             <div className="text-[11px] font-bold text-neutral-400 uppercase tracking-[0.25em] pl-1">Property Features</div>
                             <div className="flex flex-wrap gap-2">
                                 {property.amenities?.map((amenity) => {
@@ -231,8 +231,8 @@ export default function PropertyDetails() {
                             </div>
                         </div>
 
-                        {/* Description Section */}
-                        <div className="space-y-4">
+                        {/* Description Section - Hidden on Mobile */}
+                        <div className="hidden lg:block space-y-3 lg:space-y-4">
                             <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-xs uppercase tracking-widest">
                                 <Info className="w-4 h-4" /> About this property
                             </div>
@@ -248,7 +248,7 @@ export default function PropertyDetails() {
                                 if (sections.length === 0) return null;
 
                                 return (
-                                    <div className="space-y-4">
+                                    <div className="space-y-3 lg:space-y-4">
                                         {sections.map((section: any, idx: number) => (
                                             <div key={idx} className="space-y-2">
                                                 {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
@@ -264,14 +264,14 @@ export default function PropertyDetails() {
                     </div>
 
                     {/* Right Column: Key Details & Booking */}
-                    <div className="lg:col-span-5 space-y-6 sticky top-24 self-start">
-                        <div className="space-y-3">
+                    <div className="lg:col-span-5 space-y-4 lg:space-y-6 sticky top-24 self-start">
+                        <div className="space-y-2 lg:space-y-3">
                             <div className="flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
                                 <MapPin className="w-3.5 h-3.5 text-primary-500" />
                                 {location?.name}, {location?.state}
                             </div>
                             <div className="flex items-start justify-between gap-4 text-left">
-                                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-white uppercase leading-none italic-none">
+                                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-white uppercase leading-none italic-none">
                                     {property.name}
                                 </h1>
                                 <div className="flex flex-col items-end gap-2">
@@ -287,14 +287,33 @@ export default function PropertyDetails() {
                             </div>
                         </div>
 
+                        {/* Mobile Only: Property Features */}
+                        <div className="lg:hidden space-y-3">
+                            <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em] pl-1">Property Features</div>
+                            <div className="flex flex-wrap gap-2">
+                                {property.amenities?.map((amenity) => {
+                                    const Icon = AMENITY_ICONS[amenity] || CheckCircle2;
+                                    return (
+                                        <div
+                                            key={amenity}
+                                            className="flex items-center gap-2 px-3 py-1.5 bg-neutral-50 dark:bg-neutral-900/80 border border-neutral-200/60 dark:border-white/10 rounded-full"
+                                        >
+                                            <Icon className="w-3 h-3 text-primary-600 dark:text-primary-500" />
+                                            <span className="text-[9px] font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-widest">{amenity}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
                         {/* Premium Booking Card */}
-                        <div className="relative p-6 bg-gradient-to-br from-white to-neutral-50/50 dark:from-neutral-900 dark:to-neutral-900/50 border border-neutral-200/80 dark:border-white/10 rounded-3xl shadow-2xl shadow-neutral-900/5 dark:shadow-black/20 space-y-4 overflow-hidden">
+                        <div className="relative p-6 bg-gradient-to-br from-white to-neutral-50/50 dark:from-neutral-900 dark:to-neutral-900/50 border border-neutral-200/80 dark:border-white/10 rounded-3xl shadow-2xl shadow-neutral-900/5 dark:shadow-black/20 space-y-3 lg:space-y-4 overflow-hidden">
                             {/* Subtle background pattern */}
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(var(--primary-rgb,14,165,233),0.03),transparent_50%)] pointer-events-none" />
 
-                            <div className="relative space-y-4">
+                            <div className="relative space-y-3 lg:space-y-4">
                                 <div className="flex justify-between items-start">
-                                    <div className="space-y-2">
+                                    <div className="space-y-1 lg:space-y-2">
                                         <div className="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">Base Rate</div>
                                         <div className="flex items-baseline gap-2.5">
                                             {property.discount_percent !== undefined && property.discount_percent > 0 ? (
@@ -337,12 +356,43 @@ export default function PropertyDetails() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Mobile Only: Description Section */}
+                        <div className="lg:hidden space-y-3 pt-2">
+                            <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-[10px] uppercase tracking-widest">
+                                <Info className="w-3.5 h-3.5" /> About this property
+                            </div>
+                            {(() => {
+                                let sections = [];
+                                try {
+                                    sections = property.description ? JSON.parse(property.description) : [];
+                                    if (!Array.isArray(sections)) throw new Error('Not an array');
+                                } catch (e) {
+                                    sections = property.description ? [{ title: '', content: property.description }] : [];
+                                }
+
+                                if (sections.length === 0) return null;
+
+                                return (
+                                    <div className="space-y-4">
+                                        {sections.map((section: any, idx: number) => (
+                                            <div key={idx} className="space-y-1.5">
+                                                {section.title && <h3 className="text-base font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
+                                                <p className="text-sm text-neutral-600 dark:text-neutral-400 font-medium leading-relaxed whitespace-pre-wrap">
+                                                    {section.content}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })()}
+                        </div>
                     </div>
                 </div>
 
                 {/* Related Properties Section */}
                 {relatedProperties.length > 0 && (
-                    <div className="mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 space-y-6">
+                    <div className="mt-8 lg:mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 space-y-4 lg:space-y-6">
                         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-4">
                             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
                                 <div className="space-y-2">
