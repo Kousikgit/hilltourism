@@ -102,7 +102,7 @@ export default function HotelDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-8 lg:pb-12">
-            <div className="pt-20 lg:pt-32 max-w-7xl mx-auto px-4">
+            <div className="pt-12 lg:pt-20 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -116,7 +116,7 @@ export default function HotelDetails() {
                     {/* Left Column: Visuals */}
                     <div className="lg:col-span-7 space-y-4 lg:space-y-6">
                         {/* Hero Gallery */}
-                        <div className="relative h-[35vh] lg:h-[50vh] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
+                        <div className="relative h-[45vh] lg:h-[65vh] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
                             <div className="overflow-hidden h-full" ref={emblaRef}>
                                 <div className="flex h-full">
                                     {(hotel.images?.length ? hotel.images : [null]).map((img, idx) => (
