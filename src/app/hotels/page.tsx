@@ -49,9 +49,6 @@ export default function HotelsPage() {
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
                     <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                        <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 shadow-xl shadow-primary-500/10 w-fit">
-                            <Building2 className="w-8 h-8" />
-                        </div>
                         <div className="space-y-3">
                             <h1 className="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight uppercase leading-none">
                                 Premium <span className="text-primary-600">Hotels</span>

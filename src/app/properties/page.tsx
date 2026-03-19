@@ -93,9 +93,6 @@ function PropertiesContent() {
         <div className="pt-32 pb-24 px-4 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
                 <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                    <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-500 w-fit">
-                        <Building2 className="w-8 h-8 md:w-10 md:h-10" />
-                    </div>
                     <div className="space-y-3">
                         <h1 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter italic-none leading-none">
                             Available <span className="text-primary-500">Stays</span>
@@ -110,13 +107,13 @@ function PropertiesContent() {
                 </p>
             </div>
 
-            <div className="flex flex-wrap gap-4 w-full md:w-auto mb-8">
-                <div className="relative flex-1 md:w-64">
-                    <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none" />
+            <div className="flex justify-end mb-8">
+                <div className="relative w-full md:w-40">
+                    <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400 pointer-events-none" />
                     <select
                         value={selectedLocation}
                         onChange={(e) => setSelectedLocation(e.target.value)}
-                        className="w-full pl-12 pr-10 py-3 rounded-2xl bg-neutral-100 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 font-medium"
+                        className="w-full pl-10 pr-10 py-3 rounded-2xl bg-neutral-100 border-transparent focus:bg-white focus:ring-2 focus:ring-primary-500 transition-all outline-none appearance-none cursor-pointer text-neutral-900 text-[11px] font-black uppercase tracking-widest"
                     >
                         <option value="">All Locations</option>
                         {locations.map((loc) => (

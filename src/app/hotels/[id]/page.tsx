@@ -102,7 +102,7 @@ export default function HotelDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-12">
-            <div className="pt-16 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+            <div className="pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -173,7 +173,7 @@ export default function HotelDetails() {
                     </div>
 
                     {/* Right Column: Reservation Sidebar */}
-                    <div className="lg:col-span-5 space-y-4 lg:space-y-6">
+                    <div className="lg:col-span-5 space-y-4 lg:space-y-6 sticky top-28 self-start">
                         <div className="space-y-3 lg:space-y-4 lg:pl-4">
                             <div className="flex items-center gap-2 text-neutral-400 font-black text-[11px] uppercase tracking-[0.25em] bg-white dark:bg-neutral-900 w-fit px-4 py-2 rounded-2xl border border-neutral-100 dark:border-white/5 shadow-sm">
                                 <MapPin className="w-4 h-4 text-primary-500" />
@@ -184,7 +184,7 @@ export default function HotelDetails() {
                             </h1>
                         </div>
 
-                        <div className="sticky top-28 lg:pl-4">
+                        <div className="lg:pl-4">
                             <div className="relative p-5 lg:p-6 bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-white/5 rounded-[2rem] lg:rounded-[2.5rem] shadow-2xl shadow-neutral-900/5 space-y-4 lg:space-y-5 overflow-hidden">
                                 <div className="absolute top-0 right-0 p-6">
                                     <div className="p-2.5 bg-primary-500/10 text-primary-600 rounded-2xl ring-1 ring-primary-500/20">
@@ -263,14 +263,11 @@ export default function HotelDetails() {
 
                 {/* Related Hotels Section */}
                 {relatedHotels.length > 0 && (
-                    <div className="mt-24 border-t border-neutral-100 dark:border-white/5 pt-24 space-y-12">
-                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
-                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-600 shadow-xl shadow-primary-500/10 w-fit">
-                                    <Sparkles className="w-8 h-8" />
-                                </div>
-                                <div className="space-y-3">
-                                    <h2 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white tracking-tight uppercase leading-none italic-none">
+                    <div className="mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 space-y-6">
+                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-4">
+                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
+                                <div className="space-y-2">
+                                    <h2 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white tracking-tight uppercase leading-none italic-none">
                                         Similar <span className="text-primary-600">Retreats</span>
                                     </h2>
                                     <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">HOSPITALITY REIMAGINED IN THE HIMALAYAS</p>

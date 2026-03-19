@@ -23,15 +23,15 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none">
             <div className="max-w-7xl mx-auto flex items-center justify-between glass px-6 py-3 rounded-full pointer-events-auto shadow-lg border-white/20">
                 <Link href="/" className="flex items-center gap-2 group">
-                    <div className="flex items-center justify-center bg-white w-12 h-12 rounded-full p-2 shrink-0 shadow-md transition-transform group-hover:scale-105">
+                    <div className="flex items-center justify-center bg-white w-14 h-14 rounded-full p-1.5 shrink-0 shadow-md transition-transform group-hover:scale-105">
                         <Image 
                             src="/images/logo.png" 
                             alt="Hill Tourism Logo" 
-                            width={60} 
-                            height={60} 
+                            width={80} 
+                            height={80} 
                             className="w-full h-full object-contain" 
-                            style={{ filter: 'invert(70%) sepia(87%) saturate(2333%) hue-rotate(3deg) brightness(101%) contrast(106%)' }}
-                            priority 
+                            style={{ filter: 'invert(63%) sepia(91%) saturate(2200%) hue-rotate(3deg) brightness(101%) contrast(103%)' }}
+                            priority
                         />
                     </div>
                     <span className="font-bold text-xl text-[#FFA500] tracking-tight hidden sm:block">Hill Tourism</span>

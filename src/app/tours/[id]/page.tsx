@@ -174,8 +174,8 @@ export default function TourDetailsPage() {
         <div className="min-h-screen bg-stone-50 dark:bg-neutral-950 pb-24">
 
             {/* Immersive Gallery Section - Full Width at Top */}
-            <div className="relative pt-16">
-                <div className="max-w-[1600px] mx-auto px-4 lg:px-12">
+            <div className="relative pt-32">
+                <div className="max-w-7xl mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[500px]">
                         {/* Main Image Container - Left Side */}
                         <div
@@ -265,7 +265,7 @@ export default function TourDetailsPage() {
             <div className="max-w-7xl mx-auto px-4 mt-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Details Column */}
-                    <div className="lg:col-span-8 space-y-16">
+                    <div className="lg:col-span-8 space-y-10">
                         {/* Quick Info Bar */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
@@ -346,16 +346,16 @@ export default function TourDetailsPage() {
                         </div>
 
                         {/* Itinerary */}
-                        <div className="space-y-12">
+                        <div className="space-y-6">
                             <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">The <span className="text-primary-500">Expedition</span> Roadmap</h2>
-                            <div className="space-y-6">
+                            <div className="space-y-0">
                                 {tour.itinerary.map((day, idx) => (
-                                    <div key={idx} className="group relative pl-12 pb-12 last:pb-0">
+                                    <div key={idx} className="group relative pl-12 pb-8 last:pb-0">
                                         <div className="absolute left-6 top-0 bottom-0 w-px bg-neutral-200 dark:bg-white/10 group-last:bottom-auto group-last:h-8" />
                                         <div className="absolute left-[1.125rem] top-0 w-3 h-3 rounded-full bg-primary-500 shadow-lg shadow-primary-500/50 z-10" />
 
-                                        <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-6 md:p-8 border border-neutral-100 dark:border-white/5 transition-all hover:shadow-2xl hover:shadow-primary-900/5">
-                                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                                        <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-4 md:p-6 border border-neutral-100 dark:border-white/5 transition-all hover:shadow-2xl hover:shadow-primary-900/5">
+                                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                                                 <div className="flex items-center gap-6">
                                                     <div className="text-3xl font-black text-primary-500/20 uppercase tracking-tighter shrink-0 flex flex-col items-center leading-none">
                                                         <span className="text-[10px] tracking-[0.2em] mb-1">Day</span>
@@ -381,7 +381,7 @@ export default function TourDetailsPage() {
                         </div>
 
                         {/* Overview */}
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-primary-500">Overview</span></h2>
                             {(() => {
                                 let sections = [];
@@ -399,7 +399,7 @@ export default function TourDetailsPage() {
                                 );
 
                                 return (
-                                    <div className="space-y-6">
+                                    <div className="space-y-4">
                                         {sections.map((section: any, idx: number) => (
                                             <div key={idx} className="space-y-2">
                                                 {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
@@ -418,7 +418,7 @@ export default function TourDetailsPage() {
                     <div className="lg:col-span-4 space-y-8">
                         <div className="sticky top-32 space-y-8">
                             {/* Primary Action Card */}
-                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-primary-900/10 space-y-6">
+                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-6 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-primary-900/10 space-y-4">
                                 {showPrice && (
                                     <div className="space-y-1">
                                         <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Investment starts from</div>
@@ -447,7 +447,7 @@ export default function TourDetailsPage() {
                                     {tour.category === "Domestic Tour" ? (
                                         <Button
                                             onClick={() => setIsBookingOpen(true)}
-                                            className="w-full rounded-2xl py-6 h-auto font-black uppercase text-sm tracking-widest shadow-xl shadow-primary-600/20"
+                                            className="w-full rounded-2xl py-4 h-auto font-black uppercase text-[10px] tracking-widest shadow-xl shadow-primary-600/20"
                                         >
                                             Review & Pay
                                         </Button>
@@ -469,12 +469,12 @@ export default function TourDetailsPage() {
                                     <Button
                                         onClick={generatePDF}
                                         variant="glass"
-                                        className="w-full rounded-2xl py-5 h-auto font-black uppercase text-[10px] tracking-widest text-primary-600"
+                                        className="w-full rounded-2xl py-3.5 h-auto font-black uppercase text-[10px] tracking-widest text-primary-600"
                                     >
                                         Download PDF Roadmap
                                     </Button>
                                 </div>
-                                <div className="space-y-3 pt-6 border-t border-neutral-100 dark:border-white/5">
+                                <div className="space-y-2 pt-4 border-t border-neutral-100 dark:border-white/5">
                                     <div className="flex items-center gap-3">
                                         <ShieldCheck className="w-5 h-5 text-primary-500" />
                                         <span className="text-[10px] font-black text-neutral-500 uppercase tracking-widest">Guaranteed Best Experience</span>
@@ -620,14 +620,11 @@ export default function TourDetailsPage() {
 
             {/* Related Tours Section */}
             {relatedTours.length > 0 && (
-                <div className="max-w-[1600px] mx-auto px-4 lg:px-12 mt-24 border-t border-neutral-100 dark:border-white/5 pt-24">
-                    <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-12">
-                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                            <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-500 w-fit">
-                                <Sparkles className="w-8 h-8 md:w-10 md:h-10" />
-                            </div>
-                            <div className="space-y-3">
-                                <h2 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
+                <div className="max-w-7xl mx-auto px-4 mt-12 border-t border-neutral-100 dark:border-white/5 pt-12">
+                    <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-6">
+                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
+                            <div className="space-y-2">
+                                <h2 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
                                     More <span className="text-primary-500">Expeditions</span>
                                 </h2>
                                 <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">Discover your next Himalayan adventure</p>

@@ -58,9 +58,9 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
     if (!tours.length) return null;
 
     return (
-        <section id="popular-tours" className={cn("relative px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden", hideHeader ? "pt-2 pb-8" : "py-16")}>
+        <section id="popular-tours" className={cn("relative px-4 bg-stone-50/50 dark:bg-neutral-900/50 overflow-hidden", hideHeader ? "pt-2 pb-8" : "pt-16 pb-4")}>
             <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-4 md:mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-4 md:mb-4">
                     {!hideHeader && (
                         <div className="space-y-4">
                             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-widest w-fit">
@@ -125,7 +125,7 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
                 </div>
 
                 {/* Render the Active Carousel */}
-                <div className="space-y-6 pt-2 md:pt-6">
+                <div className="space-y-6 pt-2 md:pt-2">
 
 
                     {filteredTours.length > 0 ? (
@@ -137,7 +137,7 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
                     )}
                 </div>
 
-                <div className="pt-8 text-center px-4">
+                <div className="pt-4 text-center px-4">
                     <Link href="/tours" className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-sm hover:gap-3 transition-all group border border-primary-600/20 px-6 py-2 rounded-full hover:bg-primary-50 dark:hover:bg-primary-900/10">
                         Discover All Adventures
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

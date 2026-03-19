@@ -46,8 +46,8 @@ export function OurHotels() {
         <section id="our-hotels" className="relative py-16 px-4 bg-primary-50/60 dark:bg-primary-900/20 overflow-hidden">
             {/* Subtle background pattern to add texture */}
             <div className="absolute inset-0 bg-[radial-gradient(#FFA500_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.05] dark:opacity-[0.1]" />
-            <div className="max-w-7xl mx-auto space-y-10 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+            <div className="max-w-7xl mx-auto space-y-6 relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <div className="space-y-4">
                         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-widest w-fit">
                             <Building2 className="w-3 h-3" />

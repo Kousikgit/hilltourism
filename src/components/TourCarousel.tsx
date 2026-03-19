@@ -144,17 +144,17 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
 
             {/* Navigation & Controls Section */}
             {tours.length > 4 && (
-                <div className="flex flex-col items-center gap-4 mt-8">
-                    {/* Navigation Buttons - Hidden on mobile, flex on desktop */}
-                    <div className="hidden md:flex items-center gap-3">
+                <div className="flex flex-col items-center gap-4 mt-4">
+                    {/* Navigation Buttons - Hidden on mobile, absolutely positioned on desktop */}
+                    <div className="hidden md:block">
                         <button
                             onClick={scrollPrev}
                             disabled={!prevBtnEnabled}
                             className={cn(
-                                "w-12 h-12 rounded-full flex items-center justify-center border transition-all shadow-sm",
+                                "absolute left-2 top-[225px] -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center border transition-all shadow-xl backdrop-blur-md",
                                 prevBtnEnabled
-                                    ? "bg-white dark:bg-neutral-800 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-primary-500 hover:border-primary-500 hover:text-white"
-                                    : "bg-neutral-50 dark:bg-neutral-900 border-neutral-100 dark:border-white/5 text-neutral-200 dark:text-neutral-800 cursor-not-allowed"
+                                    ? "bg-white/80 dark:bg-neutral-800/80 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-primary-500 hover:border-primary-500 hover:text-white"
+                                    : "bg-neutral-50/50 dark:bg-neutral-900/50 border-neutral-100 dark:border-white/5 text-neutral-200 dark:text-neutral-800 cursor-not-allowed opacity-0 pointer-events-none"
                             )}
                         >
                             <ChevronLeft className="w-6 h-6" />
@@ -163,10 +163,10 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
                             onClick={scrollNext}
                             disabled={!nextBtnEnabled}
                             className={cn(
-                                "w-12 h-12 rounded-full flex items-center justify-center border transition-all shadow-sm",
+                                "absolute right-2 top-[225px] -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center border transition-all shadow-xl backdrop-blur-md",
                                 nextBtnEnabled
-                                    ? "bg-white dark:bg-neutral-800 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-primary-500 hover:border-primary-500 hover:text-white"
-                                    : "bg-neutral-50 dark:bg-neutral-900 border-neutral-100 dark:border-white/5 text-neutral-200 dark:text-neutral-800 cursor-not-allowed"
+                                    ? "bg-white/80 dark:bg-neutral-800/80 border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:bg-primary-500 hover:border-primary-500 hover:text-white"
+                                    : "bg-neutral-50/50 dark:bg-neutral-900/50 border-neutral-100 dark:border-white/5 text-neutral-200 dark:text-neutral-800 cursor-not-allowed opacity-0 pointer-events-none"
                             )}
                         >
                             <ChevronRight className="w-6 h-6" />

@@ -51,7 +51,7 @@ export function CategoryListing() {
         <section className="relative py-16 px-4 overflow-hidden bg-neutral-50/50 dark:bg-neutral-950">
             <div className="absolute inset-0 bg-mesh opacity-60" />
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-8">
                     <div className="space-y-4">
                         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-widest w-fit">
                             Chosen by Vibe
@@ -88,7 +88,7 @@ export function CategoryListing() {
                 </div>
 
                 {/* Desktop Category Buttons */}
-                <div className="hidden md:flex flex-wrap gap-3 mb-12">
+                <div className="hidden md:flex flex-wrap gap-3 mb-8">
                     {CATEGORIES.map((cat) => {
                         const Icon = cat.icon;
                         return (

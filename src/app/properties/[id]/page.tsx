@@ -106,7 +106,7 @@ export default function PropertyDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-32">
-            <div className="pt-28 max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -232,7 +232,7 @@ export default function PropertyDetails() {
                         </div>
 
                         {/* Description Section */}
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-bold text-xs uppercase tracking-widest">
                                 <Info className="w-4 h-4" /> About this property
                             </div>
@@ -248,7 +248,7 @@ export default function PropertyDetails() {
                                 if (sections.length === 0) return null;
 
                                 return (
-                                    <div className="space-y-6">
+                                    <div className="space-y-4">
                                         {sections.map((section: any, idx: number) => (
                                             <div key={idx} className="space-y-2">
                                                 {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
@@ -264,8 +264,8 @@ export default function PropertyDetails() {
                     </div>
 
                     {/* Right Column: Key Details & Booking */}
-                    <div className="lg:col-span-5 space-y-10">
-                        <div className="space-y-6">
+                    <div className="lg:col-span-5 space-y-6 sticky top-24 self-start">
+                        <div className="space-y-3">
                             <div className="flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
                                 <MapPin className="w-3.5 h-3.5 text-primary-500" />
                                 {location?.name}, {location?.state}
@@ -288,11 +288,11 @@ export default function PropertyDetails() {
                         </div>
 
                         {/* Premium Booking Card */}
-                        <div className="relative p-8 bg-gradient-to-br from-white to-neutral-50/50 dark:from-neutral-900 dark:to-neutral-900/50 border border-neutral-200/80 dark:border-white/10 rounded-3xl shadow-2xl shadow-neutral-900/5 dark:shadow-black/20 space-y-6 sticky top-24 overflow-hidden">
+                        <div className="relative p-6 bg-gradient-to-br from-white to-neutral-50/50 dark:from-neutral-900 dark:to-neutral-900/50 border border-neutral-200/80 dark:border-white/10 rounded-3xl shadow-2xl shadow-neutral-900/5 dark:shadow-black/20 space-y-4 overflow-hidden">
                             {/* Subtle background pattern */}
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(var(--primary-rgb,14,165,233),0.03),transparent_50%)] pointer-events-none" />
 
-                            <div className="relative space-y-6">
+                            <div className="relative space-y-4">
                                 <div className="flex justify-between items-start">
                                     <div className="space-y-2">
                                         <div className="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">Base Rate</div>
@@ -342,14 +342,11 @@ export default function PropertyDetails() {
 
                 {/* Related Properties Section */}
                 {relatedProperties.length > 0 && (
-                    <div className="mt-24 border-t border-neutral-100 dark:border-white/5 pt-24 space-y-12">
-                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-8">
-                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                                <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-2xl text-primary-500 w-fit">
-                                    <Sparkles className="w-8 h-8" />
-                                </div>
-                                <div className="space-y-3">
-                                    <h2 className="text-3xl md:text-5xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
+                    <div className="mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 space-y-6">
+                        <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-4">
+                            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
+                                <div className="space-y-2">
+                                    <h2 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
                                         Related <span className="text-primary-500">Stays</span>
                                     </h2>
                                     <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">DISCOVER MORE AUTHENTIC HIMALAYAN HOMESTAYS</p>
