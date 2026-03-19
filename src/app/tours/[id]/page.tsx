@@ -174,7 +174,7 @@ export default function TourDetailsPage() {
         <div className="min-h-screen bg-stone-50 dark:bg-neutral-950 pb-24">
 
             {/* Immersive Gallery Section - Full Width at Top */}
-            <div className="relative pt-32">
+            <div className="relative pt-16 lg:pt-32">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[500px]">
                         {/* Main Image Container - Left Side */}
@@ -262,11 +262,10 @@ export default function TourDetailsPage() {
             </div>
 
             {/* Main Content Sections - Positioned Below Gallery */}
-            <div className="max-w-7xl mx-auto px-4 mt-12">
+            <div className="max-w-7xl mx-auto px-4 mt-6 lg:mt-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* Details Column */}
-                    <div className="lg:col-span-8 space-y-10">
-                        {/* Quick Info Bar */}
+                    <div className="lg:col-span-8 space-y-6 lg:space-y-10">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             <div className="flex items-center gap-2.5 bg-white dark:bg-neutral-900 p-4 rounded-[1.5rem] border border-neutral-100 dark:border-white/5">
                                 <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-xl text-primary-500">
@@ -306,23 +305,83 @@ export default function TourDetailsPage() {
                             </div>
                         </div>
 
+                        {/* Mobile Only: Price and Inclusions (Before Amenities) */}
+                        <div className="lg:hidden space-y-6">
+                            {/* Primary Action Card (Mobile) */}
+                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-5 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-primary-900/10 space-y-4">
+                                {showPrice && (
+                                    <div className="space-y-1">
+                                        <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Investment starts from</div>
+                                        <div className="flex items-baseline gap-2">
+                                            {tour.discount_percent && tour.discount_percent > 0 ? (
+                                                <>
+                                                    <span className="text-3xl font-black text-neutral-900 dark:text-white tracking-tighter">
+                                                        ₹{Math.round(tour.price * (1 - tour.discount_percent / 100)).toLocaleString()}
+                                                    </span>
+                                                    <span className="text-lg font-bold text-neutral-400 line-through decoration-rose-500/50">₹{tour.price.toLocaleString()}</span>
+                                                </>
+                                            ) : (
+                                                <span className="text-3xl font-black text-neutral-900 dark:text-white tracking-tighter">₹{tour.price.toLocaleString()}</span>
+                                            )}
+                                            <span className="text-neutral-500 text-xs font-bold uppercase tracking-widest">/ Guest</span>
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="space-y-3">
+                                    {tour.category === "Domestic Tour" ? (
+                                        <Button
+                                            onClick={() => setIsBookingOpen(true)}
+                                            className="w-full rounded-2xl py-4 h-auto font-black uppercase text-[10px] tracking-widest shadow-xl shadow-primary-600/20"
+                                        >
+                                            Review & Pay
+                                        </Button>
+                                    ) : (
+                                        <a
+                                            href={`https://wa.me/918293674862?text=${encodeURIComponent(`Hi! I'm interested in the ${tour.name} expedition (${tour.category}). Could you provide more details?`)}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block w-full"
+                                        >
+                                            <Button className="w-full rounded-2xl py-6 h-auto font-black uppercase text-sm tracking-widest bg-[#25D366] hover:bg-[#128C7E] text-white border-none shadow-xl shadow-primary-600/20 flex items-center justify-center gap-2">
+                                                Enquire on WhatsApp
+                                            </Button>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Inclusions (Mobile) */}
+                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-6 border border-neutral-100 dark:border-white/5 space-y-6">
+                                <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">Package <span className="text-primary-500">Inclusions</span></h3>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {tour.package_includes.map((item, idx) => (
+                                        <div key={idx} className="flex items-center gap-3 p-3.5 bg-neutral-50 dark:bg-white/5 rounded-2xl border border-transparent">
+                                            <div className="p-1.5 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-500">
+                                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                            </div>
+                                            <span className="text-[9px] font-black text-neutral-600 dark:text-neutral-300 uppercase tracking-widest">{item}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
 
                         {/* Tour Amenities */}
                         {(tour.amenities?.length ?? 0) > 0 && (
-                            <div className="space-y-6 p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
-                                <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                            <div className="space-y-4 p-5 lg:p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                                <h3 className="text-xs font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
                                     <Sparkles className="w-4 h-4 text-primary-500" /> Tour Amenities
                                 </h3>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 lg:gap-4">
                                     {tour.amenities.map((amenity, idx) => {
-                                        // Simple mapping or default icon
                                         const Icon = amenity.includes('Wi-Fi') ? Wifi : CheckCircle2;
                                         return (
-                                            <div key={idx} className="bg-neutral-50 dark:bg-white/5 px-6 py-4 rounded-2xl border border-neutral-100 dark:border-white/5 flex items-center gap-3 group hover:border-primary-500/30 transition-all">
-                                                <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-xl text-primary-500">
-                                                    <Icon className="w-4 h-4" />
+                                            <div key={idx} className="bg-neutral-50 dark:bg-white/5 px-4 py-3 lg:px-6 lg:py-4 rounded-2xl border border-neutral-100 dark:border-white/5 flex items-center gap-3 group hover:border-primary-500/30 transition-all">
+                                                <div className="p-1.5 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-500">
+                                                    <Icon className="w-3.5 h-3.5" />
                                                 </div>
-                                                <span className="text-[10px] font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-widest">{amenity}</span>
+                                                <span className="text-[9px] font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-widest">{amenity}</span>
                                             </div>
                                         );
                                     })}
@@ -331,46 +390,46 @@ export default function TourDetailsPage() {
                         )}
 
                         {/* Key Locations */}
-                        <div className="space-y-6 p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
-                            <h3 className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
+                        <div className="space-y-4 p-5 lg:p-8 bg-white dark:bg-neutral-900 rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                            <h3 className="text-xs font-black text-neutral-900 dark:text-white uppercase tracking-[0.2em] flex items-center gap-2">
                                 <MapPin className="w-4 h-4 text-primary-500" /> Key Locations & Stops
                             </h3>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-2.5">
                                 {tour.locations.map((loc, idx) => (
-                                    <div key={idx} className="bg-neutral-50 dark:bg-white/5 px-6 py-3 rounded-2xl border border-neutral-100 dark:border-white/5 flex items-center gap-3 group hover:border-primary-500/30 transition-all">
-                                        <div className="w-2 h-2 rounded-full bg-primary-500" />
-                                        <span className="text-xs font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-widest">{loc}</span>
+                                    <div key={idx} className="bg-neutral-50 dark:bg-white/5 px-4 lg:px-6 py-2.5 lg:py-3 rounded-2xl border border-neutral-100 dark:border-white/5 flex items-center gap-3 group hover:border-primary-500/30 transition-all">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-primary-500" />
+                                        <span className="text-[10px] font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-widest">{loc}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* Itinerary */}
-                        <div className="space-y-6">
-                            <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">The <span className="text-primary-500">Expedition</span> Roadmap</h2>
+                        <div className="space-y-4 lg:space-y-6">
+                            <h2 className="text-2xl lg:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">The <span className="text-primary-500">Expedition</span> Roadmap</h2>
                             <div className="space-y-0">
                                 {tour.itinerary.map((day, idx) => (
-                                    <div key={idx} className="group relative pl-12 pb-8 last:pb-0">
-                                        <div className="absolute left-6 top-0 bottom-0 w-px bg-neutral-200 dark:bg-white/10 group-last:bottom-auto group-last:h-8" />
-                                        <div className="absolute left-[1.125rem] top-0 w-3 h-3 rounded-full bg-primary-500 shadow-lg shadow-primary-500/50 z-10" />
+                                    <div key={idx} className="group relative pl-8 lg:pl-12 pb-4 lg:pb-8 last:pb-0">
+                                        <div className="absolute left-4 lg:left-6 top-0 bottom-0 w-px bg-neutral-200 dark:bg-white/10 group-last:bottom-auto group-last:h-8" />
+                                        <div className="absolute left-[0.875rem] lg:left-[1.125rem] top-0 w-2.5 h-2.5 rounded-full bg-primary-500 shadow-lg shadow-primary-500/50 z-10" />
 
-                                        <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-4 md:p-6 border border-neutral-100 dark:border-white/5 transition-all hover:shadow-2xl hover:shadow-primary-900/5">
+                                        <div className="bg-white dark:bg-neutral-900 rounded-[2rem] lg:rounded-[2.5rem] p-4 lg:p-6 border border-neutral-100 dark:border-white/5 transition-all hover:shadow-2xl hover:shadow-primary-900/5">
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                                                <div className="flex items-center gap-6">
-                                                    <div className="text-3xl font-black text-primary-500/20 uppercase tracking-tighter shrink-0 flex flex-col items-center leading-none">
-                                                        <span className="text-[10px] tracking-[0.2em] mb-1">Day</span>
+                                                <div className="flex items-center gap-4 lg:gap-6">
+                                                    <div className="text-2xl lg:text-3xl font-black text-primary-500/20 uppercase tracking-tighter shrink-0 flex flex-col items-center leading-none">
+                                                        <span className="text-[8px] tracking-[0.2em] mb-0.5">Day</span>
                                                         <span>0{day.day}</span>
                                                     </div>
-                                                    <h3 className="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tight leading-tight">{day.title}</h3>
+                                                    <h3 className="text-xl lg:text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tight leading-tight">{day.title}</h3>
                                                 </div>
                                             </div>
-                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 lg:gap-4">
                                                 {day.activities.map((act, aIdx) => (
-                                                    <li key={aIdx} className="flex items-start gap-4 p-3 bg-neutral-50 dark:bg-white/5 rounded-2xl border border-transparent hover:border-primary-500/20 transition-all">
-                                                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-xl text-primary-500 mt-0.5">
-                                                            <CheckCircle2 className="w-4 h-4" />
+                                                    <li key={aIdx} className="flex items-start gap-3 p-2 lg:p-3 bg-neutral-50 dark:bg-white/5 rounded-2xl border border-transparent hover:border-primary-500/20 transition-all">
+                                                        <div className="p-1.5 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-500 mt-0.5">
+                                                            <CheckCircle2 className="w-3.5 h-3.5" />
                                                         </div>
-                                                        <span className="text-neutral-600 dark:text-neutral-400 font-bold text-sm leading-tight">{act}</span>
+                                                        <span className="text-neutral-600 dark:text-neutral-400 font-bold text-[13px] lg:text-sm leading-tight">{act}</span>
                                                     </li>
                                                 ))}
                                             </ul>
@@ -380,45 +439,13 @@ export default function TourDetailsPage() {
                             </div>
                         </div>
 
-                        {/* Overview */}
-                        <div className="space-y-4">
-                            <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-primary-500">Overview</span></h2>
-                            {(() => {
-                                let sections = [];
-                                try {
-                                    sections = tour.description ? JSON.parse(tour.description) : [];
-                                    if (!Array.isArray(sections)) throw new Error('Not an array');
-                                } catch (e) {
-                                    sections = tour.description ? [{ title: '', content: tour.description }] : [];
-                                }
-
-                                if (sections.length === 0) return (
-                                    <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium">
-                                        No description available.
-                                    </p>
-                                );
-
-                                return (
-                                    <div className="space-y-4">
-                                        {sections.map((section: any, idx: number) => (
-                                            <div key={idx} className="space-y-2">
-                                                {section.title && <h3 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
-                                                <p className="text-neutral-500 dark:text-neutral-400 text-xl leading-relaxed font-medium whitespace-pre-wrap">
-                                                    {section.content}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                );
-                            })()}
-                        </div>
                     </div>
 
                     {/* Booking Sidebar Column */}
                     <div className="lg:col-span-4 space-y-8">
                         <div className="sticky top-32 space-y-8">
-                            {/* Primary Action Card */}
-                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-6 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-primary-900/10 space-y-4">
+                            {/* Primary Action Card (Desktop Only) */}
+                            <div className="hidden lg:block bg-white dark:bg-neutral-900 rounded-[2.5rem] p-6 border border-neutral-100 dark:border-white/5 shadow-2xl shadow-primary-900/10 space-y-4">
                                 {showPrice && (
                                     <div className="space-y-1">
                                         <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Investment starts from</div>
@@ -486,8 +513,8 @@ export default function TourDetailsPage() {
                                 </div>
                             </div>
 
-                            {/* Inclusions */}
-                            <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 space-y-6">
+                            {/* Inclusions (Desktop Only) */}
+                            <div className="hidden lg:block bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 space-y-6">
                                 <h3 className="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Package <span className="text-primary-500">Inclusions</span></h3>
                                 <div className="grid grid-cols-1 gap-4">
                                     {tour.package_includes.map((item, idx) => (
@@ -638,6 +665,41 @@ export default function TourDetailsPage() {
                     />
                 </div>
             )}
+
+            {/* Expedition Overview (End of Page) */}
+            <div className="max-w-7xl mx-auto px-4 mt-12 pb-24">
+                <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 space-y-6">
+                    <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-primary-500">Overview</span></h2>
+                    {(() => {
+                        let sections = [];
+                        try {
+                            sections = tour.description ? JSON.parse(tour.description) : [];
+                            if (!Array.isArray(sections)) throw new Error('Not an array');
+                        } catch (e) {
+                            sections = tour.description ? [{ title: '', content: tour.description }] : [];
+                        }
+
+                        if (sections.length === 0) return (
+                            <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed font-medium">
+                                No description available.
+                            </p>
+                        );
+
+                        return (
+                            <div className="space-y-6">
+                                {sections.map((section: any, idx: number) => (
+                                    <div key={idx} className="space-y-3">
+                                        {section.title && <h3 className="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">{section.title}</h3>}
+                                        <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed font-medium whitespace-pre-wrap">
+                                            {section.content}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })()}
+                </div>
+            </div>
         </div>
     );
 }
