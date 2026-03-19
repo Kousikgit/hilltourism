@@ -102,7 +102,7 @@ export default function HotelDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-8 lg:pb-12">
-            <div className="pt-12 lg:pt-20 max-w-7xl mx-auto px-4">
+            <div className="pt-24 lg:pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
@@ -164,8 +164,8 @@ export default function HotelDetails() {
                             </div>
                         </div>
 
-                        {/* Room Types Display */}
-                        <div className="space-y-4">
+                        {/* Room Types Display (Desktop Only) */}
+                        <div className="hidden lg:block space-y-4">
                             <div className="text-[9px] font-black text-neutral-400 uppercase tracking-[0.3em] pl-1">Experience Our Hospitality</div>
                             <RoomCarousel rooms={rooms} />
                         </div>
@@ -182,6 +182,12 @@ export default function HotelDetails() {
                             <h1 className="text-2xl lg:text-5xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase leading-none italic-none">
                                 {hotel.name}
                             </h1>
+                        </div>
+
+                        {/* Room Types Display (Mobile Only) - Positioned between Name and Price */}
+                        <div className="lg:hidden space-y-4">
+                            <div className="text-[9px] font-black text-neutral-400 uppercase tracking-[0.3em] pl-1">Experience Our Hospitality</div>
+                            <RoomCarousel rooms={rooms} />
                         </div>
 
                         <div className="lg:pl-4">
