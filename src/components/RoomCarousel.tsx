@@ -50,8 +50,8 @@ export function RoomCarousel({ rooms }: RoomCarouselProps) {
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-6">
                     {rooms.map((room) => (
-                        <div key={room.id} className="flex-[0_0_100%] md:flex-[0_0_50%] pl-6 py-4">
-                            <div className="p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-100 dark:border-white/5 shadow-sm space-y-4 group/card hover:border-primary-500/40 transition-all h-full">
+                        <div key={room.id} className="flex-[0_0_100%] md:flex-[0_0_50%] pl-6 py-2 lg:py-4">
+                            <div className="p-4 lg:p-5 bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-100 dark:border-white/5 shadow-sm space-y-4 group/card hover:border-primary-500/40 transition-all h-full">
                                 <div className="flex items-center gap-2 text-primary-500">
                                     <BedDouble className="w-5 h-5" />
                                     <h4 className="text-lg font-black text-neutral-900 dark:text-white uppercase tracking-tight leading-none italic-none">
@@ -85,7 +85,7 @@ export function RoomCarousel({ rooms }: RoomCarouselProps) {
 
             {/* Navigation & Controls Section */}
             {rooms.length > 2 && (
-                <div className="flex items-center justify-between mt-8">
+                <div className="flex items-center justify-between mt-4 lg:mt-8">
                     {/* Pagination Dots */}
                     <div className="flex gap-2.5">
                         {scrollSnaps.map((_, index) => (

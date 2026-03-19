@@ -101,12 +101,12 @@ export default function HotelDetails() {
     );
 
     return (
-        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-12">
-            <div className="pt-32 max-w-7xl mx-auto px-4">
+        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-8 lg:pb-12">
+            <div className="pt-20 lg:pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-6"
+                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-4 lg:mb-6"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-[10px] uppercase tracking-widest">Back</span>
@@ -114,7 +114,7 @@ export default function HotelDetails() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
                     {/* Left Column: Visuals */}
-                    <div className="lg:col-span-7 space-y-6">
+                    <div className="lg:col-span-7 space-y-4 lg:space-y-6">
                         {/* Hero Gallery */}
                         <div className="relative h-[35vh] lg:h-[50vh] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-neutral-900 shadow-2xl group">
                             <div className="overflow-hidden h-full" ref={emblaRef}>
@@ -231,7 +231,7 @@ export default function HotelDetails() {
                 </div>
 
                 {/* Description - Moved to the end of the content column */}
-                <div className="mt-12 space-y-6 bg-white dark:bg-neutral-900 p-6 lg:p-8 rounded-[2rem] lg:rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
+                <div className="mt-6 lg:mt-12 space-y-4 lg:space-y-6 bg-white dark:bg-neutral-900 p-5 lg:p-8 rounded-[2rem] lg:rounded-[2.5rem] border border-neutral-100 dark:border-white/5">
                     <div className="flex items-center gap-3 text-primary-600 dark:text-primary-400 font-black text-sm uppercase tracking-widest">
                         <Info className="w-5 h-5" /> Detailed Overview
                     </div>
@@ -263,7 +263,7 @@ export default function HotelDetails() {
 
                 {/* Related Hotels Section */}
                 {relatedHotels.length > 0 && (
-                    <div className="mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 space-y-6">
+                    <div className="mt-6 lg:mt-12 border-t border-neutral-100 dark:border-white/5 pt-6 lg:pt-12 space-y-4 lg:space-y-6">
                         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-4">
                             <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
                                 <div className="space-y-2">

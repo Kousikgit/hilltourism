@@ -56,7 +56,7 @@ export function HotelCarousel({ hotels, locations, viewAllLink, viewAllLabel }: 
             <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex -ml-4 lg:-ml-8">
                     {hotels.map((hotel) => (
-                        <div key={hotel.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
+                        <div key={hotel.id} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 lg:py-4">
                             <HotelCard
                                 hotel={hotel}
                                 locationName={locations.find(l => l.id === hotel.location_id)?.name}
@@ -67,7 +67,7 @@ export function HotelCarousel({ hotels, locations, viewAllLink, viewAllLabel }: 
 
                     {/* "View All" Card */}
                     {viewAllLink && (
-                        <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-4">
+                        <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 lg:py-4">
                             <Link
                                 href={viewAllLink}
                                 className="group relative bg-gradient-to-br from-primary-600 to-orange-500 rounded-3xl overflow-hidden shadow-xl shadow-primary-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full text-white"
@@ -97,7 +97,7 @@ export function HotelCarousel({ hotels, locations, viewAllLink, viewAllLabel }: 
 
             {/* Navigation & Controls Section */}
             {hotels.length > 4 && (
-                <div className="flex flex-col items-center gap-4 mt-8">
+                <div className="flex flex-col items-center gap-4 mt-4 lg:mt-8">
                     {/* Navigation Buttons - Hidden on mobile, flex on desktop */}
                     <div className="hidden md:flex items-center gap-3">
                         <button
