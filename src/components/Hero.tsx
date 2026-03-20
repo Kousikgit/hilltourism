@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/Button";
 import { ChevronLeft, ChevronRight, MapPin, Calendar, Users, Search, Loader2 } from "lucide-react";
@@ -93,12 +94,14 @@ export function Hero() {
 
                                     {/* Redesigned Buttons - Contact Us Green */}
                                     <div className="pt-6 flex flex-row justify-center gap-3 md:gap-4 items-center w-full max-w-[320px] mx-auto sm:max-w-none sm:px-0 pb-12 sm:pb-0">
-                                        <Button
-                                            size="md"
-                                            className="flex-1 sm:flex-none sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest bg-white text-neutral-900 hover:bg-neutral-100 hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/5 border-0"
-                                        >
-                                            Explore
-                                        </Button>
+                                        <Link href="/about" className="flex-1 sm:flex-none">
+                                            <Button
+                                                size="md"
+                                                className="w-full sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest bg-white text-neutral-900 hover:bg-neutral-100 hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/5 border-0"
+                                            >
+                                                About Us
+                                            </Button>
+                                        </Link>
                                         <Button
                                             size="md"
                                             className="flex-1 sm:flex-none sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest text-white bg-primary-600 hover:bg-primary-500 hover:scale-105 transition-all duration-300 shadow-2xl shadow-primary-600/20 border-0"

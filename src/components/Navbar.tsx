@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, User, Menu, X } from 'lucide-react';
+import { Home, User, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from './ui/Button';
 
@@ -51,9 +51,11 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <Button variant="ghost" size="sm" className="hidden sm:flex rounded-full">
-                        <Search className="w-5 h-5" />
-                    </Button>
+                    <Link href="/">
+                        <Button variant="ghost" size="sm" className="hidden sm:flex rounded-full">
+                            <Home className="w-5 h-5" />
+                        </Button>
+                    </Link>
                     <Button className="hidden sm:flex font-semibold bg-primary-600 hover:bg-primary-500 text-white shadow-md shadow-primary-600/20" size="sm">
                         Book Now
                     </Button>
@@ -84,10 +86,12 @@ export function Navbar() {
                         ))}
                         <div className="h-px bg-neutral-200/50 my-2" />
                         <div className="flex flex-col gap-3">
-                            <Button variant="outline" className="w-full justify-start gap-3">
-                                <Search className="w-5 h-5" />
-                                Search
-                            </Button>
+                            <Link href="/" className="w-full">
+                                <Button variant="outline" className="w-full justify-start gap-3" onClick={() => setIsOpen(false)}>
+                                    <Home className="w-5 h-5" />
+                                    Home
+                                </Button>
+                            </Link>
                             <Button className="w-full bg-primary-600 hover:bg-primary-500 text-white shadow-md shadow-primary-600/20">
                                 Book Now
                             </Button>
