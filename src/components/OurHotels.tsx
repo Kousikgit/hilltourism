@@ -56,9 +56,7 @@ export function OurHotels() {
                         <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight leading-tight">
                             Our <span className="text-primary-600 dark:text-primary-500">Hotels</span>
                         </h2>
-                        <p className="text-neutral-500 max-w-xl text-lg font-medium">
-                            Experience luxury and comfort in our handpicked selection of premium hotels across the Himalayan foothills.
-                        </p>
+
                     </div>
                 </div>
 

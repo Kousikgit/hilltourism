@@ -102,12 +102,14 @@ export function Hero() {
                                                 About Us
                                             </Button>
                                         </Link>
-                                        <Button
-                                            size="md"
-                                            className="flex-1 sm:flex-none sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest text-white bg-primary-600 hover:bg-primary-500 hover:scale-105 transition-all duration-300 shadow-2xl shadow-primary-600/20 border-0"
-                                        >
-                                            Contact
-                                        </Button>
+                                        <Link href="/contact" className="flex-1 sm:flex-none">
+                                            <Button
+                                                size="md"
+                                                className="w-full sm:w-auto rounded-full px-5 sm:px-8 py-3 sm:py-4 h-auto text-[11px] sm:text-sm font-black uppercase tracking-widest text-white bg-primary-600 hover:bg-primary-500 hover:scale-105 transition-all duration-300 shadow-2xl shadow-primary-600/20 border-0"
+                                            >
+                                                Contact
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

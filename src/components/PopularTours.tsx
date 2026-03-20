@@ -70,9 +70,7 @@ export function PopularTours({ hideHeader = false }: PopularToursProps) {
                             <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white tracking-tight leading-tight">
                                 Popular <span className="text-primary-600 dark:text-primary-500">Tours</span>
                             </h2>
-                            <p className="text-neutral-500 max-w-xl text-lg">
-                                From local trails to global wonders, discover your next big adventure with our expert-led tours.
-                            </p>
+
                         </div>
                     )}
                 </div>

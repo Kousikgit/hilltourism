@@ -645,29 +645,8 @@ export default function TourDetailsPage() {
                 </div>
             </div>
 
-            {/* Related Tours Section */}
-            {relatedTours.length > 0 && (
-                <div className="max-w-7xl mx-auto px-4 mt-12 border-t border-neutral-100 dark:border-white/5 pt-12">
-                    <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-6">
-                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
-                            <div className="space-y-2">
-                                <h2 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
-                                    More <span className="text-primary-500">Expeditions</span>
-                                </h2>
-                                <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">Discover your next Himalayan adventure</p>
-                            </div>
-                        </div>
-                    </div>
-                    <TourCarousel 
-                        tours={relatedTours} 
-                        viewAllLink="/tours" 
-                        viewAllLabel="Explore all Himalayan expeditions"
-                    />
-                </div>
-            )}
-
-            {/* Expedition Overview (End of Page) */}
-            <div className="max-w-7xl mx-auto px-4 mt-12 pb-24">
+            {/* Expedition Overview */}
+            <div className="max-w-7xl mx-auto px-4 mt-12">
                 <div className="bg-white dark:bg-neutral-900 rounded-[2.5rem] p-8 border border-neutral-100 dark:border-white/5 space-y-6">
                     <h2 className="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Expedition <span className="text-primary-500">Overview</span></h2>
                     {(() => {
@@ -700,6 +679,27 @@ export default function TourDetailsPage() {
                     })()}
                 </div>
             </div>
+
+            {/* Related Tours Section */}
+            {relatedTours.length > 0 && (
+                <div className="max-w-7xl mx-auto px-4 mt-12 border-t border-neutral-100 dark:border-white/5 pt-12 pb-24">
+                    <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 mb-6">
+                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2">
+                            <div className="space-y-2">
+                                <h2 className="text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter leading-none italic-none">
+                                    More <span className="text-primary-500">Expeditions</span>
+                                </h2>
+                                <p className="text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em]">Discover your next Himalayan adventure</p>
+                            </div>
+                        </div>
+                    </div>
+                    <TourCarousel 
+                        tours={relatedTours} 
+                        viewAllLink="/tours" 
+                        viewAllLabel="Explore all Himalayan expeditions"
+                    />
+                </div>
+            )}
         </div>
     );
 }

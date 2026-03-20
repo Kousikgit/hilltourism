@@ -33,7 +33,7 @@ export function ContactSection() {
     };
 
     return (
-        <section id="contact" className="relative py-16 md:py-20 px-4 bg-white dark:bg-neutral-950 overflow-hidden">
+        <section id="contact" className="relative py-10 md:py-16 px-4 bg-white dark:bg-neutral-950 overflow-hidden">
             {/* Premium Background Elements */}
             <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary-100/20 dark:bg-primary-900/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-neutral-100/40 dark:bg-neutral-900/20 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -73,12 +73,17 @@ export function ContactSection() {
 
                     {/* QR Code Section */}
                     <div className="p-6 bg-neutral-900 dark:bg-white/5 rounded-[2.5rem] flex items-center gap-6 border border-white/10">
-                        <div className="w-28 h-28 bg-white p-2.5 rounded-2xl shrink-0 flex items-center justify-center relative group shadow-2xl">
+                        <a 
+                            href="https://p1.me-page.org/p/734527/fac4886eb0d8e267193a764e855d5d75" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="w-28 h-28 bg-white p-2.5 rounded-2xl shrink-0 flex items-center justify-center relative group shadow-2xl hover:scale-105 transition-transform"
+                        >
                             <Image src="/images/qrcode.png" alt="Tour Brochure QR Code" width={112} height={112} className="w-full h-full object-contain rounded-xl" />
                             <div className="absolute inset-0 bg-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-                        </div>
+                        </a>
                         <div className="space-y-1">
-                            <h4 className="text-white font-black uppercase tracking-tighter text-sm md:text-base leading-none">Scan to Download <br /> Brochure</h4>
+                            <h4 className="text-white font-black uppercase tracking-tighter text-sm md:text-base leading-none">Scan to View <br /> Brochure</h4>
                             <p className="text-neutral-400 text-[10px] font-bold uppercase tracking-widest leading-tight">
                                 Get our complete <br /> tour details & pricing
                             </p>

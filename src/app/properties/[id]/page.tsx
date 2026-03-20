@@ -267,7 +267,7 @@ export default function PropertyDetails() {
                     <div className="lg:col-span-5 space-y-4 lg:space-y-6 sticky top-24 self-start">
                         <div className="space-y-3 lg:space-y-4">
                             {/* Location & Category Row for Mobile */}
-                            <div className="flex flex-wrap items-center gap-2 lg:hidden">
+                            <div className="flex items-center justify-between gap-2 lg:hidden">
                                 <div className="flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
                                     <MapPin className="w-3.5 h-3.5 text-primary-500" />
                                     {location?.name}, {location?.state}

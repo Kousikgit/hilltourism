@@ -117,22 +117,22 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
                         <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_25%] pl-4 lg:pl-8 py-2 sm:py-4">
                             <Link
                                 href={viewAllLink}
-                                className="group relative bg-gradient-to-br from-primary-600 to-orange-500 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl shadow-primary-900/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full text-white"
+                                className="group relative bg-white dark:bg-neutral-900 rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 shadow-xl shadow-neutral-900/5 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer block h-full"
                             >
-                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 dark:opacity-10" />
                                 <div className="relative h-80 sm:h-[450px] flex flex-col items-center justify-center p-8 text-center space-y-6">
-                                    <div className="p-6 bg-white/20 backdrop-blur-xl rounded-full ring-4 ring-white/10 group-hover:scale-110 transition-transform duration-500">
-                                        <Compass className="w-12 h-12 text-white" />
+                                    <div className="p-6 bg-primary-50 dark:bg-primary-900/20 rounded-full ring-4 ring-primary-500/10 group-hover:scale-110 transition-transform duration-500">
+                                        <Compass className="w-12 h-12 text-primary-600 dark:text-primary-500" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-3xl font-black uppercase tracking-tighter leading-none italic-none">
-                                            Explore <br /> All <span className="text-white/80">Tours</span>
+                                        <h3 className="text-3xl font-black uppercase tracking-tighter leading-none italic-none text-neutral-900 dark:text-white">
+                                            Explore <br /> All <span className="text-primary-500">Tours</span>
                                         </h3>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400">
                                             {viewAllLabel || 'Infinite Discoveries await'}
                                         </p>
                                     </div>
-                                    <div className="flex items-center gap-2 px-6 py-3 bg-white text-primary-600 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl">
+                                    <div className="flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary-600/20">
                                         View Full Catalog <ChevronRight className="w-4 h-4" />
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@ export function TourCarousel({ tours, viewAllLink, viewAllLabel }: TourCarouselP
             </div>
 
             {/* Navigation & Controls Section */}
-            {tours.length > 4 && (
+            {scrollSnaps.length > 1 && (
                 <div className="flex flex-col items-center gap-4 mt-4">
                     {/* Navigation Buttons - Hidden on mobile, absolutely positioned on desktop */}
                     <div className="hidden md:block">
