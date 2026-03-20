@@ -106,11 +106,11 @@ export default function PropertyDetails() {
 
     return (
         <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pb-32">
-            <div className="pt-16 lg:pt-20 max-w-7xl mx-auto px-4">
+            <div className="pt-24 lg:pt-32 max-w-7xl mx-auto px-4">
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-2 lg:mb-8"
+                    className="flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-all font-bold group mb-6 lg:mb-8"
                 >
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     <span className="text-[10px] uppercase tracking-widest">Back</span>
@@ -265,16 +265,35 @@ export default function PropertyDetails() {
 
                     {/* Right Column: Key Details & Booking */}
                     <div className="lg:col-span-5 space-y-4 lg:space-y-6 sticky top-24 self-start">
-                        <div className="space-y-2 lg:space-y-3">
-                            <div className="flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
+                        <div className="space-y-3 lg:space-y-4">
+                            {/* Location & Category Row for Mobile */}
+                            <div className="flex flex-wrap items-center gap-2 lg:hidden">
+                                <div className="flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
+                                    <MapPin className="w-3.5 h-3.5 text-primary-500" />
+                                    {location?.name}, {location?.state}
+                                </div>
+                                <div className={cn(
+                                    "flex-shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest leading-none",
+                                    property.category === 'Luxury' ? 'bg-purple-500 text-white' :
+                                        property.category === 'Premium' ? 'bg-amber-500 text-white' :
+                                            'bg-blue-600 text-white'
+                                )}>
+                                    {property.category}
+                                </div>
+                            </div>
+
+                            {/* Location Chip - Desktop Only */}
+                            <div className="hidden lg:flex items-center gap-2 text-neutral-500 font-bold text-[11px] uppercase tracking-[0.2em] bg-neutral-100 dark:bg-white/5 w-fit px-3 py-1.5 rounded-lg border border-neutral-200/50 dark:border-white/5">
                                 <MapPin className="w-3.5 h-3.5 text-primary-500" />
                                 {location?.name}, {location?.state}
                             </div>
+
                             <div className="flex items-start justify-between gap-4 text-left">
-                                <h1 className="text-3xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-white uppercase leading-none italic-none">
+                                <h1 className="text-3xl lg:text-5xl font-black tracking-tight text-neutral-900 dark:text-white uppercase leading-none italic-none">
                                     {property.name}
                                 </h1>
-                                <div className="flex flex-col items-end gap-2">
+                                {/* Category Chip - Desktop Only */}
+                                <div className="hidden lg:flex flex-col items-end gap-2">
                                     <div className={cn(
                                         "flex-shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest leading-none",
                                         property.category === 'Luxury' ? 'bg-purple-500 text-white' :

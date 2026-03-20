@@ -6,10 +6,10 @@ import Link from "next/link";
 
 export default function ContactPage() {
     return (
-        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-32 pb-16">
+        <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950 pt-20 lg:pt-32 pb-16">
             <div className="max-w-7xl mx-auto px-4">
                 {/* Internal Page Header */}
-                <div className="mb-12 px-6">
+                <div className="mb-6 lg:mb-12 px-6">
                     <Link
                         href="/"
                         className="inline-flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-colors font-bold text-[10px] uppercase tracking-[0.2em] group"
